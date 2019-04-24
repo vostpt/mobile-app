@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:vost/common/event.dart';
+import 'package:vost/domain/models/mock_data.dart';
+import 'package:vost/presentation/assets/error_messages.dart';
+import 'package:vost/presentation/ui/_base/base_page.dart';
+import 'package:vost/presentation/ui/home/home_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+class HomePage extends BasePage<HomeBloc> {
+  HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc : bloc);
   final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
-  int _counter = 0;
+class _MyHomePageState extends BaseState<HomePage> {
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    // this will help us fetch new data from the server
+    widget.bloc.fetchNewDataSink.add(Event());
   }
 
   @override
@@ -24,24 +29,27 @@ class _MyHomePageState extends State<HomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+        child: StreamBuilder<MockData>(
+          stream: widget.bloc.mockDataStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("A carregar");
+            }
+            if (snapshot.data != null) {
+              return Text(snapshot.data.title);
+            }
+            return Container();
+          }
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      )
     );
+  }
+
+  @override
+  String getMessage(String error) {
+    if (error == genericErrorMessage) {
+      return "Ocorreu um erro";
+    }
+    return "";
   }
 }
