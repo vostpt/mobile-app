@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vost/di/dependency_provider.dart';
+import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
 
 class VostApp extends StatelessWidget {
@@ -9,7 +11,10 @@ class VostApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Vost App'),
+      initialRoute: routeHome,
+      routes: {
+        routeHome: (context) => HomePage(title: 'Vost App', bloc: DependencyProvider.of(context).getHomeBloc(),),
+      },
     );
   }
 }
