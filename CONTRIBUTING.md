@@ -2,10 +2,44 @@
 
 Everyone is welcome to contribute to the VOST application, including adding new screens, fixing current issues or suggesting enhancements.
 
-To do so, please read the following sections:
+For discussion about the project, please join our [Discord Server](https://discord.gg/4tX46B) and check the #vostpt channel.
+
+If you see any issue in the app, feel free to open a new issue, documenting it in accordance to [Opening an Issue](#opening-an-issue).
+
+
+
+- [Project Details](#project-details)
 - [Opening an Issue](#opening-an-issue)
 - [Creating A Pull Request](#creating-a-pull-request)
 - [Style Guide](#style-guide)
+
+## Project Details
+
+### Setup
+
+This app is built with Flutter and Dart 2, follwing Bloc's design Pattern.
+
+### Run & Go
+
+```
+$ git clone https://github.com/FlutterPortugal/vost-app
+```
+
+Make sure you have installed Flutter following [these instructions](https://flutter.io/get-started/install/).
+
+```
+$ cd vost-app
+$ flutter doctor
+```
+
+Fix anything `$ flutter doctor` asks. 
+Make sure you have a device connected (Simulator or Emulator or a real device connected) and then run
+
+```
+$ flutter run
+```
+
+You can set up [Visual Studio Code or IntelliJ IDEA/Android Studio](https://flutter.io/get-started/editor/) to do this for you.
 
 # Opening an Issue
 ## New Feature/Feature Request
