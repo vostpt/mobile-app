@@ -21,7 +21,11 @@ When filing a bug, please follow the [Github Issue Template Guideline](https://g
 # Creating a Pull Request
 When creating a Pull Request, please make sure your code follows the [Style Guide](#style-guide). 
 
-This project follows the [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) structure in the git tree, so when creating a new feature or fixing an issue, please create the appropriate branch in the `development` branch. When your feature is finished, merge it back into `development` and create your pull request.
+This project follows the [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) structure in the git tree, so when creating a new feature or fixing an issue, please create the appropriate branch from the `development` branch. 
+
+The branching will use the branch-per-issue workflow: for each open issue, we'll create a corresponding git branch.
+
+For instance, issue #123 should have a corresponding feature/API-123-ShortTaskDescription branch, which MUST branch off the latest code in development.
 
 Additionally, each commit message must follow this set of rules:
 - Reference the issue that you are fixing/adding as a feature
