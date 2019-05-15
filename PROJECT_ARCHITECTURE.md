@@ -1,4 +1,4 @@
-## Project Architecture
+    ## Project Architecture
 
 The VOST Application is created with  [Flutter](https://flutter.dev/)  following the  [BLoC](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/)  architecture combined with  [Clean Architecture](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) .The app is divided into 3 sections: *Data, Domain* and *UI*. Each layer is responsible only for the logic contained in it and doesn’t know how the preciding and following layers work. This ensures that if one of the layer has to change, eg.: the API changes the endpoints or an object changes part of its fields, minimum impact should be propagated to the remaining layers.
 
@@ -43,50 +43,41 @@ Observable<MockDataRemote
 
 
 #### Models
-A data model is built with the  [built_value](https://github.com/google/built_value.dart)  and [build_runner](https://pub.dartlang.org/packages/build_runner)  to generate *immutable* data class objects with a *builder* method.
+All data models can be created with the appropriate JSON response or request in [Quicktype](https://app.quicktype.io/)
+
+Eg.:
 
 ```dart
-import ‘package:built_value/built_value.dart’;
-import ‘package:built_value/serializer.dart’;
-import ‘package:vost/data/remote/models/_base/parser.dart’;
+import 'dart:convert';
 
-part ‘mock_data_remote.g.dart’;
+class Welcome {
+    int userId;
+    int id;
+    String title;
+    bool completed;
 
-abstract class MockDataRemote implements Built<MockDataRemote, MockDataRemoteBuilder>, SerializedModel<MockDataRemote> {
-  MockDataRemote._();
+    Welcome({
+        this.userId,
+        this.id,
+        this.title,
+        this.completed,
+    });
 
-  static Serializer<MockDataRemote> get serializer => _$mockDataRemoteSerializer;
+    factory Welcome.fromJson(Map<String, dynamic> json) => new Welcome(
+        userId: json["userId"],
+        id: json["id"],
+        title: json["title"],
+        completed: json["completed"],
+    );
 
-  int get userId;
-  int get id;
-  String get title;
-  bool get completed;
-
-  factory MockDataRemote([updates(MockDataRemoteBuilder b)]) = _$MockDataRemote;
+    Map<String, dynamic> toJson() => {
+        "userId": userId,
+        "id": id,
+        "title": title,
+        "completed": completed,
+    };
 }
 ```
-
-All classes have to follow the structure provided above. To help in the creation of this class, you can use the following  [Live Template](https://medium.com/flutter-community/live-templates-or-how-to-spend-less-time-writing-boilerplate-code-on-flutter-with-intellij-7fb2f769f23) 
-
-```dart
-import ‘package:built_value/built_value.dart’;
-import ‘package:built_value/serializer.dart’;
-import 'package:vost/data/remote/models/_base/parser.dart';
-
-part ‘$FILE_NAME$.g.dart’;
-
-abstract class $CLASS_NAME$ implements Built<$CLASS_NAME$, $CLASS_NAME$Builder>, SerializedModel<$CLASS_NAME$> {
-$CLASS_NAME$._();
-
-static Serializer<$CLASS_NAME$> get serializer => _$$$STATIC_CLASS_NAME$Serializer;
-
-$END$
-
-factory $CLASS_NAME$([updates($CLASS_NAME$Builder b)]) = _$$$CLASS_NAME$;
-}
-```
-
-Additionally, every class that needs to be *serialized* and *deserialized* needs to be added to the `serializers.dart` file in the `@SerializersFor()` function.
 
 #### Shared Preferences
 This package is responsible for *adding* and *retrieving* *data* directly from the *Shared Preferences* using the  [shared_prefs](https://pub.dartlang.org/packages/shared_preferences) plugin.
