@@ -1,18 +1,33 @@
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:vost/data/remote/models/_base/parser.dart';
+import 'dart:convert';
 
-part 'mock_data_remote.g.dart';
+MockDataRemote welcomeFromJson(String str) => MockDataRemote.fromJson(json.decode(str));
 
-abstract class MockDataRemote implements Built<MockDataRemote, MockDataRemoteBuilder>, SerializedModel<MockDataRemote> {
-  MockDataRemote._();
+String welcomeToJson(MockDataRemote data) => json.encode(data.toJson());
 
-  static Serializer<MockDataRemote> get serializer => _$mockDataRemoteSerializer;
+class MockDataRemote {
+  int userId;
+  int id;
+  String title;
+  bool completed;
 
-  int get userId;
-  int get id;
-  String get title;
-  bool get completed;
+  MockDataRemote({
+    this.userId,
+    this.id,
+    this.title,
+    this.completed,
+  });
 
-  factory MockDataRemote([updates(MockDataRemoteBuilder b)]) = _$MockDataRemote;
+  factory MockDataRemote.fromJson(Map<String, dynamic> json) => new MockDataRemote(
+    userId: json["userId"],
+    id: json["id"],
+    title: json["title"],
+    completed: json["completed"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "userId": userId,
+    "id": id,
+    "title": title,
+    "completed": completed,
+  };
 }

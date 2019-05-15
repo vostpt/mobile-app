@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vost/constants.dart';
 import 'package:vost/data/remote/endpoints/mock_endpoints.dart';
-import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/mock_service.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/mock_manager.dart';
@@ -50,13 +49,12 @@ class DependencyProvider extends InheritedWidget {
         "https://jsonplaceholder.typicode.com/", connectionTimeout, connectionReadTimeout);
     var dio = await createDio(dioOptions, errorInterceptor,
         responseInterceptor, requestInterceptor);
-    var parser = Parser();
 
     // endpoints
     var mockEndpoints = MockEndpoints(dio);
 
     // Services
-    var mockServices = MockService(mockEndpoints, parser);
+    var mockServices = MockService(mockEndpoints);
 
     // Mappers
     var mockMappers = MockDataRemoteMapper();
