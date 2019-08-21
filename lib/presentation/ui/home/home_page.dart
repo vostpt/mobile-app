@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/mock_data.dart';
+import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
@@ -26,7 +27,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(VostLocalizations.of(context).appTitle),
       ),
       body: Center(
         child: StreamBuilder<MockData>(
