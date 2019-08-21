@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2019-08-21T10:12:10.588047",
+  "appTitle": "VOST - en",
+  "@appTitle": {
+    "description": "App title",
+    "type": "text",
+    "placeholders": {}
+  }
+}
