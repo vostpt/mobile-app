@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:vost/constants.dart';
 import 'package:vost/data/remote/endpoints/mock_endpoints.dart';
+import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/mock_service.dart';
+import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/mock_manager.dart';
+import 'package:vost/domain/managers/parish_manager.dart';
+import 'package:vost/domain/mappers/attribute_mapper.dart';
+import 'package:vost/domain/mappers/base_parish_mapper.dart';
+import 'package:vost/domain/mappers/link_mapper.dart';
+import 'package:vost/domain/mappers/meta_mapper.dart';
 import 'package:vost/domain/mappers/mock_data_mapper.dart';
+import 'package:vost/domain/mappers/parish_link_mapper.dart';
+import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +24,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// By accessing [of] and providing a [BuildContext] we can access, for example, the [Config] instance.
 /// Usage: `var provider = DependencyProvider.of(context);`
 class DependencyProvider extends InheritedWidget {
+  ParishManager _parishManager;
+
 
   DependencyProvider({
     Key key,
@@ -27,7 +38,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_cowManager);
+      _homeBloc = HomeBloc(_parishManager);
     }
     return _homeBloc;
   }
@@ -47,22 +58,32 @@ class DependencyProvider extends InheritedWidget {
 
     // network dependencies
     var dioOptions = createDioOptions(
-        "https://jsonplaceholder.typicode.com/", connectionTimeout, connectionReadTimeout);
+        baseUrlProd, connectionTimeout, connectionReadTimeout);
     var dio = await createDio(dioOptions, errorInterceptor,
         responseInterceptor, requestInterceptor);
     var parser = Parser();
 
     // endpoints
     var mockEndpoints = MockEndpoints(dio);
+    var parishEndpoints = ParishEndpoints(dio);
 
     // Services
     var mockServices = MockService(mockEndpoints, parser);
+    var parishService = ParishService(parishEndpoints);
 
     // Mappers
     var mockMappers = MockDataRemoteMapper();
+    var attributeResponseMapper = AttributeResponseMapper();
+    var linkResponseMapper = LinkResponseMapper();
+    var metaResponseMapper = MetaResponseMapper();
+    var parishLinkResponseMapper = ParishLinkResponseMapper();
+    var parishResponseMapper = ParishResponseMapper(attributeResponseMapper, parishLinkResponseMapper);
+    var baseParishResponseMapper = BaseParishResponseMapper(linkResponseMapper, metaResponseMapper, parishResponseMapper);
+
 
     // Managers
     _cowManager = MockManager(mockServices, mockMappers);
+    _parishManager = ParishManager(parishService, baseParishResponseMapper);
   }
 
 
