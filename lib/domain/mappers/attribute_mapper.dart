@@ -10,6 +10,11 @@ class AttributeResponseMapper
       ..code = value.code
       ..name = value.name
       ..createdAt = value.createdAt
+      ..startedAt = value.startedAt
+      ..endedAt = value.endedAt
+      ..latitude = value.latitude
+      ..longitude = value.longitude
+      ..locality = value.locality
       ..updatedAt = value.updatedAt);
   }
 }
