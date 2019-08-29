@@ -7,5 +7,3 @@ void main() async {
   await dependencyProvider.initialize();
   runApp(dependencyProvider);
 }
-
-
