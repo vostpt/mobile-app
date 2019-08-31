@@ -41,9 +41,6 @@ class _MyHomePageState extends BaseState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(VostLocalizations.of(context).appTitle),
-      ),
       body: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
           stream: widget.bloc.currentPageStream,
@@ -111,9 +108,20 @@ class _MyHomePageState extends BaseState<HomePage> {
                     ),
                   );
                 }),
-            IconButton(
+            PopupMenuButton<String>(
               icon: Icon(Icons.more_vert),
-              color: Theme.of(context).accentColor,
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context) {
+                return [
+                  VostLocalizations.of(context).textAbout,
+                  VostLocalizations.of(context).textReportProblem,
+                ].map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
             )
           ],
         ),
@@ -122,6 +130,8 @@ class _MyHomePageState extends BaseState<HomePage> {
       ),
     );
   }
+
+  void choiceAction(String choice) {}
 
   double _findBiggestTextWidth() {
     return max(

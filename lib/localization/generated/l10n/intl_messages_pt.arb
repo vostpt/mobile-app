@@ -17,5 +17,17 @@
     "description": "text Recent",
     "type": "text",
     "placeholders": {}
+  },
+  "textAbout": "Sobre",
+  "@textAbout": {
+    "description": "text About",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textReportProblem": "Reportar Um Problema",
+  "@textReportProblem": {
+    "description": "text Report Problem",
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-08-31T22:31:43.319123",
+  "@@last_modified": "2019-08-31T22:57:14.562765",
   "appTitle": "VOST - en",
   "@appTitle": {
     "description": "App title",
@@ -15,6 +15,18 @@
   "textRecent": "Recent",
   "@textRecent": {
     "description": "text Recent",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textAbout": "About",
+  "@textAbout": {
+    "description": "text About",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textReportProblem": "Report a Problem",
+  "@textReportProblem": {
+    "description": "text Report Problem",
     "type": "text",
     "placeholders": {}
   }

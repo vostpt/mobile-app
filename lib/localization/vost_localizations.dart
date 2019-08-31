@@ -68,6 +68,8 @@ class VostLocalizations {
         desc: 'App title',
       );
 
+  //region Home
+  /// Home
   String get textFollowing => Intl.message(
       "Following",
       name: 'textFollowing',
@@ -80,6 +82,20 @@ class VostLocalizations {
       desc: 'text Recent',
   );
 
+  String get textAbout => Intl.message(
+      "About",
+      name: 'textAbout',
+      desc: 'text About',
+  );
+
+  String get textReportProblem => Intl.message(
+      "Report a Problem",
+      name: 'textReportProblem',
+      desc: 'text Report Problem',
+  );
+
+
+  //endregion
 
 
   /// Retrieve localization resources for the widget tree
