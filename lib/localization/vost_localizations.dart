@@ -68,6 +68,18 @@ class VostLocalizations {
         desc: 'App title',
       );
 
+  String get textFollowing => Intl.message(
+      "Following",
+      name: 'textFollowing',
+      desc: 'text Following',
+  );
+
+  String get textRecent => Intl.message(
+      "Recent",
+      name: 'textRecent',
+      desc: 'text Recent',
+  );
+
 
 
   /// Retrieve localization resources for the widget tree

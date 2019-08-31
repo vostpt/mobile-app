@@ -5,5 +5,17 @@
     "description": "App title",
     "type": "text",
     "placeholders": {}
+  },
+  "textFollowing": "A seguir",
+  "@textFollowing": {
+    "description": "text Following",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textRecent": "Recentes",
+  "@textRecent": {
+    "description": "text Recent",
+    "type": "text",
+    "placeholders": {}
   }
 }

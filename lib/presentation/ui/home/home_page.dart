@@ -1,10 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
+import 'package:vost/presentation/assets/colors.dart';
+import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
+import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
@@ -20,32 +26,110 @@ class _MyHomePageState extends BaseState<HomePage> {
     super.initState();
     // this will help us fetch new data from the server
     widget.bloc.fetchNewDataSink.add(Event());
+
+    // initialize the pages
+    _initializePages();
+  }
+
+  List<Widget> _pages = [];
+
+  void _initializePages() {
+    _pages.add(RecentListWidget(widget.bloc));
+    _pages.add(MapWidget());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(VostLocalizations.of(context).appTitle),
+      appBar: AppBar(
+        title: Text(VostLocalizations.of(context).appTitle),
+      ),
+      body: StreamBuilder<int>(
+          initialData: widget.bloc.currentPageSubject.value,
+          stream: widget.bloc.currentPageStream,
+          builder: (context, snapshot) {
+            return _pages[snapshot.data];
+          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: StreamBuilder<int>(
+          initialData: widget.bloc.currentPageSubject.value,
+          stream: widget.bloc.currentPageStream,
+          builder: (context, snapshot) {
+            return FloatingActionButton(
+              onPressed: _onToggleViewTap,
+              child: Icon(
+                  snapshot.data == HomeBloc.listIndex ? Icons.list : Icons.map),
+              elevation: 2.0,
+              backgroundColor: colorPrimary,
+              foregroundColor: Colors.white,
+            );
+          }),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            StreamBuilder<int>(
+                initialData: widget.bloc.currentTypeOfDataSubject.value,
+                stream: widget.bloc.currentTypeOfDataStream,
+                builder: (context, snapshot) {
+                  return Container(
+                    margin: EdgeInsets.only(right: marginSmall),
+                    child: InkWell(
+                      onTap: _onToggleTypeTap,
+                      child: SizedBox(
+                        // we find the biggest possible string and give it a margin
+                        width: _findBiggestTextWidth() * 1.5,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              padding: EdgeInsets.only(
+                                  left: marginSmall,
+                                  right: marginSmall,
+                                  top: marginSmall),
+                              icon: Icon(snapshot.data == HomeBloc.recentsIndex
+                                  ? Icons.list
+                                  : Icons.star),
+                              // since the onClick is handled by another widget, this
+                              // button is disabled
+                              disabledColor: Theme.of(context).primaryColor,
+                            ),
+                            Text(
+                              snapshot.data == HomeBloc.recentsIndex
+                                  ? VostLocalizations.of(context)
+                                      .textRecent
+                                      .toUpperCase()
+                                  : VostLocalizations.of(context)
+                                      .textFollowing
+                                      .toUpperCase(),
+                              style: styleBottomBarText(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              color: Theme.of(context).accentColor,
+            )
+          ],
         ),
-        body: Center(
-          child: StreamBuilder<List<ParishModel>>(
-              stream: widget.bloc.mockDataStream,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("A carregar");
-                }
-                if (snapshot.data != null) {
-                  return ListView(
-                      children: snapshot.data
-                          .map((data) => ListTile(
-                              title: Text("Id: ${data.id}"),
-                              subtitle: Text("Type: ${data.type}")))
-                          .toList());
-                }
-                return Container();
-              }),
-        ));
+        shape: CircularNotchedRectangle(),
+        color: Colors.white,
+      ),
+    );
+  }
+
+  double _findBiggestTextWidth() {
+    return max(
+      findTextWidth(
+          VostLocalizations.of(context).textFollowing, styleBottomBarText()),
+      findTextWidth(
+          VostLocalizations.of(context).textRecent, styleBottomBarText()),
+    );
   }
 
   @override
@@ -54,5 +138,60 @@ class _MyHomePageState extends BaseState<HomePage> {
       return "Ocorreu um erro";
     }
     return "";
+  }
+
+  /// Callback to toggle between Map and List view
+  void _onToggleViewTap() {
+    widget.bloc.changePageSink.add(Event());
+  }
+
+  /// Callback to toggle between Map and List view
+  void _onToggleTypeTap() {
+    widget.bloc.changeTypeOfDataSink.add(Event());
+  }
+
+  /// Callback to navigate to About screen
+  void _onAboutTap() {
+    //todo: navigate to About screen
+  }
+
+  /// Callback to navigate to Report a Problem screen
+  void _onReportTap() {
+    //todo: navigate to report a problem
+  }
+}
+
+class RecentListWidget extends StatelessWidget {
+  final HomeBloc bloc;
+
+  RecentListWidget(this.bloc);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<ParishModel>>(
+        stream: bloc.mockDataStream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("A carregar");
+          }
+          if (snapshot.data != null) {
+            return ListView(
+                children: snapshot.data
+                    .map((data) => ListTile(
+                        title: Text("Id: ${data.id}"),
+                        subtitle: Text("Type: ${data.type}")))
+                    .toList());
+          }
+          return Container();
+        });
+  }
+}
+
+class MapWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.red,
+    );
   }
 }

@@ -5,13 +5,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
 
+import 'assets/colors.dart';
+
 class VostApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: colorPrimary,
+        accentColor: colorAccent,
       ),
       localizationsDelegates: [
         const VostLocalizationsDelegate(),
