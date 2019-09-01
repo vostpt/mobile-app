@@ -1,0 +1,37 @@
+{
+    "page": {
+        "prefix": "_page",
+        "body": [
+            "class $1Page extends BasePage<BaseBloc> {",
+            "\t$1Page({Key key, this.title, BaseBloc bloc}) : super(key: key, bloc: bloc);",
+            "\t\tfinal String title;",
+            "\t@override",
+            "\t_My$1PageState createState() => _My$1PageState();",
+            "\t}",
+            "\tclass _My$1PageState extends BaseState<$1Page> {",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "\t\t// TODO: implement build",
+            "\t\treturn null;",
+            "\t}",
+            "\t@override",
+            "\tString getMessage(String error) {",
+            "\t\t// TODO: implement getMessage",
+            "\tif (error == genericErrorMessage) {",
+            "\t\treturn \"Ocorreu um erro\";",
+            "\t\t}",
+            "\treturn \"\";",
+            "\t}\n}\n"
+        ],
+        "description": "Create PageBloc classes"
+    },
+    "pagebloc": {
+        "prefix": "_pagebloc",
+        "body": [
+            "class $1Bloc extends BaseBloc {",
+            "\t$1Bloc();",
+            "}\n"
+        ],
+        "description": "Create Bloc class"
+    }
+}
