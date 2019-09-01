@@ -3,8 +3,6 @@
 // messages from the main program should be duplicated here with the same
 // function name.
 
-// ignore_for_file: unnecessary_brace_in_string_interps
-
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
@@ -22,6 +20,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "appTitle" : MessageLookupByLibrary.simpleMessage("VOST - pt")
+    "appTitle" : MessageLookupByLibrary.simpleMessage("VOST - pt"),
+    "textAbout" : MessageLookupByLibrary.simpleMessage("Sobre"),
+    "textFollowing" : MessageLookupByLibrary.simpleMessage("A seguir"),
+    "textRecent" : MessageLookupByLibrary.simpleMessage("Recentes"),
+    "textReportProblem" : MessageLookupByLibrary.simpleMessage("Reportar Um Problema")
   };
 }

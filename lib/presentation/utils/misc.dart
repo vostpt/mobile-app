@@ -7,3 +7,10 @@ void showErrorSnackbar(String event, ScaffoldState context) {
     ));
   }
 }
+
+double findTextWidth(String text, TextStyle style) {
+  final textPainter = TextPainter(textDirection: TextDirection.ltr);
+  textPainter.text = TextSpan(text: text, style: style);
+  textPainter.layout();
+  return textPainter.width;
+}

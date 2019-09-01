@@ -1,8 +1,32 @@
 {
-  "@@last_modified": "2019-08-21T10:12:10.588047",
+  "@@last_modified": "2019-08-31T22:57:14.562765",
   "appTitle": "VOST - en",
   "@appTitle": {
     "description": "App title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textFollowing": "Following",
+  "@textFollowing": {
+    "description": "text Following",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textRecent": "Recent",
+  "@textRecent": {
+    "description": "text Recent",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textAbout": "About",
+  "@textAbout": {
+    "description": "text About",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textReportProblem": "Report a Problem",
+  "@textReportProblem": {
+    "description": "text Report Problem",
     "type": "text",
     "placeholders": {}
   }

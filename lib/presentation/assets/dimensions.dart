@@ -1,0 +1,1 @@
+const marginSmall = 8.0;
