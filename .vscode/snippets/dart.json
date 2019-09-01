@@ -2,8 +2,8 @@
     "page": {
         "prefix": "_page",
         "body": [
-            "class $1Page extends BasePage<BaseBloc> {",
-            "\t$1Page({Key key, this.title, BaseBloc bloc}) : super(key: key, bloc: bloc);",
+            "class $1Page extends BasePage<$1Bloc> {",
+            "\t$1Page({Key key, this.title, $1Bloc bloc}) : super(key: key, bloc: bloc);",
             "\t\tfinal String title;",
             "\t@override",
             "\t_My$1PageState createState() => _My$1PageState();",
