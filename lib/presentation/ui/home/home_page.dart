@@ -76,7 +76,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                       onTap: _onToggleTypeTap,
                       child: SizedBox(
                         // we find the biggest possible string and give it a margin
-                        width: _findBiggestTextWidth() * 1.5,
+                        width: _findBiggestTextWidth(),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -88,6 +88,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                               icon: Icon(snapshot.data == HomeBloc.recentsIndex
                                   ? Icons.list
                                   : Icons.star),
+                              onPressed: null,
                               // since the onClick is handled by another widget, this
                               // button is disabled
                               disabledColor: Theme.of(context).primaryColor,
@@ -133,12 +134,14 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   void choiceAction(String choice) {}
 
+  /// Finds the biggest text size in the bottom bar button so that the button is
+  /// always centered
   double _findBiggestTextWidth() {
     return max(
       findTextWidth(
-          VostLocalizations.of(context).textFollowing, styleBottomBarText()),
+          VostLocalizations.of(context).textFollowing.toUpperCase(), styleBottomBarText()),
       findTextWidth(
-          VostLocalizations.of(context).textRecent, styleBottomBarText()),
+          VostLocalizations.of(context).textRecent.toUpperCase(), styleBottomBarText()),
     );
   }
 
