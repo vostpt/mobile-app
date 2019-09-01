@@ -4,8 +4,6 @@
     <item android:drawable="@color/blue" />
 
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/mario_head" />
+        <bitmap android:src="@drawable/vost_logo_white" />
     </item>
 </layer-list>
