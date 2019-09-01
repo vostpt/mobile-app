@@ -2,4 +2,5 @@
 ///
 /// Here we have declared the routes and the navigation functions
 
-const routeHome = "/";
+const routeHome = "/home";
+const routeSplash = "/";
