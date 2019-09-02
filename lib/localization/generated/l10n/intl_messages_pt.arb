@@ -5,5 +5,29 @@
     "description": "App title",
     "type": "text",
     "placeholders": {}
+  },
+  "textFollowing": "A seguir",
+  "@textFollowing": {
+    "description": "text Following",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textRecent": "Recentes",
+  "@textRecent": {
+    "description": "text Recent",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textAbout": "Sobre",
+  "@textAbout": {
+    "description": "text About",
+    "type": "text",
+    "placeholders": {}
+  },
+  "textReportProblem": "Reportar Um Problema",
+  "@textReportProblem": {
+    "description": "text Report Problem",
+    "type": "text",
+    "placeholders": {}
   }
 }
