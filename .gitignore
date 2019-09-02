@@ -27,6 +27,15 @@
 .pub/
 /build/
 
+### Eclipse ###
+.metadata
+*.tmp
+*.bak
+*~.nib
+.settings/
+.loadpath
+.recommenders
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
