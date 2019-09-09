@@ -11,7 +11,6 @@ import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
-import 'package:vost/data/remote/models/response/parish_link_response.dart';
 import 'package:vost/data/remote/models/response/parish_response.dart';
 import 'package:vost/data/remote/models/serializers/serializers.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
@@ -20,13 +19,11 @@ import 'package:vost/domain/mappers/attribute_mapper.dart';
 import 'package:vost/domain/mappers/base_parish_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/meta_mapper.dart';
-import 'package:vost/domain/mappers/parish_link_mapper.dart';
 import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/domain/models/attribute_model.dart';
 import 'package:vost/domain/models/base_list_model.dart';
 import 'package:vost/domain/models/link_model.dart';
 import 'package:vost/domain/models/meta_model.dart';
-import 'package:vost/domain/models/parish_link_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 
 import 'utils/dioadapter/parishes_endpoint_adapter.dart';
@@ -160,16 +157,19 @@ void main() {
         const firstLink = "https://api.vost.pt/v1/parishes?page=1";
         const lastLink = "https://api.vost.pt/v1/parishes?page=3092";
         const nextLink = "https://api.vost.pt/v1/parishes?page=2";
+        const selfLink = "https://api.vost.pt/v1/parishes?page=10";
 
         var initialObject = LinkResponse((b) => b
           ..first = firstLink
           ..last = lastLink
-          ..next = nextLink);
+          ..next = nextLink
+          ..self = selfLink);
 
         var expectedObject = LinkModel((b) => b
           ..first = firstLink
           ..last = lastLink
-          ..next = nextLink);
+          ..next = nextLink
+          ..self = selfLink);
 
         expect(linkMapper.map(initialObject), expectedObject);
       });
@@ -303,9 +303,9 @@ void main() {
           ..items = items
           ..total = total);
 
-        var initialParishLink = ParishLinkResponse((b) => b..self = selfLink);
+        var initialParishLink = LinkResponse((b) => b..self = selfLink);
 
-        var expectedParishLink = ParishLinkModel((b) => b..self = selfLink);
+        var expectedParishLink = LinkModel((b) => b..self = selfLink);
 
         var initialParish = ParishResponse((b) => b
           ..links = initialParishLink.toBuilder()
@@ -330,10 +330,9 @@ void main() {
           ..data = ListBuilder<ParishModel>([expectedParish]));
 
         var attributeMapper = AttributeResponseMapper();
-        var parishLinkMapper = ParishLinkResponseMapper();
-        var parishMapper =
-            ParishResponseMapper(attributeMapper, parishLinkMapper);
         var linkMapper = LinkResponseMapper();
+        var parishMapper =
+        ParishResponseMapper(attributeMapper, linkMapper);
         var metaMapper = MetaResponseMapper();
         var mapper =
             BaseParishResponseMapper(linkMapper, metaMapper, parishMapper);
@@ -427,9 +426,8 @@ void main() {
         var endpoints = ParishEndpoints(dio);
         var service = ParishService(endpoints);
         var attribute = AttributeResponseMapper();
-        var parishLinkMapper = ParishLinkResponseMapper();
-        var parishMapper = ParishResponseMapper(attribute, parishLinkMapper);
         var linkMapper = LinkResponseMapper();
+        var parishMapper = ParishResponseMapper(attribute, linkMapper);
         var metaMapper = MetaResponseMapper();
         var mapper =
             BaseParishResponseMapper(linkMapper, metaMapper, parishMapper);

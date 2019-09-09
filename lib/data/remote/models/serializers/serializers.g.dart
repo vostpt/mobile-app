@@ -13,7 +13,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(LinkResponse.serializer)
       ..add(MetaResponse.serializer)
       ..add(MockDataRemote.serializer)
-      ..add(ParishLinkResponse.serializer)
       ..add(ParishResponse.serializer))
     .build();
 

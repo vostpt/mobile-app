@@ -9,7 +9,6 @@ import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
 import 'package:vost/data/remote/models/response/mock_data_remote.dart';
-import 'package:vost/data/remote/models/response/parish_link_response.dart';
 import 'package:vost/data/remote/models/response/parish_response.dart';
 
 part 'serializers.g.dart';
@@ -52,7 +51,6 @@ part 'serializers.g.dart';
   MetaResponse,
   AttributeResponse,
   ParishResponse,
-  ParishLinkResponse,
   BaseListResponse
 ])
 Serializers serializers = (_$serializers.toBuilder()

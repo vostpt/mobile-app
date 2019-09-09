@@ -18,15 +18,31 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
   @override
   Iterable serialize(Serializers serializers, LinkResponse object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'first',
-      serializers.serialize(object.first,
-          specifiedType: const FullType(String)),
-      'last',
-      serializers.serialize(object.last, specifiedType: const FullType(String)),
-      'next',
-      serializers.serialize(object.next, specifiedType: const FullType(String)),
-    ];
+    final result = <Object>[];
+    if (object.first != null) {
+      result
+        ..add('first')
+        ..add(serializers.serialize(object.first,
+            specifiedType: const FullType(String)));
+    }
+    if (object.last != null) {
+      result
+        ..add('last')
+        ..add(serializers.serialize(object.last,
+            specifiedType: const FullType(String)));
+    }
+    if (object.next != null) {
+      result
+        ..add('next')
+        ..add(serializers.serialize(object.next,
+            specifiedType: const FullType(String)));
+    }
+    if (object.self != null) {
+      result
+        ..add('self')
+        ..add(serializers.serialize(object.self,
+            specifiedType: const FullType(String)));
+    }
 
     return result;
   }
@@ -54,6 +70,10 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
           result.next = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'self':
+          result.self = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -68,21 +88,13 @@ class _$LinkResponse extends LinkResponse {
   final String last;
   @override
   final String next;
+  @override
+  final String self;
 
   factory _$LinkResponse([void Function(LinkResponseBuilder) updates]) =>
       (new LinkResponseBuilder()..update(updates)).build();
 
-  _$LinkResponse._({this.first, this.last, this.next}) : super._() {
-    if (first == null) {
-      throw new BuiltValueNullFieldError('LinkResponse', 'first');
-    }
-    if (last == null) {
-      throw new BuiltValueNullFieldError('LinkResponse', 'last');
-    }
-    if (next == null) {
-      throw new BuiltValueNullFieldError('LinkResponse', 'next');
-    }
-  }
+  _$LinkResponse._({this.first, this.last, this.next, this.self}) : super._();
 
   @override
   LinkResponse rebuild(void Function(LinkResponseBuilder) updates) =>
@@ -97,12 +109,15 @@ class _$LinkResponse extends LinkResponse {
     return other is LinkResponse &&
         first == other.first &&
         last == other.last &&
-        next == other.next;
+        next == other.next &&
+        self == other.self;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode),
+        self.hashCode));
   }
 
   @override
@@ -110,7 +125,8 @@ class _$LinkResponse extends LinkResponse {
     return (newBuiltValueToStringHelper('LinkResponse')
           ..add('first', first)
           ..add('last', last)
-          ..add('next', next))
+          ..add('next', next)
+          ..add('self', self))
         .toString();
   }
 }
@@ -131,6 +147,10 @@ class LinkResponseBuilder
   String get next => _$this._next;
   set next(String next) => _$this._next = next;
 
+  String _self;
+  String get self => _$this._self;
+  set self(String self) => _$this._self = self;
+
   LinkResponseBuilder();
 
   LinkResponseBuilder get _$this {
@@ -138,6 +158,7 @@ class LinkResponseBuilder
       _first = _$v.first;
       _last = _$v.last;
       _next = _$v.next;
+      _self = _$v.self;
       _$v = null;
     }
     return this;
@@ -158,8 +179,8 @@ class LinkResponseBuilder
 
   @override
   _$LinkResponse build() {
-    final _$result =
-        _$v ?? new _$LinkResponse._(first: first, last: last, next: next);
+    final _$result = _$v ??
+        new _$LinkResponse._(first: first, last: last, next: next, self: self);
     replace(_$result);
     return _$result;
   }

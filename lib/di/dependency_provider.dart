@@ -13,7 +13,6 @@ import 'package:vost/domain/mappers/base_parish_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/meta_mapper.dart';
 import 'package:vost/domain/mappers/mock_data_mapper.dart';
-import 'package:vost/domain/mappers/parish_link_mapper.dart';
 import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,8 +75,7 @@ class DependencyProvider extends InheritedWidget {
     var attributeResponseMapper = AttributeResponseMapper();
     var linkResponseMapper = LinkResponseMapper();
     var metaResponseMapper = MetaResponseMapper();
-    var parishLinkResponseMapper = ParishLinkResponseMapper();
-    var parishResponseMapper = ParishResponseMapper(attributeResponseMapper, parishLinkResponseMapper);
+    var parishResponseMapper = ParishResponseMapper(attributeResponseMapper, linkResponseMapper);
     var baseParishResponseMapper = BaseParishResponseMapper(linkResponseMapper, metaResponseMapper, parishResponseMapper);
 
 

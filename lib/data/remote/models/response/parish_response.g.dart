@@ -29,7 +29,7 @@ class _$ParishResponseSerializer
           specifiedType: const FullType(AttributeResponse)),
       'links',
       serializers.serialize(object.links,
-          specifiedType: const FullType(ParishLinkResponse)),
+          specifiedType: const FullType(LinkResponse)),
     ];
 
     return result;
@@ -61,8 +61,7 @@ class _$ParishResponseSerializer
           break;
         case 'links':
           result.links.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(ParishLinkResponse))
-              as ParishLinkResponse);
+              specifiedType: const FullType(LinkResponse)) as LinkResponse);
           break;
       }
     }
@@ -79,7 +78,7 @@ class _$ParishResponse extends ParishResponse {
   @override
   final AttributeResponse attributes;
   @override
-  final ParishLinkResponse links;
+  final LinkResponse links;
 
   factory _$ParishResponse([void Function(ParishResponseBuilder) updates]) =>
       (new ParishResponseBuilder()..update(updates)).build();
@@ -154,10 +153,9 @@ class ParishResponseBuilder
   set attributes(AttributeResponseBuilder attributes) =>
       _$this._attributes = attributes;
 
-  ParishLinkResponseBuilder _links;
-  ParishLinkResponseBuilder get links =>
-      _$this._links ??= new ParishLinkResponseBuilder();
-  set links(ParishLinkResponseBuilder links) => _$this._links = links;
+  LinkResponseBuilder _links;
+  LinkResponseBuilder get links => _$this._links ??= new LinkResponseBuilder();
+  set links(LinkResponseBuilder links) => _$this._links = links;
 
   ParishResponseBuilder();
 

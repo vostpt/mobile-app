@@ -1,7 +1,7 @@
 import 'package:built_value/built_value.dart';
-import 'package:vost/domain/models/parish_link_model.dart';
 
 import 'attribute_model.dart';
+import 'link_model.dart';
 
 part 'parish_model.g.dart';
 
@@ -12,7 +12,7 @@ abstract class ParishModel implements Built<ParishModel, ParishModelBuilder> {
 
   AttributeModel get attributes;
 
-  ParishLinkModel get links;
+  LinkModel get links;
 
   ParishModel._();
 

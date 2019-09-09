@@ -9,9 +9,10 @@ abstract class LinkResponse implements Built<LinkResponse, LinkResponseBuilder>,
 
   static Serializer<LinkResponse> get serializer => _$linkResponseSerializer;
 
-  String get first;
-  String get last;
-  String get next;
+  @nullable String get first;
+  @nullable String get last;
+  @nullable String get next;
+  @nullable String get self;
 
   factory LinkResponse([updates(LinkResponseBuilder b)]) = _$LinkResponse;
 }

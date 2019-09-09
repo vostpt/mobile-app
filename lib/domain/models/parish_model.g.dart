@@ -14,7 +14,7 @@ class _$ParishModel extends ParishModel {
   @override
   final AttributeModel attributes;
   @override
-  final ParishLinkModel links;
+  final LinkModel links;
 
   factory _$ParishModel([void Function(ParishModelBuilder) updates]) =>
       (new ParishModelBuilder()..update(updates)).build();
@@ -87,10 +87,9 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
   set attributes(AttributeModelBuilder attributes) =>
       _$this._attributes = attributes;
 
-  ParishLinkModelBuilder _links;
-  ParishLinkModelBuilder get links =>
-      _$this._links ??= new ParishLinkModelBuilder();
-  set links(ParishLinkModelBuilder links) => _$this._links = links;
+  LinkModelBuilder _links;
+  LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
+  set links(LinkModelBuilder links) => _$this._links = links;
 
   ParishModelBuilder();
 
