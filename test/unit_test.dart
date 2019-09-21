@@ -9,22 +9,22 @@ import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/models/response/attribute_response.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
+import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
-import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/serializers/serializers.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
 import 'package:vost/domain/mappers/attribute_mapper.dart';
 import 'package:vost/domain/mappers/base_data_mapper.dart';
+import 'package:vost/domain/mappers/data_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/meta_mapper.dart';
-import 'package:vost/domain/mappers/data_mapper.dart';
 import 'package:vost/domain/models/attribute_model.dart';
 import 'package:vost/domain/models/base_list_model.dart';
+import 'package:vost/domain/models/data_model.dart';
 import 'package:vost/domain/models/link_model.dart';
 import 'package:vost/domain/models/meta_model.dart';
-import 'package:vost/domain/models/data_model.dart';
 
 import 'utils/dioadapter/parishes_endpoint_adapter.dart';
 

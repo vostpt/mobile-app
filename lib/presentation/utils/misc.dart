@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vost/data/remote/models/response/attribute_response.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 

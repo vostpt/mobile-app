@@ -1,12 +1,10 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:vost/common/mapper.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
-import 'package:vost/domain/models/parish_model.dart';
-import 'package:vost/domain/models/species_model.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/domain/models/status_model.dart';
 import 'package:vost/domain/models/type_model.dart';
 import 'package:vost/presentation/utils/misc.dart';
