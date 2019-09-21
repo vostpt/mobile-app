@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'county_model.dart';
+part of 'species_model.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$CountyModel extends CountyModel {
+class _$SpeciesModel extends SpeciesModel {
   @override
   final String id;
   @override
@@ -15,68 +15,62 @@ class _$CountyModel extends CountyModel {
   final String code;
   @override
   final LinkModel links;
-  @override
-  final DistrictModel district;
 
-  factory _$CountyModel([void Function(CountyModelBuilder) updates]) =>
-      (new CountyModelBuilder()..update(updates)).build();
+  factory _$SpeciesModel([void Function(SpeciesModelBuilder) updates]) =>
+      (new SpeciesModelBuilder()..update(updates)).build();
 
-  _$CountyModel._({this.id, this.name, this.code, this.links, this.district})
-      : super._() {
+  _$SpeciesModel._({this.id, this.name, this.code, this.links}) : super._() {
     if (id == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'id');
+      throw new BuiltValueNullFieldError('SpeciesModel', 'id');
     }
     if (name == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'name');
+      throw new BuiltValueNullFieldError('SpeciesModel', 'name');
     }
     if (code == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'code');
+      throw new BuiltValueNullFieldError('SpeciesModel', 'code');
     }
     if (links == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'links');
+      throw new BuiltValueNullFieldError('SpeciesModel', 'links');
     }
   }
 
   @override
-  CountyModel rebuild(void Function(CountyModelBuilder) updates) =>
+  SpeciesModel rebuild(void Function(SpeciesModelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CountyModelBuilder toBuilder() => new CountyModelBuilder()..replace(this);
+  SpeciesModelBuilder toBuilder() => new SpeciesModelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CountyModel &&
+    return other is SpeciesModel &&
         id == other.id &&
         name == other.name &&
         code == other.code &&
-        links == other.links &&
-        district == other.district;
+        links == other.links;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
-            links.hashCode),
-        district.hashCode));
+    return $jf($jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+        links.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('CountyModel')
+    return (newBuiltValueToStringHelper('SpeciesModel')
           ..add('id', id)
           ..add('name', name)
           ..add('code', code)
-          ..add('links', links)
-          ..add('district', district))
+          ..add('links', links))
         .toString();
   }
 }
 
-class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
-  _$CountyModel _$v;
+class SpeciesModelBuilder
+    implements Builder<SpeciesModel, SpeciesModelBuilder> {
+  _$SpeciesModel _$v;
 
   String _id;
   String get id => _$this._id;
@@ -94,59 +88,47 @@ class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
   set links(LinkModelBuilder links) => _$this._links = links;
 
-  DistrictModelBuilder _district;
-  DistrictModelBuilder get district =>
-      _$this._district ??= new DistrictModelBuilder();
-  set district(DistrictModelBuilder district) => _$this._district = district;
+  SpeciesModelBuilder();
 
-  CountyModelBuilder();
-
-  CountyModelBuilder get _$this {
+  SpeciesModelBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
-      _district = _$v.district?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(CountyModel other) {
+  void replace(SpeciesModel other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$CountyModel;
+    _$v = other as _$SpeciesModel;
   }
 
   @override
-  void update(void Function(CountyModelBuilder) updates) {
+  void update(void Function(SpeciesModelBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$CountyModel build() {
-    _$CountyModel _$result;
+  _$SpeciesModel build() {
+    _$SpeciesModel _$result;
     try {
       _$result = _$v ??
-          new _$CountyModel._(
-              id: id,
-              name: name,
-              code: code,
-              links: links.build(),
-              district: _district?.build());
+          new _$SpeciesModel._(
+              id: id, name: name, code: code, links: links.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
         links.build();
-        _$failedField = 'district';
-        _district?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'CountyModel', _$failedField, e.toString());
+            'SpeciesModel', _$failedField, e.toString());
       }
       rethrow;
     }

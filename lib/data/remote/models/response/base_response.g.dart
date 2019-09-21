@@ -29,6 +29,13 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
       serializers.serialize(object.data,
           specifiedType: const FullType(DataResponse)),
     ];
+    if (object.included != null) {
+      result
+        ..add('included')
+        ..add(serializers.serialize(object.included,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DataResponse)])));
+    }
 
     return result;
   }
@@ -56,6 +63,12 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
           result.data.replace(serializers.deserialize(value,
               specifiedType: const FullType(DataResponse)) as DataResponse);
           break;
+        case 'included':
+          result.included.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DataResponse)]))
+              as BuiltList);
+          break;
       }
     }
 
@@ -70,11 +83,14 @@ class _$BaseResponse extends BaseResponse {
   final MetaResponse meta;
   @override
   final DataResponse data;
+  @override
+  final BuiltList<DataResponse> included;
 
   factory _$BaseResponse([void Function(BaseResponseBuilder) updates]) =>
       (new BaseResponseBuilder()..update(updates)).build();
 
-  _$BaseResponse._({this.links, this.meta, this.data}) : super._() {
+  _$BaseResponse._({this.links, this.meta, this.data, this.included})
+      : super._() {
     if (links == null) {
       throw new BuiltValueNullFieldError('BaseResponse', 'links');
     }
@@ -99,12 +115,15 @@ class _$BaseResponse extends BaseResponse {
     return other is BaseResponse &&
         links == other.links &&
         meta == other.meta &&
-        data == other.data;
+        data == other.data &&
+        included == other.included;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, links.hashCode), meta.hashCode), data.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, links.hashCode), meta.hashCode), data.hashCode),
+        included.hashCode));
   }
 
   @override
@@ -112,7 +131,8 @@ class _$BaseResponse extends BaseResponse {
     return (newBuiltValueToStringHelper('BaseResponse')
           ..add('links', links)
           ..add('meta', meta)
-          ..add('data', data))
+          ..add('data', data)
+          ..add('included', included))
         .toString();
   }
 }
@@ -133,6 +153,12 @@ class BaseResponseBuilder
   DataResponseBuilder get data => _$this._data ??= new DataResponseBuilder();
   set data(DataResponseBuilder data) => _$this._data = data;
 
+  ListBuilder<DataResponse> _included;
+  ListBuilder<DataResponse> get included =>
+      _$this._included ??= new ListBuilder<DataResponse>();
+  set included(ListBuilder<DataResponse> included) =>
+      _$this._included = included;
+
   BaseResponseBuilder();
 
   BaseResponseBuilder get _$this {
@@ -140,6 +166,7 @@ class BaseResponseBuilder
       _links = _$v.links?.toBuilder();
       _meta = _$v.meta?.toBuilder();
       _data = _$v.data?.toBuilder();
+      _included = _$v.included?.toBuilder();
       _$v = null;
     }
     return this;
@@ -164,7 +191,10 @@ class BaseResponseBuilder
     try {
       _$result = _$v ??
           new _$BaseResponse._(
-              links: links.build(), meta: meta.build(), data: data.build());
+              links: links.build(),
+              meta: meta.build(),
+              data: data.build(),
+              included: _included?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -174,6 +204,8 @@ class BaseResponseBuilder
         meta.build();
         _$failedField = 'data';
         data.build();
+        _$failedField = 'included';
+        _included?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'BaseResponse', _$failedField, e.toString());

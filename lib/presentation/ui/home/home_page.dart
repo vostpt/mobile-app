@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/domain/models/data_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';

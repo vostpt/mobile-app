@@ -1,7 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
-import 'package:vost/domain/models/data_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';

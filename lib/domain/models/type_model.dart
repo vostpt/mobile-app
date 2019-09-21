@@ -1,4 +1,5 @@
 import 'package:built_value/built_value.dart';
+import 'package:vost/domain/models/species_model.dart';
 
 import 'link_model.dart';
 
@@ -10,10 +11,7 @@ abstract class TypeModel implements Built<TypeModel, TypeModelBuilder> {
   String get name;
   String get code;
   LinkModel get links;
-  String get speciesId;
-  String get speciesName;
-  String get speciesCode;
-  LinkModel get speciesLinks;
+  @nullable SpeciesModel get species;
 
   TypeModel._();
   factory TypeModel([updates(TypeModelBuilder b)]) = _$TypeModel;

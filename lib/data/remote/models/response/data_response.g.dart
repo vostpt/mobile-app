@@ -40,8 +40,7 @@ class _$DataResponseSerializer implements StructuredSerializer<DataResponse> {
       result
         ..add('relationships')
         ..add(serializers.serialize(object.relationships,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(RelationshipResponse)])));
+            specifiedType: const FullType(RelationshipResponse)));
     }
 
     return result;
@@ -77,9 +76,8 @@ class _$DataResponseSerializer implements StructuredSerializer<DataResponse> {
           break;
         case 'relationships':
           result.relationships.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(RelationshipResponse)]))
-              as BuiltList);
+                  specifiedType: const FullType(RelationshipResponse))
+              as RelationshipResponse);
           break;
       }
     }
@@ -98,7 +96,7 @@ class _$DataResponse extends DataResponse {
   @override
   final LinkResponse links;
   @override
-  final BuiltList<RelationshipResponse> relationships;
+  final RelationshipResponse relationships;
 
   factory _$DataResponse([void Function(DataResponseBuilder) updates]) =>
       (new DataResponseBuilder()..update(updates)).build();
@@ -174,10 +172,10 @@ class DataResponseBuilder
   LinkResponseBuilder get links => _$this._links ??= new LinkResponseBuilder();
   set links(LinkResponseBuilder links) => _$this._links = links;
 
-  ListBuilder<RelationshipResponse> _relationships;
-  ListBuilder<RelationshipResponse> get relationships =>
-      _$this._relationships ??= new ListBuilder<RelationshipResponse>();
-  set relationships(ListBuilder<RelationshipResponse> relationships) =>
+  RelationshipResponseBuilder _relationships;
+  RelationshipResponseBuilder get relationships =>
+      _$this._relationships ??= new RelationshipResponseBuilder();
+  set relationships(RelationshipResponseBuilder relationships) =>
       _$this._relationships = relationships;
 
   DataResponseBuilder();

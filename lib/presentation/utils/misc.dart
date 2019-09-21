@@ -18,9 +18,12 @@ double findTextWidth(String text, TextStyle style) {
   return textPainter.width;
 }
 
-DataResponse getAttributeById(String id, List<DataResponse> listOfData) {
+DataResponse getAttributeById(String id, String type, List<DataResponse> listOfData) {
+  if (id == null || type == null) {
+    return null;
+  }
   for (var data in listOfData) {
-    if (data.id == id) {
+    if (data.id == id && data.type == type) {
       return data;
     }
   }

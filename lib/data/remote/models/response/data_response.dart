@@ -25,7 +25,7 @@ abstract class DataResponse
 
   @nullable LinkResponse get links;
 
-  @nullable BuiltList<RelationshipResponse> get relationships;
+  @nullable RelationshipResponse get relationships;
 
   factory DataResponse([updates(DataResponseBuilder b)]) = _$DataResponse;
 }
