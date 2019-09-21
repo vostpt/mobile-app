@@ -11,20 +11,20 @@ import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
-import 'package:vost/data/remote/models/response/parish_response.dart';
+import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/serializers/serializers.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
 import 'package:vost/domain/mappers/attribute_mapper.dart';
-import 'package:vost/domain/mappers/base_parish_mapper.dart';
+import 'package:vost/domain/mappers/base_data_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/meta_mapper.dart';
-import 'package:vost/domain/mappers/parish_mapper.dart';
+import 'package:vost/domain/mappers/data_mapper.dart';
 import 'package:vost/domain/models/attribute_model.dart';
 import 'package:vost/domain/models/base_list_model.dart';
 import 'package:vost/domain/models/link_model.dart';
 import 'package:vost/domain/models/meta_model.dart';
-import 'package:vost/domain/models/parish_model.dart';
+import 'package:vost/domain/models/data_model.dart';
 
 import 'utils/dioadapter/parishes_endpoint_adapter.dart';
 
@@ -218,7 +218,7 @@ void main() {
             }
         }""";
 
-        var object = ParishResponse.fromJson(jsonString);
+        var object = DataResponse.fromJson(jsonString);
 
         expect(object.links.first, firstLink);
         expect(object.links.last, lastLink);
@@ -307,32 +307,32 @@ void main() {
 
         var expectedParishLink = LinkModel((b) => b..self = selfLink);
 
-        var initialParish = ParishResponse((b) => b
+        var initialParish = DataResponse((b) => b
           ..links = initialParishLink.toBuilder()
           ..attributes = initialAttribute.toBuilder()
           ..type = type
           ..id = id);
 
-        var expectedParish = ParishModel((b) => b
+        var expectedParish = DataModel((b) => b
           ..links = expectedParishLink.toBuilder()
           ..attributes = expectedAttribute.toBuilder()
           ..type = type
           ..id = id);
 
-        var initialObject = BaseListResponse<ParishResponse>((b) => b
+        var initialObject = BaseListResponse<DataResponse>((b) => b
           ..links = initialLink.toBuilder()
           ..meta = initialMeta.toBuilder()
-          ..data = ListBuilder<ParishResponse>([initialParish]));
+          ..data = ListBuilder<DataResponse>([initialParish]));
 
-        var expectedObject = BaseListModel<ParishModel>((b) => b
+        var expectedObject = BaseListModel<DataModel>((b) => b
           ..links = expectedLink.toBuilder()
           ..meta = expectedMeta.toBuilder()
-          ..data = ListBuilder<ParishModel>([expectedParish]));
+          ..data = ListBuilder<DataModel>([expectedParish]));
 
         var attributeMapper = AttributeResponseMapper();
         var linkMapper = LinkResponseMapper();
         var parishMapper =
-        ParishResponseMapper(attributeMapper, linkMapper);
+        DataResponseMapper(attributeMapper, linkMapper);
         var metaMapper = MetaResponseMapper();
         var mapper =
             BaseParishResponseMapper(linkMapper, metaMapper, parishMapper);
@@ -427,7 +427,7 @@ void main() {
         var service = ParishService(endpoints);
         var attribute = AttributeResponseMapper();
         var linkMapper = LinkResponseMapper();
-        var parishMapper = ParishResponseMapper(attribute, linkMapper);
+        var parishMapper = DataResponseMapper(attribute, linkMapper);
         var metaMapper = MetaResponseMapper();
         var mapper =
             BaseParishResponseMapper(linkMapper, metaMapper, parishMapper);

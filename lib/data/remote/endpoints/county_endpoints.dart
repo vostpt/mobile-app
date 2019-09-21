@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 
 import '../../../constants.dart';
 
-class ParishEndpoints {
+class CountyEndpoints {
 
   Dio _dio;
 
-  ParishEndpoints(this._dio);
+  CountyEndpoints(this._dio);
 
-  Future<Response> getParishes() {
-    return _dio.get(pathParishes);
+  Future<Response> getCounties() {
+    return _dio.get(pathCounties);
   }
 }

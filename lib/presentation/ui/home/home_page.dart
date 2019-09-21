@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
+import 'package:vost/domain/models/county_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
@@ -182,7 +183,7 @@ class RecentListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ParishModel>>(
+    return StreamBuilder<List<CountyModel>>(
         stream: bloc.mockDataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
