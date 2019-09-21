@@ -10,6 +10,8 @@ class _$DistrictModel extends DistrictModel {
   @override
   final String id;
   @override
+  final String type;
+  @override
   final String name;
   @override
   final int code;
@@ -19,18 +21,10 @@ class _$DistrictModel extends DistrictModel {
   factory _$DistrictModel([void Function(DistrictModelBuilder) updates]) =>
       (new DistrictModelBuilder()..update(updates)).build();
 
-  _$DistrictModel._({this.id, this.name, this.code, this.links}) : super._() {
+  _$DistrictModel._({this.id, this.type, this.name, this.code, this.links})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('DistrictModel', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('DistrictModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('DistrictModel', 'code');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('DistrictModel', 'links');
     }
   }
 
@@ -46,6 +40,7 @@ class _$DistrictModel extends DistrictModel {
     if (identical(other, this)) return true;
     return other is DistrictModel &&
         id == other.id &&
+        type == other.type &&
         name == other.name &&
         code == other.code &&
         links == other.links;
@@ -53,7 +48,9 @@ class _$DistrictModel extends DistrictModel {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+    return $jf($jc(
+        $jc($jc($jc($jc(0, id.hashCode), type.hashCode), name.hashCode),
+            code.hashCode),
         links.hashCode));
   }
 
@@ -61,6 +58,7 @@ class _$DistrictModel extends DistrictModel {
   String toString() {
     return (newBuiltValueToStringHelper('DistrictModel')
           ..add('id', id)
+          ..add('type', type)
           ..add('name', name)
           ..add('code', code)
           ..add('links', links))
@@ -75,6 +73,10 @@ class DistrictModelBuilder
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
 
   String _name;
   String get name => _$this._name;
@@ -93,6 +95,7 @@ class DistrictModelBuilder
   DistrictModelBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _type = _$v.type;
       _name = _$v.name;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
@@ -120,12 +123,16 @@ class DistrictModelBuilder
     try {
       _$result = _$v ??
           new _$DistrictModel._(
-              id: id, name: name, code: code, links: links.build());
+              id: id,
+              type: type,
+              name: name,
+              code: code,
+              links: _links?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'DistrictModel', _$failedField, e.toString());

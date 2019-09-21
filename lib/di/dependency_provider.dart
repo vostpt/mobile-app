@@ -48,7 +48,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_typesManager);
+      _homeBloc = HomeBloc(_statusManager);
     }
     return _homeBloc;
   }

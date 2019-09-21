@@ -12,6 +12,8 @@ class _$TypeModel extends TypeModel {
   @override
   final String name;
   @override
+  final String type;
+  @override
   final int code;
   @override
   final LinkModel links;
@@ -21,19 +23,14 @@ class _$TypeModel extends TypeModel {
   factory _$TypeModel([void Function(TypeModelBuilder) updates]) =>
       (new TypeModelBuilder()..update(updates)).build();
 
-  _$TypeModel._({this.id, this.name, this.code, this.links, this.species})
+  _$TypeModel._(
+      {this.id, this.name, this.type, this.code, this.links, this.species})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('TypeModel', 'id');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('TypeModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('TypeModel', 'code');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('TypeModel', 'links');
     }
   }
 
@@ -50,6 +47,7 @@ class _$TypeModel extends TypeModel {
     return other is TypeModel &&
         id == other.id &&
         name == other.name &&
+        type == other.type &&
         code == other.code &&
         links == other.links &&
         species == other.species;
@@ -58,7 +56,9 @@ class _$TypeModel extends TypeModel {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+        $jc(
+            $jc($jc($jc($jc(0, id.hashCode), name.hashCode), type.hashCode),
+                code.hashCode),
             links.hashCode),
         species.hashCode));
   }
@@ -68,6 +68,7 @@ class _$TypeModel extends TypeModel {
     return (newBuiltValueToStringHelper('TypeModel')
           ..add('id', id)
           ..add('name', name)
+          ..add('type', type)
           ..add('code', code)
           ..add('links', links)
           ..add('species', species))
@@ -85,6 +86,10 @@ class TypeModelBuilder implements Builder<TypeModel, TypeModelBuilder> {
   String _name;
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
+
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
 
   int _code;
   int get code => _$this._code;
@@ -105,6 +110,7 @@ class TypeModelBuilder implements Builder<TypeModel, TypeModelBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
+      _type = _$v.type;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
       _species = _$v.species?.toBuilder();
@@ -134,14 +140,15 @@ class TypeModelBuilder implements Builder<TypeModel, TypeModelBuilder> {
           new _$TypeModel._(
               id: id,
               name: name,
+              type: type,
               code: code,
-              links: links.build(),
+              links: _links?.build(),
               species: _species?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
         _$failedField = 'species';
         _species?.build();
       } catch (e) {

@@ -16,7 +16,7 @@ class HomeBloc extends BaseBloc {
   static final listIndex = 0;
   static final mapIndex = 1;
 
-  TypesManager _countyManager;
+  StatusManager _countyManager;
 
   /// Event to fetch new data
   var _fetchNewDataSubject = PublishSubject<Event>();
@@ -24,9 +24,9 @@ class HomeBloc extends BaseBloc {
   Sink<Event> get fetchNewDataSink => _fetchNewDataSubject.sink;
 
   /// Event to relay MockData information to the UI
-  var _mockDataSubject = BehaviorSubject<List<TypeModel>>();
+  var _mockDataSubject = BehaviorSubject<List<StatusModel>>();
 
-  Stream<List<TypeModel>> get mockDataStream => _mockDataSubject.stream;
+  Stream<List<StatusModel>> get mockDataStream => _mockDataSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
   var currentTypeOfDataSubject = BehaviorSubject<int>(seedValue: 0);
@@ -52,7 +52,7 @@ class HomeBloc extends BaseBloc {
 
   HomeBloc(this._countyManager) {
     disposable.add(_fetchNewDataSubject.stream
-        .flatMap((_) => _countyManager.getTypes())
+        .flatMap((_) => _countyManager.getStatuses())
         .map((base) => base.toList())
         .listen(_mockDataSubject.add, onError: (error) {
       print(error);

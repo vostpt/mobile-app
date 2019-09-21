@@ -10,6 +10,8 @@ class _$FamilyModel extends FamilyModel {
   @override
   final String id;
   @override
+  final String type;
+  @override
   final String name;
   @override
   final int code;
@@ -19,18 +21,10 @@ class _$FamilyModel extends FamilyModel {
   factory _$FamilyModel([void Function(FamilyModelBuilder) updates]) =>
       (new FamilyModelBuilder()..update(updates)).build();
 
-  _$FamilyModel._({this.id, this.name, this.code, this.links}) : super._() {
+  _$FamilyModel._({this.id, this.type, this.name, this.code, this.links})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('FamilyModel', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('FamilyModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('FamilyModel', 'code');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('FamilyModel', 'links');
     }
   }
 
@@ -46,6 +40,7 @@ class _$FamilyModel extends FamilyModel {
     if (identical(other, this)) return true;
     return other is FamilyModel &&
         id == other.id &&
+        type == other.type &&
         name == other.name &&
         code == other.code &&
         links == other.links;
@@ -53,7 +48,9 @@ class _$FamilyModel extends FamilyModel {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+    return $jf($jc(
+        $jc($jc($jc($jc(0, id.hashCode), type.hashCode), name.hashCode),
+            code.hashCode),
         links.hashCode));
   }
 
@@ -61,6 +58,7 @@ class _$FamilyModel extends FamilyModel {
   String toString() {
     return (newBuiltValueToStringHelper('FamilyModel')
           ..add('id', id)
+          ..add('type', type)
           ..add('name', name)
           ..add('code', code)
           ..add('links', links))
@@ -74,6 +72,10 @@ class FamilyModelBuilder implements Builder<FamilyModel, FamilyModelBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
 
   String _name;
   String get name => _$this._name;
@@ -92,6 +94,7 @@ class FamilyModelBuilder implements Builder<FamilyModel, FamilyModelBuilder> {
   FamilyModelBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _type = _$v.type;
       _name = _$v.name;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
@@ -119,12 +122,16 @@ class FamilyModelBuilder implements Builder<FamilyModel, FamilyModelBuilder> {
     try {
       _$result = _$v ??
           new _$FamilyModel._(
-              id: id, name: name, code: code, links: links.build());
+              id: id,
+              type: type,
+              name: name,
+              code: code,
+              links: _links?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'FamilyModel', _$failedField, e.toString());

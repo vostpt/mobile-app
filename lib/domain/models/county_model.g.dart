@@ -10,6 +10,8 @@ class _$CountyModel extends CountyModel {
   @override
   final String id;
   @override
+  final String type;
+  @override
   final String name;
   @override
   final int code;
@@ -21,19 +23,11 @@ class _$CountyModel extends CountyModel {
   factory _$CountyModel([void Function(CountyModelBuilder) updates]) =>
       (new CountyModelBuilder()..update(updates)).build();
 
-  _$CountyModel._({this.id, this.name, this.code, this.links, this.district})
+  _$CountyModel._(
+      {this.id, this.type, this.name, this.code, this.links, this.district})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('CountyModel', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'code');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('CountyModel', 'links');
     }
   }
 
@@ -49,6 +43,7 @@ class _$CountyModel extends CountyModel {
     if (identical(other, this)) return true;
     return other is CountyModel &&
         id == other.id &&
+        type == other.type &&
         name == other.name &&
         code == other.code &&
         links == other.links &&
@@ -58,7 +53,9 @@ class _$CountyModel extends CountyModel {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+        $jc(
+            $jc($jc($jc($jc(0, id.hashCode), type.hashCode), name.hashCode),
+                code.hashCode),
             links.hashCode),
         district.hashCode));
   }
@@ -67,6 +64,7 @@ class _$CountyModel extends CountyModel {
   String toString() {
     return (newBuiltValueToStringHelper('CountyModel')
           ..add('id', id)
+          ..add('type', type)
           ..add('name', name)
           ..add('code', code)
           ..add('links', links)
@@ -81,6 +79,10 @@ class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
 
   String _name;
   String get name => _$this._name;
@@ -104,6 +106,7 @@ class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
   CountyModelBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _type = _$v.type;
       _name = _$v.name;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
@@ -133,15 +136,16 @@ class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
       _$result = _$v ??
           new _$CountyModel._(
               id: id,
+              type: type,
               name: name,
               code: code,
-              links: links.build(),
+              links: _links?.build(),
               district: _district?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
         _$failedField = 'district';
         _district?.build();
       } catch (e) {

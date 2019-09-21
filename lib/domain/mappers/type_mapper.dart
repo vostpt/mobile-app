@@ -50,6 +50,7 @@ mixin TypeMapper {
       ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..species = SpeciesModel((b) => b
         ..id = attribute?.id
+        ..type = attribute?.type
         ..name = attribute?.attributes?.name
         ..code = attribute?.attributes?.code
         ..links = attribute?.links != null ? linkMapper.map(attribute?.links).toBuilder() : null

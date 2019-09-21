@@ -12,6 +12,8 @@ class _$ParishModel extends ParishModel {
   @override
   final String name;
   @override
+  final String type;
+  @override
   final int code;
   @override
   final LinkModel links;
@@ -19,18 +21,13 @@ class _$ParishModel extends ParishModel {
   factory _$ParishModel([void Function(ParishModelBuilder) updates]) =>
       (new ParishModelBuilder()..update(updates)).build();
 
-  _$ParishModel._({this.id, this.name, this.code, this.links}) : super._() {
+  _$ParishModel._({this.id, this.name, this.type, this.code, this.links})
+      : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('ParishModel', 'id');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('ParishModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'code');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'links');
     }
   }
 
@@ -47,13 +44,16 @@ class _$ParishModel extends ParishModel {
     return other is ParishModel &&
         id == other.id &&
         name == other.name &&
+        type == other.type &&
         code == other.code &&
         links == other.links;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+    return $jf($jc(
+        $jc($jc($jc($jc(0, id.hashCode), name.hashCode), type.hashCode),
+            code.hashCode),
         links.hashCode));
   }
 
@@ -62,6 +62,7 @@ class _$ParishModel extends ParishModel {
     return (newBuiltValueToStringHelper('ParishModel')
           ..add('id', id)
           ..add('name', name)
+          ..add('type', type)
           ..add('code', code)
           ..add('links', links))
         .toString();
@@ -79,6 +80,10 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
+
   int _code;
   int get code => _$this._code;
   set code(int code) => _$this._code = code;
@@ -93,6 +98,7 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
+      _type = _$v.type;
       _code = _$v.code;
       _links = _$v.links?.toBuilder();
       _$v = null;
@@ -119,12 +125,16 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
     try {
       _$result = _$v ??
           new _$ParishModel._(
-              id: id, name: name, code: code, links: links.build());
+              id: id,
+              name: name,
+              type: type,
+              code: code,
+              links: _links?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'ParishModel', _$failedField, e.toString());

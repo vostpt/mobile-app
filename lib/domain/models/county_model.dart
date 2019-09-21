@@ -8,9 +8,10 @@ part 'county_model.g.dart';
 abstract class CountyModel implements Built<CountyModel, CountyModelBuilder> {
 
   String get id;
-  String get name;
-  int get code;
-  LinkModel get links;
+  @nullable String get type;
+  @nullable String get name;
+  @nullable int get code;
+  @nullable LinkModel get links;
   @nullable DistrictModel get district;
 
   CountyModel._();

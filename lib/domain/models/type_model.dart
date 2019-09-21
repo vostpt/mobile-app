@@ -9,8 +9,9 @@ abstract class TypeModel implements Built<TypeModel, TypeModelBuilder> {
 
   String get id;
   String get name;
-  int get code;
-  LinkModel get links;
+  @nullable String get type;
+  @nullable int get code;
+  @nullable LinkModel get links;
   @nullable SpeciesModel get species;
 
   TypeModel._();

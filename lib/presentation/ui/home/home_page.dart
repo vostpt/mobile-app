@@ -184,7 +184,7 @@ class RecentListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<TypeModel>>(
+    return StreamBuilder<List<StatusModel>>(
         stream: bloc.mockDataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

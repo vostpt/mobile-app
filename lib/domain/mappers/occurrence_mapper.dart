@@ -54,18 +54,21 @@ mixin OccurrenceMapper {
       ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..type = TypeModel((b) => b
         ..id = type?.id
+        ..type = type?.type
         ..name = type?.attributes?.name
         ..code = type?.attributes?.code
         ..links = type?.links != null ? linkMapper.map(type?.links).toBuilder() : null
       ).toBuilder()
       ..status = StatusModel((b) => b
         ..id = status?.id
+        ..type = status?.type
         ..name = status?.attributes?.name
         ..code = status?.attributes?.code
         ..links = status?.links != null ? linkMapper.map(type?.links).toBuilder() : null
       ).toBuilder()
       ..parish = ParishModel((b) => b
         ..id = parish?.id
+        ..type = parish?.type
         ..name = parish?.attributes?.name
         ..code = parish?.attributes?.code
         ..links = parish?.links != null ? linkMapper.map(type?.links).toBuilder() : null
