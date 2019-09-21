@@ -14,7 +14,7 @@ abstract class AttributeResponse
       _$attributeResponseSerializer;
 
   @nullable
-  String get code;
+  int get code;
 
   @nullable
   String get name;

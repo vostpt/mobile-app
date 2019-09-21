@@ -31,9 +31,9 @@ DataResponse getAttributeById(String id, String type, List<DataResponse> listOfD
 
 LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
   return LinkResponse((b) => b
-      ..first = baseLinks.first
-      ..last = baseLinks.last
-      ..next = baseLinks.next
-      ..self = selfLinks.self
+      ..first = baseLinks?.first
+      ..last = baseLinks?.last
+      ..next = baseLinks?.next
+      ..self = selfLinks?.self
   );
 }

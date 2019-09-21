@@ -24,7 +24,7 @@ class _$AttributeResponseSerializer
       result
         ..add('code')
         ..add(serializers.serialize(object.code,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(int)));
     }
     if (object.name != null) {
       result
@@ -91,7 +91,7 @@ class _$AttributeResponseSerializer
       switch (key) {
         case 'code':
           result.code = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
@@ -134,7 +134,7 @@ class _$AttributeResponseSerializer
 
 class _$AttributeResponse extends AttributeResponse {
   @override
-  final String code;
+  final int code;
   @override
   final String name;
   @override
@@ -229,9 +229,9 @@ class AttributeResponseBuilder
     implements Builder<AttributeResponse, AttributeResponseBuilder> {
   _$AttributeResponse _$v;
 
-  String _code;
-  String get code => _$this._code;
-  set code(String code) => _$this._code = code;
+  int _code;
+  int get code => _$this._code;
+  set code(int code) => _$this._code = code;
 
   String _name;
   String get name => _$this._name;

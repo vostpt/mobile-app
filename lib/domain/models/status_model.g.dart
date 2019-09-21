@@ -12,7 +12,7 @@ class _$StatusModel extends StatusModel {
   @override
   final String name;
   @override
-  final String code;
+  final int code;
   @override
   final LinkModel links;
 
@@ -79,9 +79,9 @@ class StatusModelBuilder implements Builder<StatusModel, StatusModelBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
-  String _code;
-  String get code => _$this._code;
-  set code(String code) => _$this._code = code;
+  int _code;
+  int get code => _$this._code;
+  set code(int code) => _$this._code = code;
 
   LinkModelBuilder _links;
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();

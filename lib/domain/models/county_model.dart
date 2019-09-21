@@ -9,7 +9,7 @@ abstract class CountyModel implements Built<CountyModel, CountyModelBuilder> {
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
   @nullable DistrictModel get district;
 

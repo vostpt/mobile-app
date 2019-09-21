@@ -5,16 +5,19 @@ import 'package:vost/data/remote/endpoints/county_endpoints.dart';
 import 'package:vost/data/remote/endpoints/district_endpoints.dart';
 import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/endpoints/status_endpoints.dart';
+import 'package:vost/data/remote/endpoints/types_endpoints.dart';
 import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/district_service.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/data/remote/services/status_service.dart';
+import 'package:vost/data/remote/services/types_service.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/county_manager.dart';
 import 'package:vost/domain/managers/district_manager.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
 import 'package:vost/domain/managers/status_manager.dart';
+import 'package:vost/domain/managers/types_manager.dart';
 import 'package:vost/domain/mappers/county_mapper.dart';
 import 'package:vost/domain/mappers/district_mapper.dart';
 import 'package:vost/domain/mappers/family_mapper.dart';
@@ -34,6 +37,7 @@ class DependencyProvider extends InheritedWidget {
   CountyManager _countyManager;
   DistrictManager _districtManager;
   StatusManager _statusManager;
+  TypesManager _typesManager;
 
   DependencyProvider({
     Key key,
@@ -44,7 +48,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_statusManager);
+      _homeBloc = HomeBloc(_typesManager);
     }
     return _homeBloc;
   }
@@ -72,12 +76,14 @@ class DependencyProvider extends InheritedWidget {
     var countyEndpoints = CountyEndpoints(dio);
     var districtEndpoints = DistrictEndpoints(dio);
     var statusEndpoints = StatusEndpoints(dio);
+    var typesEndpoints = TypesEndpoints(dio);
 
     // Services
     var parishService = ParishService(parishEndpoints);
     var countyService = CountyService(countyEndpoints);
     var districtService = DistrictService(districtEndpoints);
     var statusService = StatusService(statusEndpoints);
+    var typesService = TypesService(typesEndpoints);
 
     // Mappers
     var linkResponseMapper = LinkResponseMapper();
@@ -101,6 +107,7 @@ class DependencyProvider extends InheritedWidget {
     _countyManager = CountyManager(countyService, countyListResponseMapper);
     _districtManager = DistrictManager(districtService, districtListResponseMapper);
     _statusManager = StatusManager(statusService, statusListResponseMapper);
+    _typesManager = TypesManager(typesService, typeListResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need

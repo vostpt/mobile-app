@@ -8,7 +8,7 @@ abstract class FamilyModel implements Built<FamilyModel, FamilyModelBuilder> {
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
 
   FamilyModel._();

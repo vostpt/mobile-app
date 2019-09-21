@@ -8,7 +8,7 @@ abstract class ParishModel implements Built<ParishModel, ParishModelBuilder> {
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
 
   ParishModel._();

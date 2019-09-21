@@ -8,7 +8,7 @@ abstract class StatusModel implements Built<StatusModel, StatusModelBuilder> {
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
 
   StatusModel._();

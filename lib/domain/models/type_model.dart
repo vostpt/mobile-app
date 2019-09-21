@@ -9,7 +9,7 @@ abstract class TypeModel implements Built<TypeModel, TypeModelBuilder> {
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
   @nullable SpeciesModel get species;
 

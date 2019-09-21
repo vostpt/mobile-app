@@ -8,7 +8,7 @@ abstract class SpeciesModel implements Built<SpeciesModel, SpeciesModelBuilder> 
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
 
   SpeciesModel._();

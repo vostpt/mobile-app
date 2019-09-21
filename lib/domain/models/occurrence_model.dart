@@ -11,7 +11,7 @@ abstract class OccurrenceModel implements Built<OccurrenceModel, OccurrenceModel
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
   @nullable TypeModel get type;
   @nullable StatusModel get status;

@@ -8,7 +8,7 @@ abstract class DistrictModel implements Built<DistrictModel, DistrictModelBuilde
 
   String get id;
   String get name;
-  String get code;
+  int get code;
   LinkModel get links;
 
   DistrictModel._();
