@@ -11,6 +11,7 @@ const pathDistricts = "districts";
 const pathStatuses = "occurrences/statuses";
 const pathTypes = "occurrences/types";
 const pathSpecies = "occurrences/species";
+const pathFamilies = "occurrences/families";
 
 /// Mock endpoints
 const String mockHost = "mockserver";

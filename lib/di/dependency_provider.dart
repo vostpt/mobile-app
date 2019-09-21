@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vost/constants.dart';
 import 'package:vost/data/remote/endpoints/county_endpoints.dart';
 import 'package:vost/data/remote/endpoints/district_endpoints.dart';
+import 'package:vost/data/remote/endpoints/family_endpoints.dart';
 import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/endpoints/species_endpoints.dart';
 import 'package:vost/data/remote/endpoints/status_endpoints.dart';
@@ -10,6 +11,7 @@ import 'package:vost/data/remote/endpoints/types_endpoints.dart';
 import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/district_service.dart';
+import 'package:vost/data/remote/services/family_service.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/data/remote/services/species_service.dart';
 import 'package:vost/data/remote/services/status_service.dart';
@@ -17,6 +19,7 @@ import 'package:vost/data/remote/services/types_service.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/county_manager.dart';
 import 'package:vost/domain/managers/district_manager.dart';
+import 'package:vost/domain/managers/family_manager.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
 import 'package:vost/domain/managers/species_manager.dart';
 import 'package:vost/domain/managers/status_manager.dart';
@@ -43,6 +46,7 @@ class DependencyProvider extends InheritedWidget {
   StatusManager _statusManager;
   TypesManager _typesManager;
   SpeciesManager _speciesManager;
+  FamilyManager _familyManager;
 
   DependencyProvider({
     Key key,
@@ -53,7 +57,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_speciesManager);
+      _homeBloc = HomeBloc(_familyManager);
     }
     return _homeBloc;
   }
@@ -83,6 +87,7 @@ class DependencyProvider extends InheritedWidget {
     var statusEndpoints = StatusEndpoints(dio);
     var typesEndpoints = TypesEndpoints(dio);
     var speciesEndpoints = SpeciesEndpoints(dio);
+    var familyEndpoints = FamilyEndpoints(dio);
 
     // Services
     var parishService = ParishService(parishEndpoints);
@@ -91,6 +96,7 @@ class DependencyProvider extends InheritedWidget {
     var statusService = StatusService(statusEndpoints);
     var typesService = TypesService(typesEndpoints);
     var speciesService = SpeciesService(speciesEndpoints);
+    var familyService = FamilyService(familyEndpoints);
 
     // Mappers
     var linkResponseMapper = LinkResponseMapper();
@@ -118,6 +124,7 @@ class DependencyProvider extends InheritedWidget {
     _statusManager = StatusManager(statusService, statusListResponseMapper);
     _typesManager = TypesManager(typesService, typeListResponseMapper);
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
+    _familyManager = FamilyManager(familyService, familyListResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need
