@@ -7,6 +7,7 @@ const connectionWriteTimeOut = 30000;
 const baseUrlProd = "https://api.vost.pt/v1/";
 const pathParishes = "parishes";
 const pathCounties = "counties";
+const pathDistricts = "districts";
 
 /// Mock endpoints
 const String mockHost = "mockserver";
