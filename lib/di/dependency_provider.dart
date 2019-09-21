@@ -4,18 +4,21 @@ import 'package:vost/constants.dart';
 import 'package:vost/data/remote/endpoints/county_endpoints.dart';
 import 'package:vost/data/remote/endpoints/district_endpoints.dart';
 import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
+import 'package:vost/data/remote/endpoints/species_endpoints.dart';
 import 'package:vost/data/remote/endpoints/status_endpoints.dart';
 import 'package:vost/data/remote/endpoints/types_endpoints.dart';
 import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/district_service.dart';
 import 'package:vost/data/remote/services/parish_service.dart';
+import 'package:vost/data/remote/services/species_service.dart';
 import 'package:vost/data/remote/services/status_service.dart';
 import 'package:vost/data/remote/services/types_service.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/county_manager.dart';
 import 'package:vost/domain/managers/district_manager.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
+import 'package:vost/domain/managers/species_manager.dart';
 import 'package:vost/domain/managers/status_manager.dart';
 import 'package:vost/domain/managers/types_manager.dart';
 import 'package:vost/domain/mappers/county_mapper.dart';
@@ -24,6 +27,7 @@ import 'package:vost/domain/mappers/family_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/occurrence_mapper.dart';
 import 'package:vost/domain/mappers/parish_mapper.dart';
+import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
@@ -38,6 +42,7 @@ class DependencyProvider extends InheritedWidget {
   DistrictManager _districtManager;
   StatusManager _statusManager;
   TypesManager _typesManager;
+  SpeciesManager _speciesManager;
 
   DependencyProvider({
     Key key,
@@ -48,7 +53,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_statusManager);
+      _homeBloc = HomeBloc(_speciesManager);
     }
     return _homeBloc;
   }
@@ -77,6 +82,7 @@ class DependencyProvider extends InheritedWidget {
     var districtEndpoints = DistrictEndpoints(dio);
     var statusEndpoints = StatusEndpoints(dio);
     var typesEndpoints = TypesEndpoints(dio);
+    var speciesEndpoints = SpeciesEndpoints(dio);
 
     // Services
     var parishService = ParishService(parishEndpoints);
@@ -84,6 +90,7 @@ class DependencyProvider extends InheritedWidget {
     var districtService = DistrictService(districtEndpoints);
     var statusService = StatusService(statusEndpoints);
     var typesService = TypesService(typesEndpoints);
+    var speciesService = SpeciesService(speciesEndpoints);
 
     // Mappers
     var linkResponseMapper = LinkResponseMapper();
@@ -101,6 +108,8 @@ class DependencyProvider extends InheritedWidget {
     var statusResponseMapper = StatusResponseMapper(linkResponseMapper);
     var typeListResponseMapper = TypeListResponseMapper(linkResponseMapper);
     var typeResponseMapper = TypeResponseMapper(linkResponseMapper);
+    var speciesListResponseMapper = SpeciesListResponseMapper(linkResponseMapper);
+    var speciesResponseMapper = SpeciesResponseMapper(linkResponseMapper);
 
     // Managers
     _parishManager = ParishManager(parishService, parishListResponseMapper);
@@ -108,6 +117,7 @@ class DependencyProvider extends InheritedWidget {
     _districtManager = DistrictManager(districtService, districtListResponseMapper);
     _statusManager = StatusManager(statusService, statusListResponseMapper);
     _typesManager = TypesManager(typesService, typeListResponseMapper);
+    _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need

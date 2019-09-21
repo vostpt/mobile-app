@@ -10,6 +10,7 @@ const pathCounties = "counties";
 const pathDistricts = "districts";
 const pathStatuses = "occurrences/statuses";
 const pathTypes = "occurrences/types";
+const pathSpecies = "occurrences/species";
 
 /// Mock endpoints
 const String mockHost = "mockserver";
