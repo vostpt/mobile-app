@@ -13,7 +13,7 @@ abstract class BasePage<Bloc extends BaseBloc> extends StatefulWidget {
 }
 
 abstract class BaseState<T extends BasePage> extends State<T> {
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   StreamDisposable disposable = StreamDisposable();
 
@@ -23,8 +23,6 @@ abstract class BaseState<T extends BasePage> extends State<T> {
   @override
   @mustCallSuper
   void initState() {
-    scaffoldKey = GlobalKey<ScaffoldState>();
-
     widget.bloc.errorStream
         .transform(new ThrottleStreamTransformer(new Duration(seconds: 2)))
         .listen((error) =>

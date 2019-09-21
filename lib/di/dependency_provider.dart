@@ -9,10 +9,10 @@ import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/mock_manager.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
 import 'package:vost/domain/mappers/attribute_mapper.dart';
-import 'package:vost/domain/mappers/base_parish_mapper.dart';
 import 'package:vost/domain/mappers/link_mapper.dart';
 import 'package:vost/domain/mappers/meta_mapper.dart';
 import 'package:vost/domain/mappers/mock_data_mapper.dart';
+import 'package:vost/domain/mappers/data_mapper.dart';
 import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,13 +75,13 @@ class DependencyProvider extends InheritedWidget {
     var attributeResponseMapper = AttributeResponseMapper();
     var linkResponseMapper = LinkResponseMapper();
     var metaResponseMapper = MetaResponseMapper();
-    var parishResponseMapper = ParishResponseMapper(attributeResponseMapper, linkResponseMapper);
-    var baseParishResponseMapper = BaseParishResponseMapper(linkResponseMapper, metaResponseMapper, parishResponseMapper);
-
+    var dataResponseMapper = DataResponseMapper(attributeResponseMapper, linkResponseMapper);
+    var parishListResponseMapper = ParishListResponseMapper(linkResponseMapper);
+    var parishResponseMapper = ParishResponseMapper(linkResponseMapper);
 
     // Managers
     _cowManager = MockManager(mockServices, mockMappers);
-    _parishManager = ParishManager(parishService, baseParishResponseMapper);
+    _parishManager = ParishManager(parishService, parishListResponseMapper);
   }
 
 

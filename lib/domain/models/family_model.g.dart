@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'parish_model.dart';
+part of 'family_model.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$ParishModel extends ParishModel {
+class _$FamilyModel extends FamilyModel {
   @override
   final String id;
   @override
@@ -16,35 +16,35 @@ class _$ParishModel extends ParishModel {
   @override
   final LinkModel links;
 
-  factory _$ParishModel([void Function(ParishModelBuilder) updates]) =>
-      (new ParishModelBuilder()..update(updates)).build();
+  factory _$FamilyModel([void Function(FamilyModelBuilder) updates]) =>
+      (new FamilyModelBuilder()..update(updates)).build();
 
-  _$ParishModel._({this.id, this.name, this.code, this.links}) : super._() {
+  _$FamilyModel._({this.id, this.name, this.code, this.links}) : super._() {
     if (id == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'id');
+      throw new BuiltValueNullFieldError('FamilyModel', 'id');
     }
     if (name == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'name');
+      throw new BuiltValueNullFieldError('FamilyModel', 'name');
     }
     if (code == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'code');
+      throw new BuiltValueNullFieldError('FamilyModel', 'code');
     }
     if (links == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'links');
+      throw new BuiltValueNullFieldError('FamilyModel', 'links');
     }
   }
 
   @override
-  ParishModel rebuild(void Function(ParishModelBuilder) updates) =>
+  FamilyModel rebuild(void Function(FamilyModelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ParishModelBuilder toBuilder() => new ParishModelBuilder()..replace(this);
+  FamilyModelBuilder toBuilder() => new FamilyModelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ParishModel &&
+    return other is FamilyModel &&
         id == other.id &&
         name == other.name &&
         code == other.code &&
@@ -59,7 +59,7 @@ class _$ParishModel extends ParishModel {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ParishModel')
+    return (newBuiltValueToStringHelper('FamilyModel')
           ..add('id', id)
           ..add('name', name)
           ..add('code', code)
@@ -68,8 +68,8 @@ class _$ParishModel extends ParishModel {
   }
 }
 
-class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
-  _$ParishModel _$v;
+class FamilyModelBuilder implements Builder<FamilyModel, FamilyModelBuilder> {
+  _$FamilyModel _$v;
 
   String _id;
   String get id => _$this._id;
@@ -87,9 +87,9 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
   set links(LinkModelBuilder links) => _$this._links = links;
 
-  ParishModelBuilder();
+  FamilyModelBuilder();
 
-  ParishModelBuilder get _$this {
+  FamilyModelBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
@@ -101,24 +101,24 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
   }
 
   @override
-  void replace(ParishModel other) {
+  void replace(FamilyModel other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ParishModel;
+    _$v = other as _$FamilyModel;
   }
 
   @override
-  void update(void Function(ParishModelBuilder) updates) {
+  void update(void Function(FamilyModelBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ParishModel build() {
-    _$ParishModel _$result;
+  _$FamilyModel build() {
+    _$FamilyModel _$result;
     try {
       _$result = _$v ??
-          new _$ParishModel._(
+          new _$FamilyModel._(
               id: id, name: name, code: code, links: links.build());
     } catch (_) {
       String _$failedField;
@@ -127,7 +127,7 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
         links.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ParishModel', _$failedField, e.toString());
+            'FamilyModel', _$failedField, e.toString());
       }
       rethrow;
     }

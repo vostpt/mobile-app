@@ -13,6 +13,7 @@ abstract class LinkResponse implements Built<LinkResponse, LinkResponseBuilder>,
   @nullable String get last;
   @nullable String get next;
   @nullable String get self;
+  @nullable String get related;
 
   factory LinkResponse([updates(LinkResponseBuilder b)]) = _$LinkResponse;
 }

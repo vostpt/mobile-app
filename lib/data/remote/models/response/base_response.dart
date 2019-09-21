@@ -1,20 +1,28 @@
+import 'dart:convert';
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:vost/data/remote/models/_base/parser.dart';
+import 'package:vost/data/remote/models/serializers/serializers.dart';
 
+import 'data_response.dart';
 import 'link_response.dart';
 import 'meta_response.dart';
 
 part 'base_response.g.dart';
 
-abstract class BaseResponse<T> implements Built<BaseResponse<T>, BaseResponseBuilder<T>>, SerializedModel<BaseResponse<T>> {
+abstract class BaseResponse implements Built<BaseResponse, BaseResponseBuilder>, SerializedModel<BaseResponse> {
   BaseResponse._();
 
   static Serializer<BaseResponse> get serializer => _$baseResponseSerializer;
 
   LinkResponse get links;
   MetaResponse get meta;
-  T get data;
+  DataResponse get data;
 
-  factory BaseResponse([updates(BaseResponseBuilder<T> b)]) = _$BaseResponse<T>;
+  static BaseResponse fromJson(String jsonString) {
+    return standardSerializers.deserializeWith(BaseResponse.serializer, jsonDecode(jsonString));
+  }
+
+  factory BaseResponse([updates(BaseResponseBuilder b)]) = _$BaseResponse;
 }

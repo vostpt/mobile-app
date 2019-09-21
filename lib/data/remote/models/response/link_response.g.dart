@@ -43,6 +43,12 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
         ..add(serializers.serialize(object.self,
             specifiedType: const FullType(String)));
     }
+    if (object.related != null) {
+      result
+        ..add('related')
+        ..add(serializers.serialize(object.related,
+            specifiedType: const FullType(String)));
+    }
 
     return result;
   }
@@ -74,6 +80,10 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
           result.self = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'related':
+          result.related = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -90,11 +100,14 @@ class _$LinkResponse extends LinkResponse {
   final String next;
   @override
   final String self;
+  @override
+  final String related;
 
   factory _$LinkResponse([void Function(LinkResponseBuilder) updates]) =>
       (new LinkResponseBuilder()..update(updates)).build();
 
-  _$LinkResponse._({this.first, this.last, this.next, this.self}) : super._();
+  _$LinkResponse._({this.first, this.last, this.next, this.self, this.related})
+      : super._();
 
   @override
   LinkResponse rebuild(void Function(LinkResponseBuilder) updates) =>
@@ -110,14 +123,16 @@ class _$LinkResponse extends LinkResponse {
         first == other.first &&
         last == other.last &&
         next == other.next &&
-        self == other.self;
+        self == other.self &&
+        related == other.related;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode),
-        self.hashCode));
+        $jc($jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode),
+            self.hashCode),
+        related.hashCode));
   }
 
   @override
@@ -126,7 +141,8 @@ class _$LinkResponse extends LinkResponse {
           ..add('first', first)
           ..add('last', last)
           ..add('next', next)
-          ..add('self', self))
+          ..add('self', self)
+          ..add('related', related))
         .toString();
   }
 }
@@ -151,6 +167,10 @@ class LinkResponseBuilder
   String get self => _$this._self;
   set self(String self) => _$this._self = self;
 
+  String _related;
+  String get related => _$this._related;
+  set related(String related) => _$this._related = related;
+
   LinkResponseBuilder();
 
   LinkResponseBuilder get _$this {
@@ -159,6 +179,7 @@ class LinkResponseBuilder
       _last = _$v.last;
       _next = _$v.next;
       _self = _$v.self;
+      _related = _$v.related;
       _$v = null;
     }
     return this;
@@ -180,7 +201,8 @@ class LinkResponseBuilder
   @override
   _$LinkResponse build() {
     final _$result = _$v ??
-        new _$LinkResponse._(first: first, last: last, next: next, self: self);
+        new _$LinkResponse._(
+            first: first, last: last, next: next, self: self, related: related);
     replace(_$result);
     return _$result;
   }

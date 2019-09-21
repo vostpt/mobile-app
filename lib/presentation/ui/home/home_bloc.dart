@@ -1,6 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
+import 'package:vost/domain/models/data_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';
@@ -49,7 +50,7 @@ class HomeBloc extends BaseBloc {
   HomeBloc(this._mockManager) {
     disposable.add(_fetchNewDataSubject.stream
         .flatMap((_) => _mockManager.getParishes())
-        .map((base) => base.data.toList())
+        .map((base) => base.toList())
         .listen(_mockDataSubject.add, onError: (error) {
       print(error);
       handleOnError(genericErrorMessage);

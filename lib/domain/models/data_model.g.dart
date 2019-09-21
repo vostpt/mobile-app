@@ -1,23 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'parish_response.dart';
+part of 'data_model.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ParishResponse> _$parishResponseSerializer =
-    new _$ParishResponseSerializer();
+Serializer<DataModel> _$dataModelSerializer = new _$DataModelSerializer();
 
-class _$ParishResponseSerializer
-    implements StructuredSerializer<ParishResponse> {
+class _$DataModelSerializer implements StructuredSerializer<DataModel> {
   @override
-  final Iterable<Type> types = const [ParishResponse, _$ParishResponse];
+  final Iterable<Type> types = const [DataModel, _$DataModel];
   @override
-  final String wireName = 'ParishResponse';
+  final String wireName = 'DataModel';
 
   @override
-  Iterable serialize(Serializers serializers, ParishResponse object,
+  Iterable serialize(Serializers serializers, DataModel object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'type',
@@ -26,19 +24,19 @@ class _$ParishResponseSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'attributes',
       serializers.serialize(object.attributes,
-          specifiedType: const FullType(AttributeResponse)),
+          specifiedType: const FullType(AttributeModel)),
       'links',
       serializers.serialize(object.links,
-          specifiedType: const FullType(LinkResponse)),
+          specifiedType: const FullType(LinkModel)),
     ];
 
     return result;
   }
 
   @override
-  ParishResponse deserialize(Serializers serializers, Iterable serialized,
+  DataModel deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ParishResponseBuilder();
+    final result = new DataModelBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -56,12 +54,11 @@ class _$ParishResponseSerializer
           break;
         case 'attributes':
           result.attributes.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(AttributeResponse))
-              as AttributeResponse);
+              specifiedType: const FullType(AttributeModel)) as AttributeModel);
           break;
         case 'links':
           result.links.replace(serializers.deserialize(value,
-              specifiedType: const FullType(LinkResponse)) as LinkResponse);
+              specifiedType: const FullType(LinkModel)) as LinkModel);
           break;
       }
     }
@@ -70,47 +67,45 @@ class _$ParishResponseSerializer
   }
 }
 
-class _$ParishResponse extends ParishResponse {
+class _$DataModel extends DataModel {
   @override
   final String type;
   @override
   final String id;
   @override
-  final AttributeResponse attributes;
+  final AttributeModel attributes;
   @override
-  final LinkResponse links;
+  final LinkModel links;
 
-  factory _$ParishResponse([void Function(ParishResponseBuilder) updates]) =>
-      (new ParishResponseBuilder()..update(updates)).build();
+  factory _$DataModel([void Function(DataModelBuilder) updates]) =>
+      (new DataModelBuilder()..update(updates)).build();
 
-  _$ParishResponse._({this.type, this.id, this.attributes, this.links})
-      : super._() {
+  _$DataModel._({this.type, this.id, this.attributes, this.links}) : super._() {
     if (type == null) {
-      throw new BuiltValueNullFieldError('ParishResponse', 'type');
+      throw new BuiltValueNullFieldError('DataModel', 'type');
     }
     if (id == null) {
-      throw new BuiltValueNullFieldError('ParishResponse', 'id');
+      throw new BuiltValueNullFieldError('DataModel', 'id');
     }
     if (attributes == null) {
-      throw new BuiltValueNullFieldError('ParishResponse', 'attributes');
+      throw new BuiltValueNullFieldError('DataModel', 'attributes');
     }
     if (links == null) {
-      throw new BuiltValueNullFieldError('ParishResponse', 'links');
+      throw new BuiltValueNullFieldError('DataModel', 'links');
     }
   }
 
   @override
-  ParishResponse rebuild(void Function(ParishResponseBuilder) updates) =>
+  DataModel rebuild(void Function(DataModelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ParishResponseBuilder toBuilder() =>
-      new ParishResponseBuilder()..replace(this);
+  DataModelBuilder toBuilder() => new DataModelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ParishResponse &&
+    return other is DataModel &&
         type == other.type &&
         id == other.id &&
         attributes == other.attributes &&
@@ -126,7 +121,7 @@ class _$ParishResponse extends ParishResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ParishResponse')
+    return (newBuiltValueToStringHelper('DataModel')
           ..add('type', type)
           ..add('id', id)
           ..add('attributes', attributes)
@@ -135,9 +130,8 @@ class _$ParishResponse extends ParishResponse {
   }
 }
 
-class ParishResponseBuilder
-    implements Builder<ParishResponse, ParishResponseBuilder> {
-  _$ParishResponse _$v;
+class DataModelBuilder implements Builder<DataModel, DataModelBuilder> {
+  _$DataModel _$v;
 
   String _type;
   String get type => _$this._type;
@@ -147,19 +141,19 @@ class ParishResponseBuilder
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  AttributeResponseBuilder _attributes;
-  AttributeResponseBuilder get attributes =>
-      _$this._attributes ??= new AttributeResponseBuilder();
-  set attributes(AttributeResponseBuilder attributes) =>
+  AttributeModelBuilder _attributes;
+  AttributeModelBuilder get attributes =>
+      _$this._attributes ??= new AttributeModelBuilder();
+  set attributes(AttributeModelBuilder attributes) =>
       _$this._attributes = attributes;
 
-  LinkResponseBuilder _links;
-  LinkResponseBuilder get links => _$this._links ??= new LinkResponseBuilder();
-  set links(LinkResponseBuilder links) => _$this._links = links;
+  LinkModelBuilder _links;
+  LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
+  set links(LinkModelBuilder links) => _$this._links = links;
 
-  ParishResponseBuilder();
+  DataModelBuilder();
 
-  ParishResponseBuilder get _$this {
+  DataModelBuilder get _$this {
     if (_$v != null) {
       _type = _$v.type;
       _id = _$v.id;
@@ -171,24 +165,24 @@ class ParishResponseBuilder
   }
 
   @override
-  void replace(ParishResponse other) {
+  void replace(DataModel other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ParishResponse;
+    _$v = other as _$DataModel;
   }
 
   @override
-  void update(void Function(ParishResponseBuilder) updates) {
+  void update(void Function(DataModelBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ParishResponse build() {
-    _$ParishResponse _$result;
+  _$DataModel build() {
+    _$DataModel _$result;
     try {
       _$result = _$v ??
-          new _$ParishResponse._(
+          new _$DataModel._(
               type: type,
               id: id,
               attributes: attributes.build(),
@@ -202,7 +196,7 @@ class ParishResponseBuilder
         links.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ParishResponse', _$failedField, e.toString());
+            'DataModel', _$failedField, e.toString());
       }
       rethrow;
     }
