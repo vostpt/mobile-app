@@ -2,12 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/domain/models/district_model.dart';
-import 'package:vost/domain/models/family_model.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
-import 'package:vost/domain/models/species_model.dart';
-import 'package:vost/domain/models/status_model.dart';
-import 'package:vost/domain/models/type_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';

@@ -5,7 +5,7 @@ import 'package:vost/presentation/ui/_base/base_bloc.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 abstract class BasePage<Bloc extends BaseBloc> extends StatefulWidget {
-  Bloc bloc;
+  final Bloc bloc;
 
   bool get showPoorConnection => true;
 

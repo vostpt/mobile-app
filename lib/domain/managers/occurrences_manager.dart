@@ -1,9 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/occurrences_service.dart';
-import 'package:vost/domain/mappers/county_mapper.dart';
 import 'package:vost/domain/mappers/occurrence_mapper.dart';
-import 'package:vost/domain/models/county_model.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 
 class OccurrencesManager {

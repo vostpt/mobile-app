@@ -3,7 +3,6 @@ import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
-import 'package:vost/domain/models/district_model.dart';
 import 'package:vost/domain/models/species_model.dart';
 import 'package:vost/presentation/utils/misc.dart';
 

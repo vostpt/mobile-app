@@ -1,17 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/domain/managers/district_manager.dart';
-import 'package:vost/domain/managers/family_manager.dart';
 import 'package:vost/domain/managers/occurrences_manager.dart';
-import 'package:vost/domain/managers/species_manager.dart';
-import 'package:vost/domain/managers/status_manager.dart';
-import 'package:vost/domain/managers/types_manager.dart';
-import 'package:vost/domain/models/district_model.dart';
-import 'package:vost/domain/models/family_model.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
-import 'package:vost/domain/models/species_model.dart';
-import 'package:vost/domain/models/status_model.dart';
-import 'package:vost/domain/models/type_model.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';
 
