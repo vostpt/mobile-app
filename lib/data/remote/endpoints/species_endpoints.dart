@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class SpeciesEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   SpeciesEndpoints(this._dio);
 

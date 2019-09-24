@@ -17,7 +17,7 @@ class _$AttributeResponseSerializer
   final String wireName = 'AttributeResponse';
 
   @override
-  Iterable serialize(Serializers serializers, AttributeResponse object,
+  Iterable<Object> serialize(Serializers serializers, AttributeResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.code != null) {
@@ -74,12 +74,12 @@ class _$AttributeResponseSerializer
         ..add(serializers.serialize(object.startedAt,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  AttributeResponse deserialize(Serializers serializers, Iterable serialized,
+  AttributeResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AttributeResponseBuilder();
 

@@ -20,7 +20,8 @@ class _$RelationshipResponseSerializer
   final String wireName = 'RelationshipResponse';
 
   @override
-  Iterable serialize(Serializers serializers, RelationshipResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, RelationshipResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.district != null) {
@@ -59,12 +60,12 @@ class _$RelationshipResponseSerializer
         ..add(serializers.serialize(object.type,
             specifiedType: const FullType(RelationshipTypeResponse)));
     }
-
     return result;
   }
 
   @override
-  RelationshipResponse deserialize(Serializers serializers, Iterable serialized,
+  RelationshipResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RelationshipResponseBuilder();
 

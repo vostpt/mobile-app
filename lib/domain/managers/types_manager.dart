@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/domain/models/type_model.dart';
 
 class TypesManager {
-  TypesService _typesService;
-  TypeListResponseMapper _typesmapper;
+  final TypesService _typesService;
+  final TypeListResponseMapper _typesmapper;
 
   TypesManager(this._typesService, this._typesmapper);
 

@@ -3,7 +3,7 @@ import 'package:vost/data/remote/endpoints/species_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 
 class SpeciesService {
-  SpeciesEndpoints _endpoints;
+  final SpeciesEndpoints _endpoints;
 
   SpeciesService(this._endpoints);
 

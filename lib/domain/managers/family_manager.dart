@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/family_mapper.dart';
 import 'package:vost/domain/models/family_model.dart';
 
 class FamilyManager {
-  FamilyService _service;
-  FamilyListResponseMapper _mapper;
+  final FamilyService _service;
+  final FamilyListResponseMapper _mapper;
 
   FamilyManager(this._service, this._mapper);
 

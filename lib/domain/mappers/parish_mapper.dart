@@ -10,7 +10,7 @@ import 'link_mapper.dart';
 
 class ParishResponseMapper
     extends Mapper<BaseResponse, ParishModel> with ParishMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   ParishResponseMapper(this.linkMapper);
 
@@ -23,7 +23,7 @@ class ParishResponseMapper
 
 class ParishListResponseMapper
     extends Mapper<BaseListResponse, List<ParishModel>>  with ParishMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   ParishListResponseMapper(this.linkMapper);
 

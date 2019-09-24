@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/models/status_model.dart';
 
 class StatusManager {
-  StatusService _statusService;
-  StatusListResponseMapper _statusMapper;
+  final StatusService _statusService;
+  final StatusListResponseMapper _statusMapper;
 
   StatusManager(this._statusService, this._statusMapper);
 

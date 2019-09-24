@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/district_mapper.dart';
 import 'package:vost/domain/models/district_model.dart';
 
 class DistrictManager {
-  DistrictService _service;
-  DistrictListResponseMapper _mapper;
+  final DistrictService _service;
+  final DistrictListResponseMapper _mapper;
 
   DistrictManager(this._service, this._mapper);
 

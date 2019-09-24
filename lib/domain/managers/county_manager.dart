@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/county_mapper.dart';
 import 'package:vost/domain/models/county_model.dart';
 
 class CountyManager {
-  CountyService _countyService;
-  CountyListResponseMapper _countyMapper;
+  final CountyService _countyService;
+  final CountyListResponseMapper _countyMapper;
 
   CountyManager(this._countyService, this._countyMapper);
 

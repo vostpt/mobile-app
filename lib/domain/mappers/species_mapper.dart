@@ -10,7 +10,7 @@ import 'link_mapper.dart';
 
 class SpeciesResponseMapper
     extends Mapper<BaseResponse, SpeciesModel> with SpeciesMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   SpeciesResponseMapper(this.linkMapper);
 
@@ -23,7 +23,7 @@ class SpeciesResponseMapper
 
 class SpeciesListResponseMapper
     extends Mapper<BaseListResponse, List<SpeciesModel>>  with SpeciesMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   SpeciesListResponseMapper(this.linkMapper);
 

@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class FamilyEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   FamilyEndpoints(this._dio);
 

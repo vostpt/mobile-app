@@ -16,7 +16,7 @@ class _$DataResponseSerializer implements StructuredSerializer<DataResponse> {
   final String wireName = 'DataResponse';
 
   @override
-  Iterable serialize(Serializers serializers, DataResponse object,
+  Iterable<Object> serialize(Serializers serializers, DataResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'type',
@@ -42,12 +42,11 @@ class _$DataResponseSerializer implements StructuredSerializer<DataResponse> {
         ..add(serializers.serialize(object.relationships,
             specifiedType: const FullType(RelationshipResponse)));
     }
-
     return result;
   }
 
   @override
-  DataResponse deserialize(Serializers serializers, Iterable serialized,
+  DataResponse deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new DataResponseBuilder();
 

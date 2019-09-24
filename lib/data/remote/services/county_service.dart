@@ -3,7 +3,7 @@ import 'package:vost/data/remote/endpoints/county_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 
 class CountyService {
-  CountyEndpoints _endpoints;
+  final CountyEndpoints _endpoints;
 
   CountyService(this._endpoints);
 

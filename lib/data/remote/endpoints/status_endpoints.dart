@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class StatusEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   StatusEndpoints(this._dio);
 

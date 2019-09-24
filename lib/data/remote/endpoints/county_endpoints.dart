@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class CountyEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   CountyEndpoints(this._dio);
 

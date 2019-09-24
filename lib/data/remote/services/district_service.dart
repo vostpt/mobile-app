@@ -3,7 +3,7 @@ import 'package:vost/data/remote/endpoints/district_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 
 class DistrictService {
-  DistrictEndpoints _endpoints;
+  final DistrictEndpoints _endpoints;
 
   DistrictService(this._endpoints);
 

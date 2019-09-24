@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class TypesEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   TypesEndpoints(this._dio);
 

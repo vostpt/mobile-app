@@ -16,7 +16,7 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
   final String wireName = 'LinkResponse';
 
   @override
-  Iterable serialize(Serializers serializers, LinkResponse object,
+  Iterable<Object> serialize(Serializers serializers, LinkResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.first != null) {
@@ -49,12 +49,11 @@ class _$LinkResponseSerializer implements StructuredSerializer<LinkResponse> {
         ..add(serializers.serialize(object.related,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  LinkResponse deserialize(Serializers serializers, Iterable serialized,
+  LinkResponse deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LinkResponseBuilder();
 

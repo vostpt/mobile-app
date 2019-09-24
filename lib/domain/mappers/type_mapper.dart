@@ -11,7 +11,7 @@ import 'link_mapper.dart';
 
 class TypeResponseMapper
     extends Mapper<BaseResponse, TypeModel> with TypeMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   TypeResponseMapper(this.linkMapper);
 
@@ -24,7 +24,7 @@ class TypeResponseMapper
 
 class TypeListResponseMapper
     extends Mapper<BaseListResponse, List<TypeModel>>  with TypeMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   TypeListResponseMapper(this.linkMapper);
 

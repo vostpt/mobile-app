@@ -11,7 +11,7 @@ import 'link_mapper.dart';
 
 class CountyResponseMapper
     extends Mapper<BaseResponse, CountyModel> with DistrictMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   CountyResponseMapper(this.linkMapper);
 
@@ -24,7 +24,7 @@ class CountyResponseMapper
 
 class CountyListResponseMapper
     extends Mapper<BaseListResponse, List<CountyModel>>  with DistrictMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   CountyListResponseMapper(this.linkMapper);
 

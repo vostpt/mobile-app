@@ -10,7 +10,7 @@ import 'link_mapper.dart';
 
 class StatusResponseMapper
     extends Mapper<BaseResponse, StatusModel> with StatusMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   StatusResponseMapper(this.linkMapper);
 
@@ -23,7 +23,7 @@ class StatusResponseMapper
 
 class StatusListResponseMapper
     extends Mapper<BaseListResponse, List<StatusModel>>  with StatusMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   StatusListResponseMapper(this.linkMapper);
 

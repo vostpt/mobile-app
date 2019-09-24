@@ -9,7 +9,6 @@ import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
-import 'package:vost/data/remote/models/response/mock_data_remote.dart';
 import 'package:vost/data/remote/models/response/relationship_district_response.dart';
 import 'package:vost/data/remote/models/response/relationship_family_response.dart';
 import 'package:vost/data/remote/models/response/relationship_parish_response.dart';
@@ -52,7 +51,6 @@ part 'serializers.g.dart';
 ///     .build();
 /// ```
 @SerializersFor(const [
-  MockDataRemote,
   BaseResponse,
   LinkResponse,
   MetaResponse,

@@ -17,7 +17,7 @@ class _$BaseListResponseSerializer
   final String wireName = 'BaseListResponse';
 
   @override
-  Iterable serialize(Serializers serializers, BaseListResponse object,
+  Iterable<Object> serialize(Serializers serializers, BaseListResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'links',
@@ -41,12 +41,12 @@ class _$BaseListResponseSerializer
             specifiedType: const FullType(
                 BuiltList, const [const FullType(DataResponse)])));
     }
-
     return result;
   }
 
   @override
-  BaseListResponse deserialize(Serializers serializers, Iterable serialized,
+  BaseListResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new BaseListResponseBuilder();
 
@@ -68,13 +68,13 @@ class _$BaseListResponseSerializer
           result.data.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(DataResponse)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'included':
           result.included.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(DataResponse)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
       }
     }

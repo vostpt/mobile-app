@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/occurrence_mapper.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 
 class OccurrencesManager {
-  OccurrencesService _service;
-  OccurrenceListResponseMapper _mapper;
+  final OccurrencesService _service;
+  final OccurrenceListResponseMapper _mapper;
 
   OccurrencesManager(this._service, this._mapper);
 

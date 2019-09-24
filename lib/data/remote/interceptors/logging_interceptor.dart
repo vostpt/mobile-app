@@ -14,7 +14,7 @@ class LoggingInterceptor {
   printSuccess(Response response) {
     debugPrint("<-- ${response.statusCode} ${(response.request != null ? (response.request.baseUrl + response.request.path) : 'URL')}");
     debugPrint("Headers:");
-    response.headers?.forEach((k,v) => debugPrint('${k}: ${v}'));
+    response.headers?.forEach((k,v) => debugPrint('$k: $v'));
     debugPrint("Response: ${response.data}");
     debugPrint("<-- END HTTP");
   }
@@ -27,10 +27,10 @@ class LoggingInterceptor {
     debugPrint(
         "--> ${options.method != null ? options.method.toUpperCase() : 'METHOD'} ${"" + (options.baseUrl ?? "") + (options.path ?? "")}");
     debugPrint("Headers:");
-    options.headers.forEach((k,v) => debugPrint('${k}: ${v}'));
+    options.headers.forEach((k,v) => debugPrint('$k: $v'));
     if (options.queryParameters != null) {
       debugPrint("queryParameters:");
-      options.queryParameters.forEach((k,v) => debugPrint('${k}: ${v}'));
+      options.queryParameters.forEach((k,v) => debugPrint('$k: $v'));
     }
     if (options.data != null) {
       debugPrint("Body: ${options.data}");

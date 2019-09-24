@@ -16,7 +16,7 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
   final String wireName = 'BaseResponse';
 
   @override
-  Iterable serialize(Serializers serializers, BaseResponse object,
+  Iterable<Object> serialize(Serializers serializers, BaseResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'links',
@@ -36,12 +36,11 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
             specifiedType: const FullType(
                 BuiltList, const [const FullType(DataResponse)])));
     }
-
     return result;
   }
 
   @override
-  BaseResponse deserialize(Serializers serializers, Iterable serialized,
+  BaseResponse deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new BaseResponseBuilder();
 
@@ -67,7 +66,7 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
           result.included.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(DataResponse)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
       }
     }

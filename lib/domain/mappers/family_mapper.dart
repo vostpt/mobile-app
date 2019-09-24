@@ -10,7 +10,7 @@ import 'link_mapper.dart';
 
 class FamilyResponseMapper
     extends Mapper<BaseResponse, FamilyModel> with FamilyMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   FamilyResponseMapper(this.linkMapper);
 
@@ -23,7 +23,7 @@ class FamilyResponseMapper
 
 class FamilyListResponseMapper
     extends Mapper<BaseListResponse, List<FamilyModel>>  with FamilyMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   FamilyListResponseMapper(this.linkMapper);
 

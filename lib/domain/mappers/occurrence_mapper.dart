@@ -13,7 +13,7 @@ import 'link_mapper.dart';
 
 class OccurrenceResponseMapper
     extends Mapper<BaseResponse, OccurrenceModel> with OccurrenceMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   OccurrenceResponseMapper(this.linkMapper);
 
@@ -26,7 +26,7 @@ class OccurrenceResponseMapper
 
 class OccurrenceListResponseMapper
     extends Mapper<BaseListResponse, List<OccurrenceModel>>  with OccurrenceMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   OccurrenceListResponseMapper(this.linkMapper);
 

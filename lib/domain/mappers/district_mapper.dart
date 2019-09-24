@@ -10,7 +10,7 @@ import 'link_mapper.dart';
 
 class DistrictResponseMapper
     extends Mapper<BaseResponse, DistrictModel> with DistrictMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   DistrictResponseMapper(this.linkMapper);
 
@@ -23,7 +23,7 @@ class DistrictResponseMapper
 
 class DistrictListResponseMapper
     extends Mapper<BaseListResponse, List<DistrictModel>>  with DistrictMapper{
-  LinkResponseMapper linkMapper;
+  final LinkResponseMapper linkMapper;
 
   DistrictListResponseMapper(this.linkMapper);
 

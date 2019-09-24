@@ -20,7 +20,8 @@ class _$RelationshipFamilyResponseSerializer
   final String wireName = 'RelationshipFamilyResponse';
 
   @override
-  Iterable serialize(Serializers serializers, RelationshipFamilyResponse object,
+  Iterable<Object> serialize(
+      Serializers serializers, RelationshipFamilyResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'data',
@@ -33,7 +34,7 @@ class _$RelationshipFamilyResponseSerializer
 
   @override
   RelationshipFamilyResponse deserialize(
-      Serializers serializers, Iterable serialized,
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RelationshipFamilyResponseBuilder();
 

@@ -3,7 +3,7 @@ import 'package:vost/data/remote/endpoints/family_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 
 class FamilyService {
-  FamilyEndpoints _endpoints;
+  final FamilyEndpoints _endpoints;
 
   FamilyService(this._endpoints);
 

@@ -21,7 +21,7 @@ class _$RelationshipDistrictResponseSerializer
   final String wireName = 'RelationshipDistrictResponse';
 
   @override
-  Iterable serialize(
+  Iterable<Object> serialize(
       Serializers serializers, RelationshipDistrictResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
@@ -35,7 +35,7 @@ class _$RelationshipDistrictResponseSerializer
 
   @override
   RelationshipDistrictResponse deserialize(
-      Serializers serializers, Iterable serialized,
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RelationshipDistrictResponseBuilder();
 

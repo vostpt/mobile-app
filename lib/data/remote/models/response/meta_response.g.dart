@@ -16,7 +16,7 @@ class _$MetaResponseSerializer implements StructuredSerializer<MetaResponse> {
   final String wireName = 'MetaResponse';
 
   @override
-  Iterable serialize(Serializers serializers, MetaResponse object,
+  Iterable<Object> serialize(Serializers serializers, MetaResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'items',
@@ -29,7 +29,7 @@ class _$MetaResponseSerializer implements StructuredSerializer<MetaResponse> {
   }
 
   @override
-  MetaResponse deserialize(Serializers serializers, Iterable serialized,
+  MetaResponse deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MetaResponseBuilder();
 

@@ -4,8 +4,8 @@ import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/models/species_model.dart';
 
 class SpeciesManager {
-  SpeciesService _service;
-  SpeciesListResponseMapper _mapper;
+  final SpeciesService _service;
+  final SpeciesListResponseMapper _mapper;
 
   SpeciesManager(this._service, this._mapper);
 

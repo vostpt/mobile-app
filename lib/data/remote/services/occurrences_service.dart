@@ -3,7 +3,7 @@ import 'package:vost/data/remote/endpoints/occurrences_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 
 class OccurrencesService {
-  OccurrencesEndpoints _endpoints;
+  final OccurrencesEndpoints _endpoints;
 
   OccurrencesService(this._endpoints);
 

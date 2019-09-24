@@ -67,7 +67,7 @@ class DependencyProvider extends InheritedWidget {
   }
 
   /// Initializes app dependencies,
-  Future<bool> initialize() async {
+  Future<void> initialize() async {
     // Storage Dependencies
     var sharedPrefences = await SharedPreferences.getInstance();
 

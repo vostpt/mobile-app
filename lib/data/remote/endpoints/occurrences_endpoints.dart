@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class OccurrencesEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   OccurrencesEndpoints(this._dio);
 

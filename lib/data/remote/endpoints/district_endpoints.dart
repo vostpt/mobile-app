@@ -4,7 +4,7 @@ import '../../../constants.dart';
 
 class DistrictEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   DistrictEndpoints(this._dio);
 
