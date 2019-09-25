@@ -6,6 +6,7 @@ import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
 import 'package:vost/presentation/ui/splash/splash_page.dart';
 
+import 'assets/app_theme.dart';
 import 'assets/colors.dart';
 
 class VostApp extends StatelessWidget {
@@ -13,10 +14,7 @@ class VostApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Vost App',
-      theme: ThemeData(
-        primaryColor: colorPrimary,
-        accentColor: colorAccent,
-      ),
+      theme: AppTheme.build(),
       localizationsDelegates: [
         const VostLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
