@@ -13,21 +13,13 @@ class _$LinkModel extends LinkModel {
   final String last;
   @override
   final String next;
+  @override
+  final String self;
 
   factory _$LinkModel([void Function(LinkModelBuilder) updates]) =>
       (new LinkModelBuilder()..update(updates)).build();
 
-  _$LinkModel._({this.first, this.last, this.next}) : super._() {
-    if (first == null) {
-      throw new BuiltValueNullFieldError('LinkModel', 'first');
-    }
-    if (last == null) {
-      throw new BuiltValueNullFieldError('LinkModel', 'last');
-    }
-    if (next == null) {
-      throw new BuiltValueNullFieldError('LinkModel', 'next');
-    }
-  }
+  _$LinkModel._({this.first, this.last, this.next, this.self}) : super._();
 
   @override
   LinkModel rebuild(void Function(LinkModelBuilder) updates) =>
@@ -42,12 +34,15 @@ class _$LinkModel extends LinkModel {
     return other is LinkModel &&
         first == other.first &&
         last == other.last &&
-        next == other.next;
+        next == other.next &&
+        self == other.self;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, first.hashCode), last.hashCode), next.hashCode),
+        self.hashCode));
   }
 
   @override
@@ -55,7 +50,8 @@ class _$LinkModel extends LinkModel {
     return (newBuiltValueToStringHelper('LinkModel')
           ..add('first', first)
           ..add('last', last)
-          ..add('next', next))
+          ..add('next', next)
+          ..add('self', self))
         .toString();
   }
 }
@@ -75,6 +71,10 @@ class LinkModelBuilder implements Builder<LinkModel, LinkModelBuilder> {
   String get next => _$this._next;
   set next(String next) => _$this._next = next;
 
+  String _self;
+  String get self => _$this._self;
+  set self(String self) => _$this._self = self;
+
   LinkModelBuilder();
 
   LinkModelBuilder get _$this {
@@ -82,6 +82,7 @@ class LinkModelBuilder implements Builder<LinkModel, LinkModelBuilder> {
       _first = _$v.first;
       _last = _$v.last;
       _next = _$v.next;
+      _self = _$v.self;
       _$v = null;
     }
     return this;
@@ -102,8 +103,8 @@ class LinkModelBuilder implements Builder<LinkModel, LinkModelBuilder> {
 
   @override
   _$LinkModel build() {
-    final _$result =
-        _$v ?? new _$LinkModel._(first: first, last: last, next: next);
+    final _$result = _$v ??
+        new _$LinkModel._(first: first, last: last, next: next, self: self);
     replace(_$result);
     return _$result;
   }

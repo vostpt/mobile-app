@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/domain/models/parish_model.dart';
+import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -41,6 +41,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       body: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
           stream: widget.bloc.currentPageStream,
@@ -181,7 +182,7 @@ class RecentListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ParishModel>>(
+    return StreamBuilder<List<OccurrenceModel>>(
         stream: bloc.mockDataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -192,7 +193,7 @@ class RecentListWidget extends StatelessWidget {
                 children: snapshot.data
                     .map((data) => ListTile(
                         title: Text("Id: ${data.id}"),
-                        subtitle: Text("Type: ${data.type}")))
+                        subtitle: Text("Type: ${data.name}")))
                     .toList());
           }
           return Container();
