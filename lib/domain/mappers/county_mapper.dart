@@ -46,13 +46,13 @@ mixin DistrictMapper {
     return CountyModel((b) => b
       ..id  = data.id
       ..name  = data.attributes.name
-      ..code  = data.attributes.code
+      ..code  = data.attributes.codeString
       ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..district = DistrictModel((b) => b
         ..id = attribute?.id
         ..type = attribute?.type
         ..name = attribute?.attributes?.name
-        ..code = attribute?.attributes?.code
+        ..code = attribute?.attributes?.codeInt
         ..links = attribute?.links != null ? linkMapper.map(attribute?.links).toBuilder() : null
       ).toBuilder()
     );

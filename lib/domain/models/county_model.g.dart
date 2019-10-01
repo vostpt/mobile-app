@@ -14,7 +14,7 @@ class _$CountyModel extends CountyModel {
   @override
   final String name;
   @override
-  final int code;
+  final String code;
   @override
   final LinkModel links;
   @override
@@ -88,9 +88,9 @@ class CountyModelBuilder implements Builder<CountyModel, CountyModelBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
-  int _code;
-  int get code => _$this._code;
-  set code(int code) => _$this._code = code;
+  String _code;
+  String get code => _$this._code;
+  set code(String code) => _$this._code = code;
 
   LinkModelBuilder _links;
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();

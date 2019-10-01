@@ -44,7 +44,7 @@ mixin FamilyMapper {
     return FamilyModel((b) => b
       ..id  = data.id
       ..name  = data.attributes.name
-      ..code  = data.attributes.code
+      ..code  = data.attributes.codeInt
       ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
     );
   }
