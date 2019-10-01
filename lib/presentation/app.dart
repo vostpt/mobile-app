@@ -13,6 +13,7 @@ class VostApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Vost App',
       theme: ThemeData(
         primaryColor: colorPrimary,
