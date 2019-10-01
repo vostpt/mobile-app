@@ -10,3 +10,6 @@ const pathParishes = "parishes";
 /// Mock endpoints
 const String mockHost = "mockserver";
 const String mockBase = "http://$mockHost/";
+
+/// Problem Report Email
+const reportEmail = "email@email.com";
