@@ -19,6 +19,8 @@ The issue message should explain what the feature is going to change in the app 
 When filing a bug, please follow the [Github Issue Template Guideline](https://gist.github.com/auremoser/72803ba969d0e61ff070#file-issue_template-md)
 
 # Creating a Pull Request
+If you are going to work on an issue, please let others know that by commenting the issue page. We will then assign it to you.
+
 When creating a Pull Request, please make sure your code follows the [Style Guide](#style-guide). 
 
 This project follows the [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) structure in the git tree, so when creating a new feature or fixing an issue, please create the appropriate branch in the `development` branch. When your feature is finished, merge it back into `development` and create your pull request.
