@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../constants.dart';
+import 'package:vost/constants.dart';
 
 class FamilyEndpoints {
 

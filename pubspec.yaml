@@ -31,8 +31,8 @@ dependencies:
   http: ^0.12.0
 
   #localizations
-  intl: ^0.16.0
-  intl_translation: ^0.17.4
+  intl: ^0.15.8
+  intl_translation: ^0.17.7
 
   # UI
   flare_flutter: 1.5.7
