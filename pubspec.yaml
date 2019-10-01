@@ -37,6 +37,10 @@ dependencies:
   # UI
   flare_flutter: 1.5.7
 
+  #Navigation
+  url_launcher: ^5.1.4
+
+
 
 
 dev_dependencies:
