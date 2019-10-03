@@ -14,7 +14,7 @@ class AppTheme {
 
   /// Wrap a widget to be affected for this theme
   ///
-  /// AppTheme.darkTheme(child: Column(...))
+  /// Usage: AppTheme.darkTheme(child: Column(...))
 
   static Theme darkTheme({Widget child}) => Theme(
     data: ThemeData(
