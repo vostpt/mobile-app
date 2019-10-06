@@ -50,7 +50,10 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
       script:
         - flutter/bin/flutter pub get
-        - (cd ios && pod update)
+        - cd ios
+        - brew install cocoapods
+        - pod setup
+        - pod update
         - flutter/bin/flutter build ios --debug --no-codesign
         - flutter/bin/flutter test test
 
