@@ -54,6 +54,7 @@ matrix:
         - brew install cocoapods
         - pod setup
         - pod update
+        - cd ..
         - flutter/bin/flutter build ios --debug --no-codesign
         - flutter/bin/flutter test test
 
