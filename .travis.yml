@@ -51,7 +51,7 @@ matrix:
       script:
         - flutter/bin/flutter pub get
         - cd ios
-        - brew install cocoapods
+        - gem install cocoapods
         - pod setup
         - pod update
         - cd ..
