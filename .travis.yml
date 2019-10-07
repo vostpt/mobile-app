@@ -51,12 +51,12 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
       script:
         - flutter/bin/flutter pub get
-        - cd ios
         - gem install cocoapods
-        - pod setup
-        - pod install
-        - pod update
-        - cd ..
+        #- cd ios
+        #- pod setup
+        #- pod install
+        #- pod update
+        #- cd ..
         - flutter/bin/flutter build ios --debug --no-codesign
         - flutter/bin/flutter test test
 
