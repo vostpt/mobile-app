@@ -52,9 +52,9 @@ matrix:
       script:
         - flutter/bin/flutter pub get
         - cd ios
-        - ls
         - gem install cocoapods
         - pod setup
+        - pod install
         - pod update
         - cd ..
         - flutter/bin/flutter build ios --debug --no-codesign
