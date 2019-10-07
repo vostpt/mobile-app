@@ -7,4 +7,7 @@ import 'package:vost/data/remote/models/response/meta_response.dart';
 import 'package:vost/data/remote/models/serializers/serializers.dart';
 
 void main() {
+  test("Mock test", () {
+    expect(1+1, 2);
+  });
 }
