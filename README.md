@@ -4,7 +4,7 @@ Aplicação para VOST
 
 ## Project Structure
 
-* data - Manages the API and Local data
+* data - Manages the API and Local data for the app
 * domain - Manages the business logic of the application
 * di - Manages the dependency Injection of the application
 * presentation - Manages the UI, routing and blocs
