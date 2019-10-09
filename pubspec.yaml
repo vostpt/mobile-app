@@ -35,7 +35,7 @@ dependencies:
   intl_translation: ^0.17.7
 
   # UI
-  flare_flutter: 1.5.7
+  flare_flutter: 1.5.15
 
 
 
