@@ -108,7 +108,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                               style: DefaultTextStyle.of(context).style.apply(
                                   fontSizeFactor: 0.3,
                                   decoration: TextDecoration.none,
-                                  color: Colors.grey),
+                                  color: Colors.white),
                             ),
                           ],
                         )
