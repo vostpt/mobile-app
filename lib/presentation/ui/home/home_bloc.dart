@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/domain/managers/parish_manager.dart';
-import 'package:vost/domain/models/parish_model.dart';
+import 'package:vost/domain/managers/occurrences_manager.dart';
+import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';
 
@@ -12,7 +12,7 @@ class HomeBloc extends BaseBloc {
   static final listIndex = 0;
   static final mapIndex = 1;
 
-  ParishManager _mockManager;
+  OccurrencesManager _countyManager;
 
   /// Event to fetch new data
   var _fetchNewDataSubject = PublishSubject<Event>();
@@ -20,9 +20,9 @@ class HomeBloc extends BaseBloc {
   Sink<Event> get fetchNewDataSink => _fetchNewDataSubject.sink;
 
   /// Event to relay MockData information to the UI
-  var _mockDataSubject = BehaviorSubject<List<ParishModel>>();
+  var _mockDataSubject = BehaviorSubject<List<OccurrenceModel>>();
 
-  Stream<List<ParishModel>> get mockDataStream => _mockDataSubject.stream;
+  Stream<List<OccurrenceModel>> get mockDataStream => _mockDataSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
   var currentTypeOfDataSubject = BehaviorSubject<int>(seedValue: 0);
@@ -46,10 +46,10 @@ class HomeBloc extends BaseBloc {
   var _changePageSubject = PublishSubject<Event>();
   Sink<Event> get changePageSink => _changePageSubject.sink;
 
-  HomeBloc(this._mockManager) {
+  HomeBloc(this._countyManager) {
     disposable.add(_fetchNewDataSubject.stream
-        .flatMap((_) => _mockManager.getParishes())
-        .map((base) => base.data.toList())
+        .flatMap((_) => _countyManager.getRecentOccurrences())
+        .map((base) => base.toList())
         .listen(_mockDataSubject.add, onError: (error) {
       print(error);
       handleOnError(genericErrorMessage);

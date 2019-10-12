@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 
-import '../../../constants.dart';
+import 'package:vost/constants.dart';
 
 class ParishEndpoints {
 
-  Dio _dio;
+  final Dio _dio;
 
   ParishEndpoints(this._dio);
 

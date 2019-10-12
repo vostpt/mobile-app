@@ -8,30 +8,26 @@ part of 'parish_model.dart';
 
 class _$ParishModel extends ParishModel {
   @override
-  final String type;
-  @override
   final String id;
   @override
-  final AttributeModel attributes;
+  final String name;
   @override
-  final ParishLinkModel links;
+  final String type;
+  @override
+  final int code;
+  @override
+  final LinkModel links;
 
   factory _$ParishModel([void Function(ParishModelBuilder) updates]) =>
       (new ParishModelBuilder()..update(updates)).build();
 
-  _$ParishModel._({this.type, this.id, this.attributes, this.links})
+  _$ParishModel._({this.id, this.name, this.type, this.code, this.links})
       : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'type');
-    }
     if (id == null) {
       throw new BuiltValueNullFieldError('ParishModel', 'id');
     }
-    if (attributes == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'attributes');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('ParishModel', 'links');
+    if (name == null) {
+      throw new BuiltValueNullFieldError('ParishModel', 'name');
     }
   }
 
@@ -46,25 +42,28 @@ class _$ParishModel extends ParishModel {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ParishModel &&
-        type == other.type &&
         id == other.id &&
-        attributes == other.attributes &&
+        name == other.name &&
+        type == other.type &&
+        code == other.code &&
         links == other.links;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, type.hashCode), id.hashCode), attributes.hashCode),
+        $jc($jc($jc($jc(0, id.hashCode), name.hashCode), type.hashCode),
+            code.hashCode),
         links.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ParishModel')
-          ..add('type', type)
           ..add('id', id)
-          ..add('attributes', attributes)
+          ..add('name', name)
+          ..add('type', type)
+          ..add('code', code)
           ..add('links', links))
         .toString();
   }
@@ -73,32 +72,34 @@ class _$ParishModel extends ParishModel {
 class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
   _$ParishModel _$v;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
-
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  AttributeModelBuilder _attributes;
-  AttributeModelBuilder get attributes =>
-      _$this._attributes ??= new AttributeModelBuilder();
-  set attributes(AttributeModelBuilder attributes) =>
-      _$this._attributes = attributes;
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
 
-  ParishLinkModelBuilder _links;
-  ParishLinkModelBuilder get links =>
-      _$this._links ??= new ParishLinkModelBuilder();
-  set links(ParishLinkModelBuilder links) => _$this._links = links;
+  String _type;
+  String get type => _$this._type;
+  set type(String type) => _$this._type = type;
+
+  int _code;
+  int get code => _$this._code;
+  set code(int code) => _$this._code = code;
+
+  LinkModelBuilder _links;
+  LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
+  set links(LinkModelBuilder links) => _$this._links = links;
 
   ParishModelBuilder();
 
   ParishModelBuilder get _$this {
     if (_$v != null) {
-      _type = _$v.type;
       _id = _$v.id;
-      _attributes = _$v.attributes?.toBuilder();
+      _name = _$v.name;
+      _type = _$v.type;
+      _code = _$v.code;
       _links = _$v.links?.toBuilder();
       _$v = null;
     }
@@ -124,17 +125,16 @@ class ParishModelBuilder implements Builder<ParishModel, ParishModelBuilder> {
     try {
       _$result = _$v ??
           new _$ParishModel._(
-              type: type,
               id: id,
-              attributes: attributes.build(),
-              links: links.build());
+              name: name,
+              type: type,
+              code: code,
+              links: _links?.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'attributes';
-        attributes.build();
         _$failedField = 'links';
-        links.build();
+        _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'ParishModel', _$failedField, e.toString());

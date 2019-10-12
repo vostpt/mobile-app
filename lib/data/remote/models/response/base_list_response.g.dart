@@ -17,14 +17,8 @@ class _$BaseListResponseSerializer
   final String wireName = 'BaseListResponse';
 
   @override
-  Iterable serialize(Serializers serializers, BaseListResponse object,
+  Iterable<Object> serialize(Serializers serializers, BaseListResponse object,
       {FullType specifiedType = FullType.unspecified}) {
-    final isUnderspecified =
-        specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
-    if (!isUnderspecified) serializers.expectBuilder(specifiedType);
-    final parameterT =
-        isUnderspecified ? FullType.object : specifiedType.parameters[0];
-
     final result = <Object>[
       'links',
       serializers.serialize(object.links,
@@ -32,26 +26,29 @@ class _$BaseListResponseSerializer
       'meta',
       serializers.serialize(object.meta,
           specifiedType: const FullType(MetaResponse)),
-      'data',
-      serializers.serialize(object.data,
-          specifiedType: new FullType(BuiltList, [parameterT])),
     ];
-
+    if (object.data != null) {
+      result
+        ..add('data')
+        ..add(serializers.serialize(object.data,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DataResponse)])));
+    }
+    if (object.included != null) {
+      result
+        ..add('included')
+        ..add(serializers.serialize(object.included,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DataResponse)])));
+    }
     return result;
   }
 
   @override
-  BaseListResponse deserialize(Serializers serializers, Iterable serialized,
+  BaseListResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final isUnderspecified =
-        specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
-    if (!isUnderspecified) serializers.expectBuilder(specifiedType);
-    final parameterT =
-        isUnderspecified ? FullType.object : specifiedType.parameters[0];
-
-    final result = isUnderspecified
-        ? new BaseListResponseBuilder<Object>()
-        : serializers.newBuilder(specifiedType) as BaseListResponseBuilder;
+    final result = new BaseListResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,8 +66,15 @@ class _$BaseListResponseSerializer
           break;
         case 'data':
           result.data.replace(serializers.deserialize(value,
-                  specifiedType: new FullType(BuiltList, [parameterT]))
-              as BuiltList);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DataResponse)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'included':
+          result.included.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DataResponse)]))
+              as BuiltList<dynamic>);
           break;
       }
     }
@@ -79,41 +83,37 @@ class _$BaseListResponseSerializer
   }
 }
 
-class _$BaseListResponse<T> extends BaseListResponse<T> {
+class _$BaseListResponse extends BaseListResponse {
   @override
   final LinkResponse links;
   @override
   final MetaResponse meta;
   @override
-  final BuiltList<T> data;
+  final BuiltList<DataResponse> data;
+  @override
+  final BuiltList<DataResponse> included;
 
   factory _$BaseListResponse(
-          [void Function(BaseListResponseBuilder<T>) updates]) =>
-      (new BaseListResponseBuilder<T>()..update(updates)).build();
+          [void Function(BaseListResponseBuilder) updates]) =>
+      (new BaseListResponseBuilder()..update(updates)).build();
 
-  _$BaseListResponse._({this.links, this.meta, this.data}) : super._() {
+  _$BaseListResponse._({this.links, this.meta, this.data, this.included})
+      : super._() {
     if (links == null) {
       throw new BuiltValueNullFieldError('BaseListResponse', 'links');
     }
     if (meta == null) {
       throw new BuiltValueNullFieldError('BaseListResponse', 'meta');
     }
-    if (data == null) {
-      throw new BuiltValueNullFieldError('BaseListResponse', 'data');
-    }
-    if (T == dynamic) {
-      throw new BuiltValueMissingGenericsError('BaseListResponse', 'T');
-    }
   }
 
   @override
-  BaseListResponse<T> rebuild(
-          void Function(BaseListResponseBuilder<T>) updates) =>
+  BaseListResponse rebuild(void Function(BaseListResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BaseListResponseBuilder<T> toBuilder() =>
-      new BaseListResponseBuilder<T>()..replace(this);
+  BaseListResponseBuilder toBuilder() =>
+      new BaseListResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -121,12 +121,15 @@ class _$BaseListResponse<T> extends BaseListResponse<T> {
     return other is BaseListResponse &&
         links == other.links &&
         meta == other.meta &&
-        data == other.data;
+        data == other.data &&
+        included == other.included;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, links.hashCode), meta.hashCode), data.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, links.hashCode), meta.hashCode), data.hashCode),
+        included.hashCode));
   }
 
   @override
@@ -134,14 +137,15 @@ class _$BaseListResponse<T> extends BaseListResponse<T> {
     return (newBuiltValueToStringHelper('BaseListResponse')
           ..add('links', links)
           ..add('meta', meta)
-          ..add('data', data))
+          ..add('data', data)
+          ..add('included', included))
         .toString();
   }
 }
 
-class BaseListResponseBuilder<T>
-    implements Builder<BaseListResponse<T>, BaseListResponseBuilder<T>> {
-  _$BaseListResponse<T> _$v;
+class BaseListResponseBuilder
+    implements Builder<BaseListResponse, BaseListResponseBuilder> {
+  _$BaseListResponse _$v;
 
   LinkResponseBuilder _links;
   LinkResponseBuilder get links => _$this._links ??= new LinkResponseBuilder();
@@ -151,42 +155,53 @@ class BaseListResponseBuilder<T>
   MetaResponseBuilder get meta => _$this._meta ??= new MetaResponseBuilder();
   set meta(MetaResponseBuilder meta) => _$this._meta = meta;
 
-  ListBuilder<T> _data;
-  ListBuilder<T> get data => _$this._data ??= new ListBuilder<T>();
-  set data(ListBuilder<T> data) => _$this._data = data;
+  ListBuilder<DataResponse> _data;
+  ListBuilder<DataResponse> get data =>
+      _$this._data ??= new ListBuilder<DataResponse>();
+  set data(ListBuilder<DataResponse> data) => _$this._data = data;
+
+  ListBuilder<DataResponse> _included;
+  ListBuilder<DataResponse> get included =>
+      _$this._included ??= new ListBuilder<DataResponse>();
+  set included(ListBuilder<DataResponse> included) =>
+      _$this._included = included;
 
   BaseListResponseBuilder();
 
-  BaseListResponseBuilder<T> get _$this {
+  BaseListResponseBuilder get _$this {
     if (_$v != null) {
       _links = _$v.links?.toBuilder();
       _meta = _$v.meta?.toBuilder();
       _data = _$v.data?.toBuilder();
+      _included = _$v.included?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(BaseListResponse<T> other) {
+  void replace(BaseListResponse other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$BaseListResponse<T>;
+    _$v = other as _$BaseListResponse;
   }
 
   @override
-  void update(void Function(BaseListResponseBuilder<T>) updates) {
+  void update(void Function(BaseListResponseBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$BaseListResponse<T> build() {
-    _$BaseListResponse<T> _$result;
+  _$BaseListResponse build() {
+    _$BaseListResponse _$result;
     try {
       _$result = _$v ??
-          new _$BaseListResponse<T>._(
-              links: links.build(), meta: meta.build(), data: data.build());
+          new _$BaseListResponse._(
+              links: links.build(),
+              meta: meta.build(),
+              data: _data?.build(),
+              included: _included?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -195,7 +210,9 @@ class BaseListResponseBuilder<T>
         _$failedField = 'meta';
         meta.build();
         _$failedField = 'data';
-        data.build();
+        _data?.build();
+        _$failedField = 'included';
+        _included?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'BaseListResponse', _$failedField, e.toString());

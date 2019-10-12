@@ -8,6 +8,7 @@ class LinkResponseMapper extends Mapper<LinkResponse, LinkModel> {
     return LinkModel((b) => b
       ..first = value.first
       ..last = value.last
-      ..next = value.next);
+      ..next = value.next
+      ..self = value.self);
   }
 }

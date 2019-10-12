@@ -4,9 +4,10 @@ part 'link_model.g.dart';
 
 abstract class LinkModel implements Built<LinkModel, LinkModelBuilder> {
 
-  String get first;
-  String get last;
-  String get next;
+  @nullable String get first;
+  @nullable String get last;
+  @nullable String get next;
+  @nullable String get self;
 
   LinkModel._();
   factory LinkModel([updates(LinkModelBuilder b)]) = _$LinkModel;

@@ -6,135 +6,11 @@ part of 'attribute_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AttributeResponse> _$attributeResponseSerializer =
-    new _$AttributeResponseSerializer();
-
-class _$AttributeResponseSerializer
-    implements StructuredSerializer<AttributeResponse> {
-  @override
-  final Iterable<Type> types = const [AttributeResponse, _$AttributeResponse];
-  @override
-  final String wireName = 'AttributeResponse';
-
-  @override
-  Iterable serialize(Serializers serializers, AttributeResponse object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.code != null) {
-      result
-        ..add('code')
-        ..add(serializers.serialize(object.code,
-            specifiedType: const FullType(String)));
-    }
-    if (object.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(object.name,
-            specifiedType: const FullType(String)));
-    }
-    if (object.locality != null) {
-      result
-        ..add('locality')
-        ..add(serializers.serialize(object.locality,
-            specifiedType: const FullType(String)));
-    }
-    if (object.longitude != null) {
-      result
-        ..add('longitude')
-        ..add(serializers.serialize(object.longitude,
-            specifiedType: const FullType(double)));
-    }
-    if (object.latitude != null) {
-      result
-        ..add('latitude')
-        ..add(serializers.serialize(object.latitude,
-            specifiedType: const FullType(double)));
-    }
-    if (object.createdAt != null) {
-      result
-        ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
-            specifiedType: const FullType(String)));
-    }
-    if (object.updatedAt != null) {
-      result
-        ..add('updated_at')
-        ..add(serializers.serialize(object.updatedAt,
-            specifiedType: const FullType(String)));
-    }
-    if (object.endedAt != null) {
-      result
-        ..add('ended_at')
-        ..add(serializers.serialize(object.endedAt,
-            specifiedType: const FullType(String)));
-    }
-    if (object.startedAt != null) {
-      result
-        ..add('started_at')
-        ..add(serializers.serialize(object.startedAt,
-            specifiedType: const FullType(String)));
-    }
-
-    return result;
-  }
-
-  @override
-  AttributeResponse deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new AttributeResponseBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final dynamic value = iterator.current;
-      switch (key) {
-        case 'code':
-          result.code = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'locality':
-          result.locality = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'longitude':
-          result.longitude = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'latitude':
-          result.latitude = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'created_at':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'updated_at':
-          result.updatedAt = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'ended_at':
-          result.endedAt = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'started_at':
-          result.startedAt = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$AttributeResponse extends AttributeResponse {
   @override
-  final String code;
+  final String codeString;
+  @override
+  final int codeInt;
   @override
   final String name;
   @override
@@ -157,7 +33,8 @@ class _$AttributeResponse extends AttributeResponse {
       (new AttributeResponseBuilder()..update(updates)).build();
 
   _$AttributeResponse._(
-      {this.code,
+      {this.codeString,
+      this.codeInt,
       this.name,
       this.locality,
       this.longitude,
@@ -180,7 +57,8 @@ class _$AttributeResponse extends AttributeResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AttributeResponse &&
-        code == other.code &&
+        codeString == other.codeString &&
+        codeInt == other.codeInt &&
         name == other.name &&
         locality == other.locality &&
         longitude == other.longitude &&
@@ -199,7 +77,11 @@ class _$AttributeResponse extends AttributeResponse {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, code.hashCode), name.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, codeString.hashCode),
+                                        codeInt.hashCode),
+                                    name.hashCode),
                                 locality.hashCode),
                             longitude.hashCode),
                         latitude.hashCode),
@@ -212,7 +94,8 @@ class _$AttributeResponse extends AttributeResponse {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('AttributeResponse')
-          ..add('code', code)
+          ..add('codeString', codeString)
+          ..add('codeInt', codeInt)
           ..add('name', name)
           ..add('locality', locality)
           ..add('longitude', longitude)
@@ -229,9 +112,13 @@ class AttributeResponseBuilder
     implements Builder<AttributeResponse, AttributeResponseBuilder> {
   _$AttributeResponse _$v;
 
-  String _code;
-  String get code => _$this._code;
-  set code(String code) => _$this._code = code;
+  String _codeString;
+  String get codeString => _$this._codeString;
+  set codeString(String codeString) => _$this._codeString = codeString;
+
+  int _codeInt;
+  int get codeInt => _$this._codeInt;
+  set codeInt(int codeInt) => _$this._codeInt = codeInt;
 
   String _name;
   String get name => _$this._name;
@@ -269,7 +156,8 @@ class AttributeResponseBuilder
 
   AttributeResponseBuilder get _$this {
     if (_$v != null) {
-      _code = _$v.code;
+      _codeString = _$v.codeString;
+      _codeInt = _$v.codeInt;
       _name = _$v.name;
       _locality = _$v.locality;
       _longitude = _$v.longitude;
@@ -300,7 +188,8 @@ class AttributeResponseBuilder
   _$AttributeResponse build() {
     final _$result = _$v ??
         new _$AttributeResponse._(
-            code: code,
+            codeString: codeString,
+            codeInt: codeInt,
             name: name,
             locality: locality,
             longitude: longitude,

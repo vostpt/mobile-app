@@ -6,11 +6,16 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:vost/data/remote/models/response/attribute_response.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
+import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/data/remote/models/response/meta_response.dart';
-import 'package:vost/data/remote/models/response/mock_data_remote.dart';
-import 'package:vost/data/remote/models/response/parish_link_response.dart';
-import 'package:vost/data/remote/models/response/parish_response.dart';
+import 'package:vost/data/remote/models/response/relationship_district_response.dart';
+import 'package:vost/data/remote/models/response/relationship_family_response.dart';
+import 'package:vost/data/remote/models/response/relationship_parish_response.dart';
+import 'package:vost/data/remote/models/response/relationship_response.dart';
+import 'package:vost/data/remote/models/response/relationship_species_response.dart';
+import 'package:vost/data/remote/models/response/relationship_status_response.dart';
+import 'package:vost/data/remote/models/response/relationship_type_response.dart';
 
 part 'serializers.g.dart';
 
@@ -46,28 +51,22 @@ part 'serializers.g.dart';
 ///     .build();
 /// ```
 @SerializersFor(const [
-  MockDataRemote,
   BaseResponse,
   LinkResponse,
   MetaResponse,
   AttributeResponse,
-  ParishResponse,
-  ParishLinkResponse,
-  BaseListResponse
+  DataResponse,
+  BaseListResponse,
+  RelationshipDistrictResponse,
+  RelationshipFamilyResponse,
+  RelationshipParishResponse,
+  RelationshipResponse,
+  RelationshipSpeciesResponse,
+  RelationshipStatusResponse,
+  RelationshipTypeResponse
 ])
-Serializers serializers = (_$serializers.toBuilder()
-      ..addBuilderFactory(
-          FullType(BaseListResponse, const [const FullType(ParishResponse)]),
-          () => new BaseListResponseBuilder<ParishResponse>())
-      ..addBuilderFactory(FullType(BuiltList, const [const FullType(ParishResponse)]),
-          () => new ListBuilder<ParishResponse>())
-      ..addBuilderFactory(
-          FullType(BaseResponse, const [const FullType(String)]),
-          () => new BaseResponseBuilder<String>())
-      ..addBuilderFactory(FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          FullType(BaseListResponse, const [const FullType(String)]),
-          () => new BaseListResponseBuilder<String>())
-      ..addPlugin(StandardJsonPlugin()))
+Serializers serializers = _$serializers;
+
+Serializers standardSerializers = (serializers.toBuilder()
+  ..addPlugin(StandardJsonPlugin()))
     .build();
