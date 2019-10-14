@@ -10,13 +10,36 @@ class OccurrencesTimeWidget extends StatelessWidget {
   const OccurrencesTimeWidget(this._startTime, this._endTime, this._lastUpdated);
 
   static const String EMPTY_DATE_STRING = "--";
+  static const String FORMAT_DATE_DAY = "day";
+  static const String FORMAT_DATE_HOUR = "hour";
+  static const String FORMAT_DATE_FULL = "full";
 
-  String getFormattedDate(DateTime date, bool shouldUseOnlyTime) {
+  String getFormattedDate(DateTime date, String typeOfFormat) {
     String formattedDate = EMPTY_DATE_STRING;
+    DateFormat formatter;
+
     if (date != null) {
-      DateFormat formatter = shouldUseOnlyTime ? new DateFormat('HH-mm') : new DateFormat('yyyy-MM-dd');
+      switch(typeOfFormat) {
+        case 'full': {
+          formatter = new DateFormat('HH-mm-yyyy-MM-dd');
+          break;
+        }
+        case 'day': {
+          formatter = new DateFormat('yyyy-MM-dd');
+          break;
+        }
+        case 'hour': {
+          formatter = new DateFormat('HH-mm');
+          break;
+        }
+        default: {
+
+        }
+      }
+
       formattedDate = formatter.format(date);
     }
+
     return formattedDate;
   }
 
@@ -51,7 +74,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._startTime, true),
+                                  getFormattedDate(this._startTime, FORMAT_DATE_HOUR),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -60,7 +83,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._startTime, false),
+                                  getFormattedDate(this._startTime, FORMAT_DATE_DAY),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -83,7 +106,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._endTime, true),
+                                  getFormattedDate(this._endTime, FORMAT_DATE_HOUR),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -92,7 +115,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._endTime, false),
+                                  getFormattedDate(this._endTime, FORMAT_DATE_DAY),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -107,14 +130,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             new Text(
-                        this._lastUpdated != null ?
-                              "Ultima atualização : " +
-                                  this._lastUpdated.hour.toString() +
-                                  ":" +
-                                  this._lastUpdated.minute.toString() + " " +
-                                  this._lastUpdated.day.toString() + "-" +
-                                  this._lastUpdated.month.toString() + "-" +
-                                  this._lastUpdated.year.toString() : "--",
+                              "Ultima atualização : " + getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
                               overflow: TextOverflow.clip,
                               textAlign: TextAlign.center,
                               style: DefaultTextStyle.of(context).style.apply(
