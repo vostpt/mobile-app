@@ -36,6 +36,7 @@ matrix:
         - yes | sdkmanager "platforms;android-28"
       script:
         - ./flutter/bin/flutter -v build apk
+        - flutter/bin/flutter test test
 
     - os: osx
       language: generic
@@ -50,7 +51,12 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
       script:
         - flutter/bin/flutter pub get
-        - (cd ios && pod update)
+        - gem install cocoapods
+        #- cd ios
+        #- pod setup
+        #- pod install
+        #- pod update
+        #- cd ..
         - flutter/bin/flutter build ios --debug --no-codesign
         - flutter/bin/flutter test test
 

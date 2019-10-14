@@ -8,6 +8,7 @@ import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
+import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/widgets/ocurrences_status.dart';
@@ -135,11 +136,8 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 
   void choiceAction(String choice) {
-    switch (choice.toLowerCase()) {
-      case 'about':
-        {
-          Navigator.pushNamed(context, '/about');
-        }
+    if(choice==VostLocalizations.of(context).textReportProblem){
+      _onReportTap();
     }
   }
 
@@ -180,6 +178,8 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
     //todo: navigate to report a problem
+    
+    Navigator.of(context).pushNamed(routeProblem);
   }
 }
 

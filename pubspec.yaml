@@ -35,9 +35,10 @@ dependencies:
   intl_translation: ^0.17.7
 
   # UI
-  flare_flutter: 1.5.7
+  flare_flutter: 1.5.15
 
-
+  #Navigation
+  url_launcher: ^5.1.4
 
 dev_dependencies:
   build_runner: ^1.2.3
