@@ -21,7 +21,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
     if (date != null) {
       switch(typeOfFormat) {
         case 'full': {
-          formatter = new DateFormat('HH-mm-yyyy-MM-dd');
+          formatter = new DateFormat('HH:mm yyyy-MM-dd');
           break;
         }
         case 'day': {
@@ -29,7 +29,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
           break;
         }
         case 'hour': {
-          formatter = new DateFormat('HH-mm');
+          formatter = new DateFormat('HH:mm');
           break;
         }
         default: {
