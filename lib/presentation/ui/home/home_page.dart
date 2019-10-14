@@ -10,6 +10,7 @@ import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/widgets/ocurrences_status.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
@@ -46,7 +47,12 @@ class _MyHomePageState extends BaseState<HomePage> {
           initialData: widget.bloc.currentPageSubject.value,
           stream: widget.bloc.currentPageStream,
           builder: (context, snapshot) {
-            return _pages[snapshot.data];
+            return SafeArea(
+              child: OcurrencesStatus(
+                lastUpdate: DateTime.now(),
+                status: 'Encerrada pela VOST',
+              ),
+            );
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
@@ -133,16 +139,23 @@ class _MyHomePageState extends BaseState<HomePage> {
     );
   }
 
-  void choiceAction(String choice) {}
+  void choiceAction(String choice) {
+    switch (choice.toLowerCase()) {
+      case 'about':
+        {
+          Navigator.pushNamed(context, '/about');
+        }
+    }
+  }
 
   /// Finds the biggest text size in the bottom bar button so that the button is
   /// always centered
   double _findBiggestTextWidth() {
     return max(
-      findTextWidth(
-          VostLocalizations.of(context).textFollowing.toUpperCase(), styleBottomBarText()),
-      findTextWidth(
-          VostLocalizations.of(context).textRecent.toUpperCase(), styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textFollowing.toUpperCase(),
+          styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textRecent.toUpperCase(),
+          styleBottomBarText()),
     );
   }
 
