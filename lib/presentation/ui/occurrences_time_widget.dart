@@ -64,64 +64,71 @@ class OccurrencesTimeWidget extends StatelessWidget {
                             new Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                new Text(
-                                  "Início",
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.grey
+                                new Container(
+                                  child: new Text(
+                                    "Início",
+                                    overflow: TextOverflow.clip,
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.grey
+                                    )
                                   ),
                                 ),
-                                new Text(
-                                  getFormattedDate(this._startTime, FORMAT_DATE_HOUR),
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.lightGreen
+                                new Container(
+                                  child: new Text(
+                                    getFormattedDate(this._startTime, FORMAT_DATE_HOUR),
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.lightGreen
+                                    ),
                                   ),
                                 ),
-                                new Text(
-                                  getFormattedDate(this._startTime, FORMAT_DATE_DAY),
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.lightGreen
+                                new Container(
+                                  child: new Text(
+                                    getFormattedDate(this._startTime, FORMAT_DATE_DAY),
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.lightGreen
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                             new Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                new Text(
-                                  "Fim",
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.grey
+                                new Container(
+                                  child: new Text(
+                                    "Fim",
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.grey
+                                    ),
                                   ),
                                 ),
-                                new Text(
-                                  getFormattedDate(this._endTime, FORMAT_DATE_HOUR),
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.lightGreen
+                                new Container(
+                                  child: new Text(
+                                    getFormattedDate(this._endTime, FORMAT_DATE_HOUR),
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.lightGreen
+                                    ),
                                   ),
                                 ),
-                                new Text(
-                                  getFormattedDate(this._endTime, FORMAT_DATE_DAY),
-                                  overflow: TextOverflow.clip,
-                                  style: DefaultTextStyle.of(context).style.apply(
-                                      fontSizeFactor: 0.5,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.lightGreen),
-                                )
+                                new Container(
+                                  child: new Text(
+                                    getFormattedDate(this._endTime, FORMAT_DATE_DAY),
+                                    style: DefaultTextStyle.of(context).style.apply(
+                                        fontSizeFactor: 0.5,
+                                        decoration: TextDecoration.none,
+                                        color: Colors.lightGreen),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
@@ -129,14 +136,15 @@ class OccurrencesTimeWidget extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            new Text(
-                              "Ultima atualização : " + getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
-                              overflow: TextOverflow.clip,
-                              textAlign: TextAlign.center,
-                              style: DefaultTextStyle.of(context).style.apply(
-                                  fontSizeFactor: 0.3,
-                                  decoration: TextDecoration.none,
-                                  color: Colors.white),
+                            new Container(
+                              child: new Text(
+                                "Ultima atualização : " + getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
+                                textAlign: TextAlign.center,
+                                style: DefaultTextStyle.of(context).style.apply(
+                                    fontSizeFactor: 0.3,
+                                    decoration: TextDecoration.none,
+                                    color: Colors.white),
+                              ),
                             ),
                           ],
                         )
