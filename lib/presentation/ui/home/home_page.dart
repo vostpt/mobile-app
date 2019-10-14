@@ -47,12 +47,7 @@ class _MyHomePageState extends BaseState<HomePage> {
           initialData: widget.bloc.currentPageSubject.value,
           stream: widget.bloc.currentPageStream,
           builder: (context, snapshot) {
-            return SafeArea(
-              child: OcurrencesStatus(
-                lastUpdate: DateTime.now(),
-                status: 'Encerrada pela VOST',
-              ),
-            );
+            return _pages[snapshot.data];
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
