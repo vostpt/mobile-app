@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OccurrencesTimeWidget extends StatelessWidget {
 
@@ -13,9 +14,8 @@ class OccurrencesTimeWidget extends StatelessWidget {
   String getFormattedDate(DateTime date, bool shouldUseOnlyTime) {
     String formattedDate = EMPTY_DATE_STRING;
     if (date != null) {
-      formattedDate = shouldUseOnlyTime ?
-      (date.hour.toString() + ":" + date.minute.toString()) :
-      (date.day.toString() + "-" + date.month.toString() + "-" + this._startTime.year.toString());
+      DateFormat formatter = shouldUseOnlyTime ? new DateFormat('HH-mm') : new DateFormat('yyyy-MM-dd');
+      formattedDate = formatter.format(date);
     }
     return formattedDate;
   }
@@ -51,7 +51,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._startTime, false),
+                                  getFormattedDate(this._startTime, true),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -60,7 +60,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._startTime, true),
+                                  getFormattedDate(this._startTime, false),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -83,7 +83,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._endTime, false),
+                                  getFormattedDate(this._endTime, true),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
@@ -92,7 +92,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                   ),
                                 ),
                                 new Text(
-                                  getFormattedDate(this._endTime, true),
+                                  getFormattedDate(this._endTime, false),
                                   overflow: TextOverflow.clip,
                                   style: DefaultTextStyle.of(context).style.apply(
                                       fontSizeFactor: 0.5,
