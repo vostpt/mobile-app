@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/localization/vost_localizations.dart';
@@ -12,6 +14,8 @@ import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/utils/misc.dart';
+
+import 'package:vost/keys.dart';
 
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
@@ -208,11 +212,46 @@ class RecentListWidget extends StatelessWidget {
   }
 }
 
+/*
+ * Map Widget
+ *
+ * In order to use the map widget, a `keys.dart` file must be created at the root
+ * of the project with the following constants:
+ *
+ * `MAPBOX_ACCESS_TOKEN` - the token for mapbox
+ * `MAPBOX_URL_TEMPLATE` the template for mapbox, this can have the default value of
+ *      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}`
+ *
+ * In order to have a new key, go to https://www.mapbox.com/ and create a free account
+ * and a project for this open-source project
+ */
 class MapWidget extends StatelessWidget {
+  final MapController mapController = new MapController();
+  final LatLng _center = new LatLng(39.806251, -8.088591);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
+    return Stack(
+      children: <Widget>[
+        FlutterMap(
+          mapController: mapController,
+          options: new MapOptions(
+            center: _center,
+            zoom: 7.0,
+            minZoom: 1.0,
+            maxZoom: 20.0,
+          ),
+          layers: [
+            new TileLayerOptions(
+              urlTemplate: MAPBOX_URL_TEMPLATE,
+              additionalOptions: {
+                'accessToken': MAPBOX_ACCESS_TOKEN,
+                'id': 'mapbox.streets',
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
