@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
+
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
