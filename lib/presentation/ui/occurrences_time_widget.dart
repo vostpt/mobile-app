@@ -49,7 +49,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
       type: MaterialType.transparency,
       child: new Container (
                 decoration: new BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.white,
                   boxShadow: [new BoxShadow(
                   color: Colors.black,
                   blurRadius: 20.0,
@@ -67,31 +67,30 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 new Container(
                                   child: new Text(
                                     "Início",
-                                    overflow: TextOverflow.clip,
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.grey
-                                    )
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
                                   ),
                                 ),
                                 new Container(
                                   child: new Text(
                                     getFormattedDate(this._startTime, FORMAT_DATE_HOUR),
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.lightGreen
+                                    style: TextStyle(
+                                      color: Colors.lightGreen[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
                                     ),
                                   ),
                                 ),
                                 new Container(
                                   child: new Text(
                                     getFormattedDate(this._startTime, FORMAT_DATE_DAY),
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.lightGreen
+                                    style: TextStyle(
+                                      color: Colors.lightGreen[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
                                     ),
                                   ),
                                 ),
@@ -103,30 +102,31 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 new Container(
                                   child: new Text(
                                     "Fim",
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.grey
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
                                     ),
                                   ),
                                 ),
                                 new Container(
                                   child: new Text(
                                     getFormattedDate(this._endTime, FORMAT_DATE_HOUR),
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.lightGreen
+                                    style: TextStyle(
+                                      color: Colors.lightGreen[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
                                     ),
                                   ),
                                 ),
                                 new Container(
                                   child: new Text(
                                     getFormattedDate(this._endTime, FORMAT_DATE_DAY),
-                                    style: DefaultTextStyle.of(context).style.apply(
-                                        fontSizeFactor: 0.5,
-                                        decoration: TextDecoration.none,
-                                        color: Colors.lightGreen),
+                                    style: TextStyle(
+                                      color: Colors.lightGreen[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -140,10 +140,10 @@ class OccurrencesTimeWidget extends StatelessWidget {
                               child: new Text(
                                 "Ultima atualização : " + getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
                                 textAlign: TextAlign.center,
-                                style: DefaultTextStyle.of(context).style.apply(
-                                    fontSizeFactor: 0.3,
-                                    decoration: TextDecoration.none,
-                                    color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
                           ],
