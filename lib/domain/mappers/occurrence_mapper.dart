@@ -11,8 +11,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class OccurrenceResponseMapper
-    extends Mapper<BaseResponse, OccurrenceModel> with OccurrenceMapper{
+class OccurrenceResponseMapper extends Mapper<BaseResponse, OccurrenceModel>
+    with OccurrenceMapper {
   final LinkResponseMapper linkMapper;
 
   OccurrenceResponseMapper(this.linkMapper);
@@ -21,11 +21,11 @@ class OccurrenceResponseMapper
   OccurrenceModel map(BaseResponse value) {
     return mapStatus(value.data, value.links, value.included.toList());
   }
-
 }
 
 class OccurrenceListResponseMapper
-    extends Mapper<BaseListResponse, List<OccurrenceModel>>  with OccurrenceMapper{
+    extends Mapper<BaseListResponse, List<OccurrenceModel>>
+    with OccurrenceMapper {
   final LinkResponseMapper linkMapper;
 
   OccurrenceListResponseMapper(this.linkMapper);
@@ -43,36 +43,43 @@ class OccurrenceListResponseMapper
 mixin OccurrenceMapper {
   LinkResponseMapper linkMapper;
 
-  OccurrenceModel mapStatus(DataResponse data, LinkResponse baseLinks, List<DataResponse> included) {
-    var type = getAttributeById(data.relationships?.type?.data?.id, data.relationships?.type?.data?.type, included);
-    var status = getAttributeById(data.relationships?.status?.data?.id, data.relationships?.status?.data?.type, included);
-    var parish = getAttributeById(data.relationships?.parish?.data?.id, data.relationships?.parish?.data?.type, included);
+  OccurrenceModel mapStatus(
+      DataResponse data, LinkResponse baseLinks, List<DataResponse> included) {
+    var type = getAttributeById(data.relationships?.type?.data?.id,
+        data.relationships?.type?.data?.type, included);
+    var status = getAttributeById(data.relationships?.status?.data?.id,
+        data.relationships?.status?.data?.type, included);
+    var parish = getAttributeById(data.relationships?.parish?.data?.id,
+        data.relationships?.parish?.data?.type, included);
     return OccurrenceModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeInt
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
+      ..id = data.id
+      ..updatedAt = data.attributes.updatedAt
+      ..name = data.attributes.name
+      ..code = data.attributes.codeInt
+      ..links = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..type = TypeModel((b) => b
         ..id = type?.id
         ..type = type?.type
         ..name = type?.attributes?.name
         ..code = type?.attributes?.codeInt
-        ..links = type?.links != null ? linkMapper.map(type?.links).toBuilder() : null
-      ).toBuilder()
+        ..links = type?.links != null
+            ? linkMapper.map(type?.links).toBuilder()
+            : null).toBuilder()
       ..status = StatusModel((b) => b
         ..id = status?.id
         ..type = status?.type
         ..name = status?.attributes?.name
         ..code = status?.attributes?.codeInt
-        ..links = status?.links != null ? linkMapper.map(type?.links).toBuilder() : null
-      ).toBuilder()
+        ..links = status?.links != null
+            ? linkMapper.map(type?.links).toBuilder()
+            : null).toBuilder()
       ..parish = ParishModel((b) => b
         ..id = parish?.id
         ..type = parish?.type
         ..name = parish?.attributes?.name
         ..code = parish?.attributes?.codeInt
-        ..links = parish?.links != null ? linkMapper.map(type?.links).toBuilder() : null
-      ).toBuilder()
-    );
+        ..links = parish?.links != null
+            ? linkMapper.map(parish?.links).toBuilder()
+            : null).toBuilder());
   }
 }

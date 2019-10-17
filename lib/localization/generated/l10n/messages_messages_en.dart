@@ -19,11 +19,14 @@ class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'messages_en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "appTitle" : MessageLookupByLibrary.simpleMessage("VOST - en"),
-    "textAbout" : MessageLookupByLibrary.simpleMessage("About"),
-    "textFollowing" : MessageLookupByLibrary.simpleMessage("Following"),
-    "textRecent" : MessageLookupByLibrary.simpleMessage("Recent"),
-    "textReportProblem" : MessageLookupByLibrary.simpleMessage("Report a Problem")
-  };
+  static _notInlinedMessages(_) => <String, Function>{
+        "appTitle": MessageLookupByLibrary.simpleMessage("VOST - en"),
+        "textAbout": MessageLookupByLibrary.simpleMessage("About"),
+        "textFollowing": MessageLookupByLibrary.simpleMessage("Following"),
+        "textRecent": MessageLookupByLibrary.simpleMessage("Recent"),
+        "textReportProblem":
+            MessageLookupByLibrary.simpleMessage("Report a Problem"),
+        "textOccurrencesList":
+            MessageLookupByLibrary.simpleMessage("Occurrences List")
+      };
 }

@@ -71,37 +71,39 @@ class VostLocalizations {
   //region Home
   /// Home
   String get textFollowing => Intl.message(
-      "Following",
-      name: 'textFollowing',
-      desc: 'text Following',
-  );
+        "Following",
+        name: 'textFollowing',
+        desc: 'text Following',
+      );
 
   String get textRecent => Intl.message(
-      "Recent",
-      name: 'textRecent',
-      desc: 'text Recent',
-  );
+        "Recent",
+        name: 'textRecent',
+        desc: 'text Recent',
+      );
 
   String get textAbout => Intl.message(
-      "About",
-      name: 'textAbout',
-      desc: 'text About',
-  );
+        "About",
+        name: 'textAbout',
+        desc: 'text About',
+      );
 
   String get textReportProblem => Intl.message(
-      "Report a Problem",
-      name: 'textReportProblem',
-      desc: 'text Report Problem',
-  );
+        "Report a Problem",
+        name: 'textReportProblem',
+        desc: 'text Report Problem',
+      );
 
-
+  String get textOccurrencesList => Intl.message(
+        "Occurrences List",
+        name: 'textOccurrencesList',
+        desc: 'text Occurrences List',
+      );
 
   //endregion
-
 
   /// Retrieve localization resources for the widget tree
   /// corresponding to the given `context`
   static VostLocalizations of(BuildContext context) =>
       Localizations.of<VostLocalizations>(context, VostLocalizations);
 }
-

@@ -118,6 +118,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                 return [
                   VostLocalizations.of(context).textAbout,
                   VostLocalizations.of(context).textReportProblem,
+                  VostLocalizations.of(context).textOccurrencesList
                 ].map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -135,8 +136,12 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 
   void choiceAction(String choice) {
-    if(choice==VostLocalizations.of(context).textReportProblem){
+    if (choice == VostLocalizations.of(context).textReportProblem) {
       _onReportTap();
+    }
+
+    if (choice == VostLocalizations.of(context).textOccurrencesList) {
+      _onOccurrensTap();
     }
   }
 
@@ -144,10 +149,10 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// always centered
   double _findBiggestTextWidth() {
     return max(
-      findTextWidth(
-          VostLocalizations.of(context).textFollowing.toUpperCase(), styleBottomBarText()),
-      findTextWidth(
-          VostLocalizations.of(context).textRecent.toUpperCase(), styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textFollowing.toUpperCase(),
+          styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textRecent.toUpperCase(),
+          styleBottomBarText()),
     );
   }
 
@@ -177,8 +182,15 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
     //todo: navigate to report a problem
-    
+
     Navigator.of(context).pushNamed(routeProblem);
+  }
+
+  /// Callback to navigate to Report a Problem screen
+  void _onOccurrensTap() {
+    //todo: navigate to report a problem
+
+    Navigator.of(context).pushNamed(routeOccurrencesList);
   }
 }
 
