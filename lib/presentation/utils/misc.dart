@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
+import 'package:vost/presentation/ui/about/contacts.dart';
 
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
@@ -17,7 +19,8 @@ double findTextWidth(String text, TextStyle style) {
   return textPainter.width;
 }
 
-DataResponse getAttributeById(String id, String type, List<DataResponse> listOfData) {
+DataResponse getAttributeById(
+    String id, String type, List<DataResponse> listOfData) {
   if (id == null || type == null) {
     return null;
   }
@@ -31,9 +34,72 @@ DataResponse getAttributeById(String id, String type, List<DataResponse> listOfD
 
 LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
   return LinkResponse((b) => b
-      ..first = baseLinks?.first
-      ..last = baseLinks?.last
-      ..next = baseLinks?.next
-      ..self = selfLinks?.self
+    ..first = baseLinks?.first
+    ..last = baseLinks?.last
+    ..next = baseLinks?.next
+    ..self = selfLinks?.self);
+}
+
+List<Contact> getContacts() {
+  return List<Contact>.generate(6, (int index) => Contact());
+}
+
+///Callback to launch url in browser
+_launchURL() async {
+  const url = 'URL';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+///Callback to launch email
+_launchEmail() async {
+  const url = 'mailto:<email address>?subject=<subject>&body=<body>';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+///Callback to launch phone
+_launchPhone() async {
+  const url = 'tel:<phone number>';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+///Callback to build the Contact UI
+Widget contactsBuilder(Contact contact) {
+  //Methods to launch the urls have been defined above.
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: GestureDetector(
+      onTap: () {
+        if (contact.type == ContactType.EMAIL) {
+          //launch email
+        }
+        if (contact.type == ContactType.PHONE) {
+          //launch phone
+        }
+        if (contact.type == ContactType.URL) {
+          //launch url in browser
+        }
+      },
+      child: Container(
+        color: Colors.blue,
+        child: FadeInImage.assetNetwork(
+          placeholder: "assets/images/vost_logo_white.png",
+          image: "",
+        ),
+        height: 20.0,
+        width: 20.0,
+      ),
+    ),
   );
 }

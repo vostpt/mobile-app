@@ -4,3 +4,4 @@
 
 const routeHome = "/home";
 const routeSplash = "/";
+const routeAbout = "/about";
