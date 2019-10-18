@@ -136,6 +136,9 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   void choiceAction(String choice) {
     if (choice == VostLocalizations.of(context).textAbout) _onAboutTap();
+    if(choice==VostLocalizations.of(context).textReportProblem){
+      _onReportTap();
+    }
   }
 
   /// Finds the biggest text size in the bottom bar button so that the button is
@@ -176,6 +179,8 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
     //todo: navigate to report a problem
+    
+    Navigator.of(context).pushNamed(routeProblem);
   }
 }
 
