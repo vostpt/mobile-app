@@ -3,15 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 
-class OccurrencesItem extends StatefulWidget {
-  final OccurrenceModel occurrenceModel;
+class OccurrencesItem extends StatelessWidget {
+  final OccurrenceModel occurrence;
 
-  const OccurrencesItem({Key key, this.occurrenceModel}) : super(key: key);
-  @override
-  _OccurrencesItemState createState() => _OccurrencesItemState();
-}
+  OccurrencesItem({this.occurrence});
 
-class _OccurrencesItemState extends State<OccurrencesItem> {
   String _formatTime(String date) {
     DateTime dateTime = DateTime.parse(date);
     DateFormat dateFormat = DateFormat("HH:mm dd-MM-yyyy");
@@ -29,7 +25,7 @@ class _OccurrencesItemState extends State<OccurrencesItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
-                child: Text(widget.occurrenceModel.type.name,
+                child: Text(occurrence.type.name,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -45,14 +41,12 @@ class _OccurrencesItemState extends State<OccurrencesItem> {
               )
             ],
           ),
-          Text(widget.occurrenceModel.parish.name,
-              style: styleOccurrencesSubText()),
+          Text(occurrence.parish.name, style: styleOccurrencesSubText()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(widget.occurrenceModel.status.name,
-                  style: styleOccurrencesSubText()),
-              Text(_formatTime(widget.occurrenceModel.updatedAt),
+              Text(occurrence.status.name, style: styleOccurrencesSubText()),
+              Text(_formatTime(occurrence.updatedAt),
                   style: styleOccurrencesSubText())
             ],
           ),

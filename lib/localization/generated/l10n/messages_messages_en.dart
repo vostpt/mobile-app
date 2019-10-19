@@ -25,8 +25,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "textFollowing": MessageLookupByLibrary.simpleMessage("Following"),
         "textRecent": MessageLookupByLibrary.simpleMessage("Recent"),
         "textReportProblem":
-            MessageLookupByLibrary.simpleMessage("Report a Problem"),
-        "textOccurrencesList":
-            MessageLookupByLibrary.simpleMessage("Occurrences List")
+            MessageLookupByLibrary.simpleMessage("Report a Problem")
       };
 }

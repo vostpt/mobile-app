@@ -4,7 +4,6 @@ import 'package:vost/di/dependency_provider.dart';
 import 'package:vost/localization/vost_localizations_delegate.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
-import 'package:vost/presentation/ui/occurrences/occurrences_list_page.dart';
 import 'package:vost/presentation/ui/problem_report/problem_report_page.dart';
 import 'package:vost/presentation/ui/splash/splash_page.dart';
 
@@ -33,8 +32,6 @@ class VostApp extends StatelessWidget {
             ),
         routeSplash: (context) => SplashPage(title: 'Splash Page'),
         routeProblem: (context) => ProblemReportPage(),
-        routeOccurrencesList: (context) => OccurrencesList(
-            bloc: DependencyProvider.of(context).getOccurrencesListBlock())
       },
     );
   }

@@ -14,6 +14,9 @@
 *.ipr
 *.iws
 .idea/
+**/android/app/src/debug/gen
+**/android/app/src/main/gen
+**/android/app/src/profile/gen
 
 # Visual Studio Code related
 # .vscode/

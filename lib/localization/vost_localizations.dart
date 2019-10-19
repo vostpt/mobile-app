@@ -94,12 +94,6 @@ class VostLocalizations {
         desc: 'text Report Problem',
       );
 
-  String get textOccurrencesList => Intl.message(
-        "Occurrences List",
-        name: 'textOccurrencesList',
-        desc: 'text Occurrences List',
-      );
-
   //endregion
 
   /// Retrieve localization resources for the widget tree

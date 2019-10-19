@@ -5,4 +5,3 @@
 const routeHome = "/home";
 const routeSplash = "/";
 const routeProblem = "/home/problemReport";
-const routeOccurrencesList = "/home/occurrencesList";

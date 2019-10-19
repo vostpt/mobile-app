@@ -37,7 +37,6 @@ import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
-import 'package:vost/presentation/ui/occurrences/occurrences_list_bloc.dart';
 
 /// As an [InheritedWidget] this class will provide its childs the objects it hold
 ///
@@ -65,15 +64,6 @@ class DependencyProvider extends InheritedWidget {
       _homeBloc = HomeBloc(_occurrencesManager);
     }
     return _homeBloc;
-  }
-
-  OccurrencesListBloc _occurrencesListBloc;
-
-  OccurrencesListBloc getOccurrencesListBlock({bool forceCreation = false}) {
-    if (_occurrencesListBloc == null || forceCreation) {
-      _occurrencesListBloc = OccurrencesListBloc(_occurrencesManager);
-    }
-    return _occurrencesListBloc;
   }
 
   /// Initializes app dependencies,
