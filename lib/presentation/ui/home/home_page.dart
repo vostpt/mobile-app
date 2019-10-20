@@ -11,6 +11,7 @@ import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
@@ -117,7 +118,7 @@ class _MyHomePageState extends BaseState<HomePage> {
               itemBuilder: (BuildContext context) {
                 return [
                   VostLocalizations.of(context).textAbout,
-                  VostLocalizations.of(context).textReportProblem,
+                  VostLocalizations.of(context).textReportProblem
                 ].map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -135,7 +136,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 
   void choiceAction(String choice) {
-    if(choice==VostLocalizations.of(context).textReportProblem){
+    if (choice == VostLocalizations.of(context).textReportProblem) {
       _onReportTap();
     }
   }
@@ -144,10 +145,10 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// always centered
   double _findBiggestTextWidth() {
     return max(
-      findTextWidth(
-          VostLocalizations.of(context).textFollowing.toUpperCase(), styleBottomBarText()),
-      findTextWidth(
-          VostLocalizations.of(context).textRecent.toUpperCase(), styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textFollowing.toUpperCase(),
+          styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textRecent.toUpperCase(),
+          styleBottomBarText()),
     );
   }
 
@@ -177,7 +178,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
     //todo: navigate to report a problem
-    
+
     Navigator.of(context).pushNamed(routeProblem);
   }
 }
@@ -193,17 +194,27 @@ class RecentListWidget extends StatelessWidget {
         stream: bloc.mockDataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("A carregar");
+            return Center(child: Text("A carregar"));
           }
           if (snapshot.data != null) {
-            return ListView(
-                children: snapshot.data
-                    .map((data) => ListTile(
-                        title: Text("Id: ${data.id}"),
-                        subtitle: Text("Type: ${data.name}")))
-                    .toList());
+            return Container(
+                color: Colors.white,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => Divider(
+                    indent: 50.0,
+                    thickness: 2.0,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return OccurrencesItem(occurrence: snapshot.data[index]);
+                  },
+                ));
           }
-          return Container();
+          return Container(
+            child: Center(
+              child: Image.asset('assets/images/vost_logo_white.png'),
+            ),
+          );
         });
   }
 }

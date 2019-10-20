@@ -110,28 +110,33 @@ class DependencyProvider extends InheritedWidget {
     var parishResponseMapper = ParishResponseMapper(linkResponseMapper);
     var countyListResponseMapper = CountyListResponseMapper(linkResponseMapper);
     var countyResponseMapper = CountyResponseMapper(linkResponseMapper);
-    var districtListResponseMapper = DistrictListResponseMapper(linkResponseMapper);
+    var districtListResponseMapper =
+        DistrictListResponseMapper(linkResponseMapper);
     var districtResponseMapper = DistrictResponseMapper(linkResponseMapper);
     var familyListResponseMapper = FamilyListResponseMapper(linkResponseMapper);
     var familyResponseMapper = FamilyResponseMapper(linkResponseMapper);
-    var occurrenceListResponseMapper = OccurrenceListResponseMapper(linkResponseMapper);
+    var occurrenceListResponseMapper =
+        OccurrenceListResponseMapper(linkResponseMapper);
     var occurrenceResponseMapper = OccurrenceResponseMapper(linkResponseMapper);
     var statusListResponseMapper = StatusListResponseMapper(linkResponseMapper);
     var statusResponseMapper = StatusResponseMapper(linkResponseMapper);
     var typeListResponseMapper = TypeListResponseMapper(linkResponseMapper);
     var typeResponseMapper = TypeResponseMapper(linkResponseMapper);
-    var speciesListResponseMapper = SpeciesListResponseMapper(linkResponseMapper);
+    var speciesListResponseMapper =
+        SpeciesListResponseMapper(linkResponseMapper);
     var speciesResponseMapper = SpeciesResponseMapper(linkResponseMapper);
 
     // Managers
     _parishManager = ParishManager(parishService, parishListResponseMapper);
     _countyManager = CountyManager(countyService, countyListResponseMapper);
-    _districtManager = DistrictManager(districtService, districtListResponseMapper);
+    _districtManager =
+        DistrictManager(districtService, districtListResponseMapper);
     _statusManager = StatusManager(statusService, statusListResponseMapper);
     _typesManager = TypesManager(typesService, typeListResponseMapper);
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
     _familyManager = FamilyManager(familyService, familyListResponseMapper);
-    _occurrencesManager = OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
+    _occurrencesManager =
+        OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need
