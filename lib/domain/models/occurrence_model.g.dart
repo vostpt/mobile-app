@@ -14,6 +14,8 @@ class _$OccurrenceModel extends OccurrenceModel {
   @override
   final int code;
   @override
+  final String updatedAt;
+  @override
   final LinkModel links;
   @override
   final TypeModel type;
@@ -29,6 +31,7 @@ class _$OccurrenceModel extends OccurrenceModel {
       {this.id,
       this.name,
       this.code,
+      this.updatedAt,
       this.links,
       this.type,
       this.status,
@@ -36,12 +39,6 @@ class _$OccurrenceModel extends OccurrenceModel {
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('OccurrenceModel', 'name');
-    }
-    if (code == null) {
-      throw new BuiltValueNullFieldError('OccurrenceModel', 'code');
     }
     if (links == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'links');
@@ -63,6 +60,7 @@ class _$OccurrenceModel extends OccurrenceModel {
         id == other.id &&
         name == other.name &&
         code == other.code &&
+        updatedAt == other.updatedAt &&
         links == other.links &&
         type == other.type &&
         status == other.status &&
@@ -74,7 +72,11 @@ class _$OccurrenceModel extends OccurrenceModel {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc($jc(0, id.hashCode), name.hashCode), code.hashCode),
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), name.hashCode),
+                            code.hashCode),
+                        updatedAt.hashCode),
                     links.hashCode),
                 type.hashCode),
             status.hashCode),
@@ -87,6 +89,7 @@ class _$OccurrenceModel extends OccurrenceModel {
           ..add('id', id)
           ..add('name', name)
           ..add('code', code)
+          ..add('updatedAt', updatedAt)
           ..add('links', links)
           ..add('type', type)
           ..add('status', status)
@@ -111,6 +114,10 @@ class OccurrenceModelBuilder
   int get code => _$this._code;
   set code(int code) => _$this._code = code;
 
+  String _updatedAt;
+  String get updatedAt => _$this._updatedAt;
+  set updatedAt(String updatedAt) => _$this._updatedAt = updatedAt;
+
   LinkModelBuilder _links;
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
   set links(LinkModelBuilder links) => _$this._links = links;
@@ -134,6 +141,7 @@ class OccurrenceModelBuilder
       _id = _$v.id;
       _name = _$v.name;
       _code = _$v.code;
+      _updatedAt = _$v.updatedAt;
       _links = _$v.links?.toBuilder();
       _type = _$v.type?.toBuilder();
       _status = _$v.status?.toBuilder();
@@ -165,6 +173,7 @@ class OccurrenceModelBuilder
               id: id,
               name: name,
               code: code,
+              updatedAt: updatedAt,
               links: links.build(),
               type: _type?.build(),
               status: _status?.build(),
