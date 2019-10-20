@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  flutter_page_indicator: ^0.0.3
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -22,7 +23,7 @@ dependencies:
   built_value: ^6.3.0
 
   #core
-  rxdart: ^0.20.0
+  rxdart: ^0.22.4
   shared_preferences: ^0.4.3
   stream_disposable: ^0.0.1
 

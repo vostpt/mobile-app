@@ -23,8 +23,10 @@ abstract class BaseState<T extends BasePage> extends State<T> {
   @override
   @mustCallSuper
   void initState() {
+    super.initState();
     widget.bloc.errorStream
-        .transform(new ThrottleStreamTransformer(new Duration(seconds: 2)))
+        .transform(new ThrottleStreamTransformer(
+            (_) => TimerStream(true, const Duration(seconds: 2))))
         .listen((error) =>
             showErrorSnackbar(getMessage(error), scaffoldKey.currentState));
   }

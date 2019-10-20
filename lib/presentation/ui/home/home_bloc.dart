@@ -25,7 +25,7 @@ class HomeBloc extends BaseBloc {
   Stream<List<OccurrenceModel>> get mockDataStream => _mockDataSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
-  var currentTypeOfDataSubject = BehaviorSubject<int>(seedValue: 0);
+  var currentTypeOfDataSubject = BehaviorSubject<int>.seeded(0);
 
   Sink<int> get currentTypeOfDataSink => currentTypeOfDataSubject.sink;
 
@@ -36,7 +36,7 @@ class HomeBloc extends BaseBloc {
   Sink<Event> get changeTypeOfDataSink => _changeTypeOfDataSubject.sink;
 
   /// Event to relay information about current page
-  var currentPageSubject = BehaviorSubject<int>(seedValue: 0);
+  var currentPageSubject = BehaviorSubject<int>.seeded(0);
 
   Sink<int> get currentPageSink => currentPageSubject.sink;
 

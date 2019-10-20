@@ -44,7 +44,7 @@ class _MySplashPageState extends State<SplashPage> {
       this should be modified to better fit the navigation.
      */
     Timer(Duration(milliseconds: 2400), () {
-      Navigator.pushReplacementNamed(context, routeHome);
+      Navigator.pushReplacementNamed(context, routeIntro);
     });
   }
 }
