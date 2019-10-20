@@ -10,14 +10,22 @@ TextStyle styleBottomBarText() => TextStyle(
 TextStyle styleButtonText() => TextStyle(
     color: Colors.white, fontSize: textSizeNormal, fontWeight: FontWeight.w600);
 
-TextStyle styleIntroSubtitle() => TextStyle(fontSize: textSizeIntroSubTitle);
+TextStyle styleIntroContent() => TextStyle(
+    fontSize: textSizeIntroContent,
+    color: colorTextGrey
+);
 
 TextStyle styleIntroTitle() => TextStyle(
       fontSize: textSizeIntroTitle,
       fontWeight: FontWeight.bold,
-      color: colorPrimary,
+      color: Colors.black,
     );
 
 TextStyle styleOccurrencesSubText() => TextStyle(
       color: Color(0x99000000),
     );
+
+TextStyle styleFlatButton() => TextStyle(
+  fontSize: textSizeButton,
+
+);

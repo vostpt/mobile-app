@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/presentation/assets/colors.dart';
+import 'package:vost/presentation/assets/dimensions.dart';
+import 'package:vost/presentation/assets/text_styles.dart';
+import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/utils/intro_slider_content_widget.dart';
 
 class IntroPage extends StatefulWidget {
@@ -61,7 +66,6 @@ class _IntroState extends State<IntroPage> {
               return IgnorePointer(
                 ignoring: snapshot.data ?? false,
                 child: Container(
-                  color: colorLightBlue,
                   child: Stack(children: <Widget>[
                     PageView(controller: _pageController, children: <Widget>[
                       IntroWelcomePage(
@@ -75,21 +79,40 @@ class _IntroState extends State<IntroPage> {
                       )
                     ]),
                     Positioned(
-                      bottom: size.height / 6,
+                      bottom: 0.0,
                       left: 0.0,
                       right: 0.0,
-                      child: Container(
-                        padding:
-                            EdgeInsets.only(bottom: size.shortestSide / 200),
-                        alignment: Alignment(0, 0),
-                        child: PageIndicator(
-                          layout: PageIndicatorLayout.SLIDE,
-                          size: size.shortestSide / 25,
-                          controller: _pageController,
-                          space: 20.0,
-                          activeColor: Theme.of(context).primaryColor,
-                          color: Colors.grey,
-                          count: _numberOfPages,
+                      child: SafeArea(
+                        child: Container(
+                          margin: EdgeInsets.all(marginMega),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: marginMedium),
+                                child: PageIndicator(
+                                  layout: PageIndicatorLayout.SLIDE,
+                                  size: 10,
+                                  space: 20,
+                                  controller: _pageController,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  color: Colors.grey,
+                                  count: _numberOfPages,
+                                ),
+                              ),
+                              FlatButton(
+                                child: Text("Seguinte".toUpperCase(), style: styleFlatButton(),),
+                                textColor: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  if (_pageController.page < _numberOfPages - 1) {
+                                    _nextSlide();
+                                  } else {
+                                    _navigateToHome();
+                                  }
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -104,7 +127,7 @@ class _IntroState extends State<IntroPage> {
   }
 
   void _navigateToHome() {
-    //
+    navigateToHomeAndRemoveStack(context);
   }
 
   void _nextSlide() {
@@ -146,11 +169,9 @@ class IntroWelcomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: new IntroSliderContentWidget(
-          title: "Title 1",
-          subtitle: "Subtitle 1",
-          imageAsset: "assets/vost_logo_white",
-          buttonName: "Button 1",
-          buttonCallback: buttonCallback,
+          title: "Quem é a VOST Portugal?",
+          subtitle: "A VOST Portugal - Associação de Voluntários Digitais em Situações de Emergência, é um grupo de cidadãos que actuam nas redes sociais com o objectivo de informar as populações com informações fidedignas.",
+          imageAsset: "assets/images/vost_logo_white.png",
         ),
       ),
     );
@@ -167,11 +188,9 @@ class IntroVerifyPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: new IntroSliderContentWidget(
-          title: "Title 1",
-          subtitle: "Subtitle 1",
-          imageAsset: "assets/vost_logo_white",
-          buttonName: "Button 1",
-          buttonCallback: buttonCallback,
+          title: "O que é esta aplicação?",
+          subtitle: "Esta aplicação pretende que tenhas o máximo de informação possível, em tempo real, das áreas onde te encontras, no que diz respeito a emergências.\nEsta app usa dados de entidades oficiais como a ANEPC, IPMA, APA, DGAV, ICNF, bem como informação validada pela equipa da VOST Portugal. ",
+          imageAsset: "assets/images/vost_logo_white.png",
         ),
       ),
     );
@@ -185,14 +204,33 @@ class IntroCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var title, content;
+    if (Platform.isIOS) {
+      title = "Permitir Notificações";
+      content = "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.\nPara isso precisamos da tua permissão para te enviarmos notificações.";
+    } else {
+      title = "Notificações";
+      content = "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.";
+    }
     return Scaffold(
       body: SafeArea(
         child: new IntroSliderContentWidget(
-          title: "Title 1",
-          subtitle: "Subtitle 1",
-          imageAsset: "assets/vost_logo_white",
-          buttonName: "Button 1",
-          buttonCallback: buttonCallback,
+          title: title,
+          subtitle: content,
+          imageAsset: "assets/images/vost_logo_white.png",
+          contentWidget: Visibility(
+            visible: Platform.isAndroid,
+            child: Container(
+              child: FlatButton(
+                onPressed: () => print("yay"),
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  "Permitir",
+                  style: styleButtonText(),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
