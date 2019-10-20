@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -171,7 +172,7 @@ class IntroWelcomePage extends StatelessWidget {
         child: new IntroSliderContentWidget(
           title: "Quem é a VOST Portugal?",
           subtitle: "A VOST Portugal - Associação de Voluntários Digitais em Situações de Emergência, é um grupo de cidadãos que actuam nas redes sociais com o objectivo de informar as populações com informações fidedignas.",
-          imageAsset: "assets/images/vost_logo_white.png",
+          imageAsset: "assets/images/vost_logo.png",
         ),
       ),
     );
@@ -190,7 +191,7 @@ class IntroVerifyPage extends StatelessWidget {
         child: new IntroSliderContentWidget(
           title: "O que é esta aplicação?",
           subtitle: "Esta aplicação pretende que tenhas o máximo de informação possível, em tempo real, das áreas onde te encontras, no que diz respeito a emergências.\nEsta app usa dados de entidades oficiais como a ANEPC, IPMA, APA, DGAV, ICNF, bem como informação validada pela equipa da VOST Portugal. ",
-          imageAsset: "assets/images/vost_logo_white.png",
+          imageAsset: "assets/images/vost_logo.png",
         ),
       ),
     );
@@ -217,12 +218,15 @@ class IntroCodePage extends StatelessWidget {
         child: new IntroSliderContentWidget(
           title: title,
           subtitle: content,
-          imageAsset: "assets/images/vost_logo_white.png",
+          imageAsset: "assets/images/vost_logo.png",
           contentWidget: Visibility(
-            visible: Platform.isAndroid,
+            visible: Platform.isIOS,
             child: Container(
               child: FlatButton(
-                onPressed: () => print("yay"),
+                onPressed: () async {
+                  await NotificationPermissions.requestNotificationPermissions(iosSettings: const NotificationSettingsIos(sound: true, badge: true, alert: true));
+                  navigateToHomeAndRemoveStack(context);
+                },
                 color: Theme.of(context).primaryColor,
                 child: Text(
                   "Permitir",

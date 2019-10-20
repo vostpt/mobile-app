@@ -85,3 +85,4 @@
 
 # Include the VSCode snippets.
 !/.vscode/snippets/dart.json
+ios/Flutter/flutter_export_environment.sh
