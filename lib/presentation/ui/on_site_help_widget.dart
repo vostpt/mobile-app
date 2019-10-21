@@ -23,7 +23,6 @@ class OnSiteHelpWidget extends StatelessWidget {
                 )]
               ),
           child: new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,9 +56,23 @@ class OnSiteHelpWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         new Container(
-                          child: Image.asset('assets/images/vost_logo_white.png',
-                            width: 50,
-                            height: 50,
+                          child: new Row(
+                            children: <Widget>[
+                              Image.asset('assets/images/vost_logo_white.png',
+                                width: 50,
+                                height: 50,
+                              ),
+                              new Container(
+                                  child: Text(
+                                    this._landMeans.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  )
+                              ),
+                            ],
                           ),
                         )
                       ]
@@ -68,9 +81,23 @@ class OnSiteHelpWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         new Container(
-                          child:Image.asset('assets/images/vost_logo_white.png',
-                            width: 50,
-                            height: 50,
+                          child: new Row(
+                            children: <Widget>[
+                              Image.asset('assets/images/vost_logo_white.png',
+                                width: 50,
+                                height: 50,
+                              ),
+                              new Container(
+                                  child: Text(
+                                    this._aerialMeans.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  )
+                              ),
+                            ],
                           ),
                         )
                       ]
@@ -91,7 +118,6 @@ class OnSiteHelpWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                               ),
-
                           ),
                         )
                       ]
