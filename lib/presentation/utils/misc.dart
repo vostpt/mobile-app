@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:vost/presentation/utils/constants.dart' as Constants;
+
 
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
@@ -36,4 +39,33 @@ LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
       ..next = baseLinks?.next
       ..self = selfLinks?.self
   );
+}
+
+String getFormattedDate(DateTime date, String typeOfFormat) {
+  String formattedDate = Constants.EMPTY_DATE_STRING;
+  intl.DateFormat formatter;
+
+  if (date != null) {
+    switch(typeOfFormat) {
+      case 'full': {
+        formatter = new intl.DateFormat('HH:mm yyyy-MM-dd');
+        break;
+      }
+      case 'day': {
+        formatter = new intl.DateFormat('yyyy-MM-dd');
+        break;
+      }
+      case 'hour': {
+        formatter = new intl.DateFormat('HH:mm');
+        break;
+      }
+      default: {
+
+      }
+    }
+
+    formattedDate = formatter.format(date);
+  }
+
+  return formattedDate;
 }
