@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vost/presentation/utils/misc.dart';
+import 'package:vost/presentation/utils/constants.dart' as Constants;
 
 class OnSiteHelpWidget extends StatelessWidget {
 
@@ -25,7 +26,6 @@ class OnSiteHelpWidget extends StatelessWidget {
           child: new Column(
             children: <Widget>[
               new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new Column(
                       mainAxisSize: MainAxisSize.min,
@@ -105,7 +105,6 @@ class OnSiteHelpWidget extends StatelessWidget {
                 ],
               ),
               new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new Column(
                       mainAxisSize: MainAxisSize.min,
@@ -116,7 +115,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25,
+                                fontSize: 20,
                               ),
                           ),
                         )
@@ -131,7 +130,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25,
+                                fontSize: 20,
                             ),
                           ),
                         )
@@ -146,7 +145,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25,
+                                fontSize: 20,
                             ),
                           ),
                         )
@@ -155,11 +154,10 @@ class OnSiteHelpWidget extends StatelessWidget {
                 ],
               ),
               new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                     new Container(
                       child: new Text(
-                        "Ultima atualização : " +  getFormattedDate(this._lastUpdated, "full"),
+                        "Ultima atualização : " +  getFormattedDate(this._lastUpdated, Constants.FORMAT_DATE_FULL),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.grey[700],
