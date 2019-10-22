@@ -226,8 +226,8 @@ class RecentListWidget extends StatelessWidget {
  * and a project for this open-source project
  */
 class MapWidget extends StatelessWidget {
-  final MapController mapController = new MapController();
-  final LatLng _center = new LatLng(39.806251, -8.088591);
+  final MapController mapController = MapController();
+  final LatLng _center = LatLng(39.806251, -8.088591);
 
   @override
   Widget build(BuildContext context) {
@@ -235,14 +235,14 @@ class MapWidget extends StatelessWidget {
       children: <Widget>[
         FlutterMap(
           mapController: mapController,
-          options: new MapOptions(
+          options: MapOptions(
             center: _center,
             zoom: 7.0,
             minZoom: 1.0,
             maxZoom: 20.0,
           ),
           layers: [
-            new TileLayerOptions(
+            TileLayerOptions(
               urlTemplate: MAPBOX_URL_TEMPLATE,
               additionalOptions: {
                 'accessToken': MAPBOX_ACCESS_TOKEN,
