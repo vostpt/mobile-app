@@ -47,15 +47,15 @@ String getFormattedDate(DateTime date, String typeOfFormat) {
 
   if (date != null) {
     switch(typeOfFormat) {
-      case 'full': {
+      case Constants.FORMAT_DATE_FULL: {
         formatter = new intl.DateFormat('HH:mm yyyy-MM-dd');
         break;
       }
-      case 'day': {
+      case Constants.FORMAT_DATE_DAY: {
         formatter = new intl.DateFormat('yyyy-MM-dd');
         break;
       }
-      case 'hour': {
+      case Constants.FORMAT_DATE_HOUR: {
         formatter = new intl.DateFormat('HH:mm');
         break;
       }
