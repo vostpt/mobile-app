@@ -28,9 +28,9 @@ class _IntroState extends State<IntroPage> {
 
   int sliderAnimationSpeed = 300;
 
-  var _numberOfPages = 3;
+  int _numberOfPages = 3;
 
-  var _isScrollingSubject = BehaviorSubject<bool>.seeded(false);
+  BehaviorSubject<bool> _isScrollingSubject = BehaviorSubject<bool>.seeded(false);
 
   @override
   void initState() {
