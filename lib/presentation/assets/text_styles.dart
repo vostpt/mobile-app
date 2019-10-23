@@ -21,3 +21,7 @@ TextStyle styleContactHeadingAboutPage() => TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 24.0,
     );
+    
+TextStyle styleOccurrencesSubText() => TextStyle(
+      color: Color(0x99000000),
+    );

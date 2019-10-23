@@ -11,7 +11,7 @@ import 'package:vost/presentation/ui/splash/splash_page.dart';
 import 'assets/colors.dart';
 
 class VostApp extends StatelessWidget {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,7 +33,8 @@ class VostApp extends StatelessWidget {
             ),
         routeSplash: (context) => SplashPage(title: 'Splash Page'),
         routeAbout: (context) => AboutPage(),
-        routeProblem:(context) => ProblemReportPage()
+        routeProblem: (context) => ProblemReportPage(),
+        routeProblem: (context) => ProblemReportPage(),
       },
     );
   }
