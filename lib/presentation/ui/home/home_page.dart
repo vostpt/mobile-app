@@ -45,11 +45,11 @@ class _MyHomePageState extends BaseState<HomePage> {
     return Scaffold(
       key: scaffoldKey,
       body: StreamBuilder<int>(
-          initialData: widget.bloc.currentPageSubject.value,
-          stream: widget.bloc.currentPageStream,
-          builder: (context, snapshot) {
-            return _pages[snapshot.data];
-          }),
+            initialData: widget.bloc.currentPageSubject.value,
+            stream: widget.bloc.currentPageStream,
+            builder: (context, snapshot) {
+              return _pages[snapshot.data];
+            }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
