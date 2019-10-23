@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
-import 'package:vost/presentation/ui/about/contacts.dart';
+import 'package:vost/presentation/models/contacts.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class AboutPage extends StatelessWidget {
@@ -48,16 +48,16 @@ class AboutPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(24.0),
-            child: Container(
-              child: GridView.builder(
-                itemBuilder: (context, positon) {
-                  return contactsBuilder(contactList[positon]);
-                },
-                shrinkWrap: true,
-                itemCount: 6,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-              ),
+            child: GridView.builder(
+              itemBuilder: (context, positon) {
+                return contactsBuilder(contactList[positon]);
+              },
+              shrinkWrap: true,
+              itemCount: 6,
+              scrollDirection: Axis.vertical,
+              physics: ScrollPhysics(),
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
             ),
           ),
         ],

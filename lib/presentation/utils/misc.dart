@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
-import 'package:vost/presentation/ui/about/contacts.dart';
+import 'package:vost/presentation/models/contacts.dart';
 
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
@@ -41,7 +41,13 @@ LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
 }
 
 List<Contact> getContacts() {
-  return List<Contact>.generate(6, (int index) => Contact());
+  return List<Contact>.generate(
+      6,
+      (int index) => Contact(
+          "Teste",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg/1920px-An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg",
+          "Info",
+          ContactType.EMAIL));
 }
 
 ///Callback to launch url in browser
@@ -95,7 +101,7 @@ Widget contactsBuilder(Contact contact) {
         color: Colors.blue,
         child: FadeInImage.assetNetwork(
           placeholder: "assets/images/vost_logo_white.png",
-          image: "",
+          image: contact.imageUrl,
         ),
         height: 20.0,
         width: 20.0,
