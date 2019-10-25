@@ -4,6 +4,15 @@ import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/presentation/models/contacts.dart';
 
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
     context.showSnackBar(new SnackBar(

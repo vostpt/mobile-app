@@ -14,6 +14,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
 
+  #map
+  flutter_map: ^0.7.3
+
   #testing
   test: ^1.5.1+1
   mockito: ^4.0.0
