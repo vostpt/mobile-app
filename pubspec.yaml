@@ -7,11 +7,15 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^0.1.2
+
+  #map
+  flutter_map: ^0.7.3
 
   #testing
   test: ^1.5.1+1
