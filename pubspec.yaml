@@ -38,7 +38,7 @@ dependencies:
   flare_flutter: ^1.6.2
 
   #Navigation
-  url_launcher: ^5.1.4
+  url_launcher: ^5.2.1
 
 dev_dependencies:
   build_runner: ^1.2.3

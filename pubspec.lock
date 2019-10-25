@@ -182,14 +182,14 @@ packages:
       name: flare_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.2.2"
   flare_flutter:
     dependency: "direct main"
     description:
       name: flare_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.15"
+    version: "1.6.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -573,7 +573,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.4"
+    version: "5.2.1"
   utf:
     dependency: transitive
     description:

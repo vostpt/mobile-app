@@ -136,6 +136,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 
   void choiceAction(String choice) {
+    if (choice == VostLocalizations.of(context).textAbout) _onAboutTap();
     if (choice == VostLocalizations.of(context).textReportProblem) {
       _onReportTap();
     }
@@ -173,6 +174,7 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to About screen
   void _onAboutTap() {
     //todo: navigate to About screen
+    Navigator.pushNamed(context, routeAbout);
   }
 
   /// Callback to navigate to Report a Problem screen
