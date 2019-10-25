@@ -11,6 +11,10 @@ class OnSiteHelpWidget extends StatelessWidget {
 
   const OnSiteHelpWidget(this._lastUpdated, this._humanMeans, this._landMeans, this._aerialMeans);
 
+  String getCorrectMeansFormat(int means) {
+    return means != null ? means.toString() : Constants.EMPTY_DATE_STRING;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -41,7 +45,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                    this._humanMeans != null ? this._humanMeans.toString() : "--",
+                                    getCorrectMeansFormat(this._humanMeans),
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -76,7 +80,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                    this._landMeans.toString(),
+                                    getCorrectMeansFormat(this._landMeans),
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -111,7 +115,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                    this._aerialMeans.toString(),
+                                    getCorrectMeansFormat(this._aerialMeans),
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
