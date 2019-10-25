@@ -16,8 +16,9 @@ class OnSiteHelpWidget extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: new Container (
+        padding: new EdgeInsets.all(10.0),
         decoration: new BoxDecoration(
-            color: Colors.black,
+            color: Colors.white,
             boxShadow: [new BoxShadow(
               color: Colors.black,
               blurRadius: 20.0,
@@ -40,9 +41,9 @@ class OnSiteHelpWidget extends StatelessWidget {
                               ),
                               new Container(
                                   child: Text(
-                                    this._humanMeans.toString(),
+                                    this._humanMeans != null ? this._humanMeans.toString() : "--",
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25,
                                     ),
@@ -55,7 +56,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                           child: new Text(
                             "Humanos".toUpperCase(),
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.grey[700],
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
@@ -77,7 +78,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                                   child: Text(
                                     this._landMeans.toString(),
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25,
                                     ),
@@ -90,7 +91,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                           child: new Text(
                             "Terrestes".toUpperCase(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.grey[700],
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
@@ -112,7 +113,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                                   child: Text(
                                     this._aerialMeans.toString(),
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25,
                                     ),
@@ -125,7 +126,7 @@ class OnSiteHelpWidget extends StatelessWidget {
                           child: new Text(
                             "Aereos".toUpperCase(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.grey[700],
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
