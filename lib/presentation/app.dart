@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:vost/di/dependency_provider.dart';
 import 'package:vost/localization/vost_localizations_delegate.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
+import 'package:vost/presentation/ui/about/about_page.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
 import 'package:vost/presentation/ui/problem_report/problem_report_page.dart';
 import 'package:vost/presentation/ui/splash/splash_page.dart';
@@ -31,6 +32,8 @@ class VostApp extends StatelessWidget {
               bloc: DependencyProvider.of(context).getHomeBloc(),
             ),
         routeSplash: (context) => SplashPage(title: 'Splash Page'),
+        routeAbout: (context) => AboutPage(),
+        routeProblem: (context) => ProblemReportPage(),
         routeProblem: (context) => ProblemReportPage(),
       },
     );
