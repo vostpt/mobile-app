@@ -13,13 +13,13 @@ class SharedPreferencesManager {
 
   SharedPreferencesManager(this._sharedPreferences);
 
-  //region Test
-  String getTestKey() {
-    return _sharedPreferences.getTestKey() ?? "";
+  //region Seen Tutorial
+  bool hasSeenTutorial() {
+    return _sharedPreferences.hasSeenTutorial() ?? false;
   }
 
-  Future<bool> saveTestKey(String test) {
-    return _sharedPreferences.saveTestKey(test);
+  Future<bool> saveHasSeenTutorial(bool value) {
+    return _sharedPreferences.saveHasSeenTutorial(value);
   }
   //endregion
 }

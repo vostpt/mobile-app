@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
+import 'package:vost/presentation/ui/_base/base_page.dart';
+import 'package:vost/presentation/ui/splash/splash_bloc.dart';
 
-class SplashPage extends StatefulWidget {
-  SplashPage({Key key, this.title}) : super(key: key);
+class SplashPage extends BasePage<SplashBloc> {
+  SplashPage({SplashBloc bloc, Key key, this.title}) : super(key: key, bloc: bloc);
 
   final String title;
 
@@ -13,7 +15,8 @@ class SplashPage extends StatefulWidget {
   _MySplashPageState createState() => _MySplashPageState();
 }
 
-class _MySplashPageState extends State<SplashPage> {
+class _MySplashPageState extends BaseState<SplashPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +47,22 @@ class _MySplashPageState extends State<SplashPage> {
       this should be modified to better fit the navigation.
      */
     Timer(Duration(milliseconds: 2400), () {
-      Navigator.pushReplacementNamed(context, routeIntro);
+      if (!widget.bloc.hasSeenTutorialSubject.value) {
+        Navigator.pushReplacementNamed(context, routeIntro);
+      } else {
+        Navigator.pushReplacementNamed(context, routeHome);
+      }
     });
+  }
+
+  @override
+  String getMessage(String error) {
+    return "";
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.bloc.dispose();
   }
 }
