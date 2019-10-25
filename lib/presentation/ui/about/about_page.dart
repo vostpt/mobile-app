@@ -3,6 +3,7 @@ import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/models/contacts.dart';
+import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class AboutPage extends StatelessWidget {
@@ -69,7 +70,7 @@ class AboutPage extends StatelessWidget {
           children: <Widget>[
             Flexible(
               child: GestureDetector(
-                onTap: _onTutorialTap,
+                onTap: () => _onTutorialTap(context),
                 child: Container(
                   color: colorAccent,
                   height: 50.0,
@@ -102,8 +103,9 @@ class AboutPage extends StatelessWidget {
   }
 
   ///Callback to navigate to tutorial screen
-  void _onTutorialTap() {
+  void _onTutorialTap(BuildContext context) {
     print("Tutorial tapped");
+    Navigator.pushNamed(context, routeIntro);
   }
 
   ///Callback to navigate to contributors screen

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 ///
 /// Here we have declared the routes and the navigation functions
 
-const routeHome = "/home";
-const routeSplash = "/";
-const routeAbout = "/about";
-const routeProblem = "/home/problemReport";
-const routeIntro = "/intro";
+const routeHome = "home";
+const routeSplash = "splash";
+const routeAbout = "about";
+const routeProblem = "home/problemReport";
+const routeIntro = "intro";
 
 
 Future<void> navigateToHomeAndRemoveStack(BuildContext context) {

@@ -33,6 +33,7 @@ class VostApp extends StatelessWidget {
               bloc: DependencyProvider.of(context).getHomeBloc(),
             ),
         routeSplash: (context) => SplashPage(title: 'Splash Page', bloc: DependencyProvider.of(context).getSplashBloc(),),
+        routeAbout:(context) => AboutPage(),
         routeProblem:(context) => ProblemReportPage(),
         routeIntro: (context) => IntroPage(bloc: DependencyProvider.of(context).getIntroBloc()),
       },
