@@ -12,7 +12,7 @@ class OnSiteHelpWidget extends StatelessWidget {
   const OnSiteHelpWidget(this._lastUpdated, this._humanMeans, this._landMeans, this._aerialMeans);
 
   String getCorrectMeansFormat(int means) {
-    return means != null ? means.toString() : Constants.EMPTY_DATE_STRING;
+    return means != null ? means.toString() : Constants.EMPTY_INPUT_STRING;
   }
 
   @override

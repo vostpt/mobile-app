@@ -42,7 +42,7 @@ LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
 }
 
 String getFormattedDate(DateTime date, String typeOfFormat) {
-  String formattedDate = Constants.EMPTY_DATE_STRING;
+  String formattedDate = Constants.EMPTY_INPUT_STRING;
   intl.DateFormat formatter;
 
   if (date != null) {
