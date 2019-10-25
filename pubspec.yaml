@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  sensors: ^0.4.1
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -40,7 +41,6 @@ dependencies:
   #Navigation
   url_launcher: ^5.1.4
 
-  shake: ^0.1.0
 
 dev_dependencies:
   build_runner: ^1.2.3

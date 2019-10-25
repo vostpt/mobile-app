@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:shake/shake.dart';
+import 'package:sensors/sensors.dart';
+import 'dart:math' as  math;
 
 class CustomizedAnimatedImage extends StatefulWidget {
   final Widget child;
@@ -14,7 +15,6 @@ class CustomizedAnimatedImage extends StatefulWidget {
 
 class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with SingleTickerProviderStateMixin {
 
-  ShakeDetector _detector;
   AnimationController _controller;
 
   @override
@@ -34,7 +34,7 @@ class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with 
           child: SizedBox(
             width: size.width,
             height: size.width,
-            child: Image.asset("assets/images/whip.gif"),
+            child: Image.asset("assets/images/problem.gif"),
           ),
         )
       ],
@@ -47,24 +47,13 @@ class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with 
     super.didChangeDependencies();
     if (_controller == null) {
       _controller = AnimationController(duration: const Duration(milliseconds: 250), vsync: this);
-      print("Starting to listen to events");
-      _detector = ShakeDetector.autoStart(
-          onPhoneShake: () {
-            if (!_controller.isAnimating) {
-              _controller.forward();
-              Future.delayed(Duration(seconds: 2)).then((_) =>
-                  _controller.reverse());
-            }
-          }
-      );
+      accelerometerEvents.listen((AccelerometerEvent event) {
+         if (!_controller.isAnimating && (event.x) > 4 || (event.x) < -4) {
+           _controller.forward();
+           Future.delayed(Duration(seconds: 2)).then((_) =>
+               _controller.reverse());
+         }
+      });
     }
   }
-
-  @override
-  void dispose() {
-    _detector.stopListening();
-    super.dispose();
-  }
-
-
 }
