@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 const routeHome = "/home";
 const routeSplash = "/";
+const routeAbout = "/about";
 const routeProblem = "/home/problemReport";
 const routeIntro = "/intro";
 

@@ -39,7 +39,7 @@ dependencies:
   flare_flutter: ^1.6.2
 
   #Navigation
-  url_launcher: ^5.1.4
+  url_launcher: ^5.2.1
 
   #permissions
   notification_permissions: ^0.4.3
