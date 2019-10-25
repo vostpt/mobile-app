@@ -19,7 +19,7 @@ class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with 
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
         widget.child,
