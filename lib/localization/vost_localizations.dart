@@ -94,6 +94,20 @@ class VostLocalizations {
         desc: 'text Report Problem',
       );
 
+  String get textContactHeading => Intl.message("Contactos",
+      name: 'textContactheading', desc: 'Contacts Heading About Page');
+
+  String get textContentAbout => Intl.message(
+      "Nullam tempor erat sit amet pulvinar commodo. Cras ut est sit amet sapien auctor molestie. In ac tellus sagittis, elementum quam in, placerat torotr. In hac habitasse platea dictumst. Quisque vitae egestas nisl. Quisque urna nunc, egsatas vel lorem sit amet.",
+      name: 'textContentAbout',
+      desc: 'About Page Content');
+
+  String get textTutorialAboutPage => Intl.message("TUTORIAL",
+      name: 'textTutorialAboutPage', desc: 'Tutorial Button About Page');
+
+  String get textContributionsAboutPage => Intl.message("CONTRIBUIDORES",
+      name: 'textContributionsAboutPage',
+      desc: 'Contributions Button About Page');
   //endregion
 
   /// Retrieve localization resources for the widget tree

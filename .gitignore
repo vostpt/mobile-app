@@ -85,3 +85,4 @@
 
 # Include the VSCode snippets.
 !/.vscode/snippets/dart.json
+lib/keys.dart
