@@ -201,6 +201,7 @@ class RecentListWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
           }
+
           if (snapshot.data != null) {
             return Container(
                 color: Colors.white,
