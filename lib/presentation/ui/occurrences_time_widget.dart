@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:vost/presentation/utils/misc.dart';
+import 'package:vost/presentation/utils/constants.dart' as Constants;
 
 class OccurrencesTimeWidget extends StatelessWidget {
 
@@ -8,40 +9,6 @@ class OccurrencesTimeWidget extends StatelessWidget {
   final DateTime _lastUpdated;
 
   const OccurrencesTimeWidget(this._startTime, this._endTime, this._lastUpdated);
-
-  static const String EMPTY_DATE_STRING = "--";
-  static const String FORMAT_DATE_DAY = "day";
-  static const String FORMAT_DATE_HOUR = "hour";
-  static const String FORMAT_DATE_FULL = "full";
-
-  String getFormattedDate(DateTime date, String typeOfFormat) {
-    String formattedDate = EMPTY_DATE_STRING;
-    DateFormat formatter;
-
-    if (date != null) {
-      switch(typeOfFormat) {
-        case 'full': {
-          formatter = new DateFormat('HH:mm yyyy-MM-dd');
-          break;
-        }
-        case 'day': {
-          formatter = new DateFormat('yyyy-MM-dd');
-          break;
-        }
-        case 'hour': {
-          formatter = new DateFormat('HH:mm');
-          break;
-        }
-        default: {
-
-        }
-      }
-
-      formattedDate = formatter.format(date);
-    }
-
-    return formattedDate;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +43,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 ),
                                 new Container(
                                   child: new Text(
-                                    getFormattedDate(this._startTime, FORMAT_DATE_HOUR),
+                                    getFormattedDate(this._startTime, Constants.FORMAT_DATE_HOUR),
                                     style: TextStyle(
                                       color: Colors.lightGreen[700],
                                       fontWeight: FontWeight.bold,
@@ -86,7 +53,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 ),
                                 new Container(
                                   child: new Text(
-                                    getFormattedDate(this._startTime, FORMAT_DATE_DAY),
+                                    getFormattedDate(this._startTime, Constants.FORMAT_DATE_DAY),
                                     style: TextStyle(
                                       color: Colors.lightGreen[700],
                                       fontWeight: FontWeight.bold,
@@ -111,7 +78,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 ),
                                 new Container(
                                   child: new Text(
-                                    getFormattedDate(this._endTime, FORMAT_DATE_HOUR),
+                                    getFormattedDate(this._endTime, Constants.FORMAT_DATE_HOUR),
                                     style: TextStyle(
                                       color: Colors.lightGreen[700],
                                       fontWeight: FontWeight.bold,
@@ -121,7 +88,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                                 ),
                                 new Container(
                                   child: new Text(
-                                    getFormattedDate(this._endTime, FORMAT_DATE_DAY),
+                                    getFormattedDate(this._endTime, Constants.FORMAT_DATE_DAY),
                                     style: TextStyle(
                                       color: Colors.lightGreen[700],
                                       fontWeight: FontWeight.bold,
@@ -138,7 +105,7 @@ class OccurrencesTimeWidget extends StatelessWidget {
                           children: <Widget>[
                             new Container(
                               child: new Text(
-                                "Ultima atualização : " + getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
+                                "Ultima atualização : " + getFormattedDate(this._lastUpdated, Constants.FORMAT_DATE_FULL),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.grey[700],
