@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
@@ -11,7 +12,6 @@ launchURL(String url) async {
     throw 'Could not launch $url';
   }
 }
-
 
 void showErrorSnackbar(String event, ScaffoldState context) {
   if (event != null) {
@@ -117,4 +117,10 @@ Widget contactsBuilder(Contact contact) {
       ),
     ),
   );
+}
+
+String formatTime(String date) {
+  DateTime dateTime = DateTime.parse(date);
+  intl.DateFormat dateFormat = intl.DateFormat("HH:mm dd-MM-yyyy");
+  return dateFormat.format(dateTime).toString();
 }

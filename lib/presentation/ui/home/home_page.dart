@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/keys.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -15,8 +16,6 @@ import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
-
-import 'package:vost/keys.dart';
 
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
@@ -202,6 +201,7 @@ class RecentListWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
           }
+
           if (snapshot.data != null) {
             return Container(
                 color: Colors.white,

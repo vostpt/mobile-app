@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
+import 'package:vost/presentation/utils/misc.dart';
 
 class OccurrencesItem extends StatelessWidget {
   final OccurrenceModel occurrence;
 
   OccurrencesItem({this.occurrence});
-
-  String _formatTime(String date) {
-    DateTime dateTime = DateTime.parse(date);
-    DateFormat dateFormat = DateFormat("HH:mm dd-MM-yyyy");
-    return dateFormat.format(dateTime).toString();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +40,7 @@ class OccurrencesItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(occurrence.status.name, style: styleOccurrencesSubText()),
-              Text(_formatTime(occurrence.updatedAt),
+              Text(formatTime(occurrence.updatedAt),
                   style: styleOccurrencesSubText())
             ],
           ),
