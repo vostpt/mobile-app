@@ -5,6 +5,7 @@ import 'package:vost/localization/vost_localizations_delegate.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/contributors/contributors_page.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
+import 'package:vost/presentation/ui/intro/intro_page.dart';
 import 'package:vost/presentation/ui/problem_report/problem_report_page.dart';
 import 'package:vost/presentation/ui/splash/splash_page.dart';
 
@@ -35,7 +36,8 @@ class VostApp extends StatelessWidget {
         routeProblem: (context) => ProblemReportPage(),
         routeContributors: (context) => ContributorsPage(
               bloc: DependencyProvider.of(context).getContributorsBloc(),
-            )
+            ),
+        routeIntro: (context) => IntroPage(),
       },
     );
   }

@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/keys.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -11,6 +14,7 @@ import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
@@ -117,7 +121,7 @@ class _MyHomePageState extends BaseState<HomePage> {
               itemBuilder: (BuildContext context) {
                 return [
                   VostLocalizations.of(context).textAbout,
-                  VostLocalizations.of(context).textReportProblem,
+                  VostLocalizations.of(context).textReportProblem
                 ].map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
@@ -135,7 +139,8 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 
   void choiceAction(String choice) {
-    if(choice==VostLocalizations.of(context).textReportProblem){
+    if (choice == VostLocalizations.of(context).textAbout) _onAboutTap();
+    if (choice == VostLocalizations.of(context).textReportProblem) {
       _onReportTap();
     }
   }
@@ -144,10 +149,10 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// always centered
   double _findBiggestTextWidth() {
     return max(
-      findTextWidth(
-          VostLocalizations.of(context).textFollowing.toUpperCase(), styleBottomBarText()),
-      findTextWidth(
-          VostLocalizations.of(context).textRecent.toUpperCase(), styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textFollowing.toUpperCase(),
+          styleBottomBarText()),
+      findTextWidth(VostLocalizations.of(context).textRecent.toUpperCase(),
+          styleBottomBarText()),
     );
   }
 
@@ -172,12 +177,13 @@ class _MyHomePageState extends BaseState<HomePage> {
   /// Callback to navigate to About screen
   void _onAboutTap() {
     //todo: navigate to About screen
+    Navigator.pushNamed(context, routeAbout);
   }
 
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
     //todo: navigate to report a problem
-    
+
     Navigator.of(context).pushNamed(routeProblem);
   }
 }
@@ -193,26 +199,71 @@ class RecentListWidget extends StatelessWidget {
         stream: bloc.mockDataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("A carregar");
+            return Center(child: Text("A carregar"));
           }
           if (snapshot.data != null) {
-            return ListView(
-                children: snapshot.data
-                    .map((data) => ListTile(
-                        title: Text("Id: ${data.id}"),
-                        subtitle: Text("Type: ${data.name}")))
-                    .toList());
+            return Container(
+                color: Colors.white,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => Divider(
+                    indent: 50.0,
+                    thickness: 2.0,
+                  ),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return OccurrencesItem(occurrence: snapshot.data[index]);
+                  },
+                ));
           }
-          return Container();
+          return Container(
+            child: Center(
+              child: Image.asset('assets/images/vost_logo_white.png'),
+            ),
+          );
         });
   }
 }
 
+/*
+ * Map Widget
+ *
+ * In order to use the map widget, a `keys.dart` file must be created at the root
+ * of the project with the following constants:
+ *
+ * `MAPBOX_ACCESS_TOKEN` - the token for mapbox
+ * `MAPBOX_URL_TEMPLATE` the template for mapbox, this can have the default value of
+ *      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}`
+ *
+ * In order to have a new key, go to https://www.mapbox.com/ and create a free account
+ * and a project for this open-source project
+ */
 class MapWidget extends StatelessWidget {
+  final MapController mapController = MapController();
+  final LatLng _center = LatLng(39.806251, -8.088591);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
+    return Stack(
+      children: <Widget>[
+        FlutterMap(
+          mapController: mapController,
+          options: MapOptions(
+            center: _center,
+            zoom: 7.0,
+            minZoom: 1.0,
+            maxZoom: 20.0,
+          ),
+          layers: [
+            TileLayerOptions(
+              urlTemplate: MAPBOX_URL_TEMPLATE,
+              additionalOptions: {
+                'accessToken': MAPBOX_ACCESS_TOKEN,
+                'id': 'mapbox.streets',
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
