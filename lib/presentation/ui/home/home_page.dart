@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location_permissions/location_permissions.dart';
-import 'package:user_location/user_location.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/keys.dart';
