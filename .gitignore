@@ -44,6 +44,10 @@
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/app/src/debug/gen/
+**/android/app/src/main/gen/
+**/android/app/src/profile/gen/
+
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
