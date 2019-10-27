@@ -243,6 +243,27 @@ class MapWidget extends StatelessWidget {
 
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
+  List<Marker> _markers = [];
+
+  Widget _loadingWidget = Center(
+    child: Container(
+      color: Colors.white70,
+      height: 100.0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            CircularProgressIndicator(
+              strokeWidth: 4.0,
+              valueColor: AlwaysStoppedAnimation<Color>(colorPrimary),
+            ),
+            Text("A carregar pontos")
+          ],
+        ),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -251,31 +272,35 @@ class MapWidget extends StatelessWidget {
         StreamBuilder<List<OccurrenceModel>>(
             stream: bloc.mockDataStream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: Text('A carregar'),
-                );
+              if (snapshot.hasData) {
+                _markers = snapshot.data
+                    .map((occurrence) => _createMarker(occurrence))
+                    .toList();
+                _loadingWidget = Container();
               }
-              return FlutterMap(
-                mapController: mapController,
-                options: MapOptions(
-                  center: _center,
-                  zoom: 7.0,
-                  minZoom: 1.0,
-                  maxZoom: 20.0,
-                ),
-                layers: [
-                  TileLayerOptions(
-                    urlTemplate: MAPBOX_URL_TEMPLATE,
-                    additionalOptions: {
-                      'accessToken': MAPBOX_ACCESS_TOKEN,
-                      'id': 'mapbox.streets',
-                    },
+
+              return Stack(
+                children: <Widget>[
+                  FlutterMap(
+                    mapController: mapController,
+                    options: MapOptions(
+                      center: _center,
+                      zoom: 7.0,
+                      minZoom: 1.0,
+                      maxZoom: 20.0,
+                    ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate: MAPBOX_URL_TEMPLATE,
+                        additionalOptions: {
+                          'accessToken': MAPBOX_ACCESS_TOKEN,
+                          'id': 'mapbox.streets',
+                        },
+                      ),
+                      MarkerLayerOptions(markers: _markers)
+                    ],
                   ),
-                  MarkerLayerOptions(
-                      markers: snapshot.data
-                          .map((occurrence) => _createMarker(occurrence))
-                          .toList())
+                  _loadingWidget,
                 ],
               );
             }),
@@ -287,7 +312,7 @@ class MapWidget extends StatelessWidget {
     return new Marker(
         width: 100,
         height: 100,
-        point: occurrence.coors,
+        point: occurrence.coordinates,
         builder: (context) {
           return IconButton(
             icon: Icon(

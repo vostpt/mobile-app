@@ -17,7 +17,7 @@ abstract class OccurrenceModel
   int get code;
   @nullable
   String get updatedAt;
-  LatLng get coors;
+  LatLng get coordinates;
   LinkModel get links;
   @nullable
   TypeModel get type;

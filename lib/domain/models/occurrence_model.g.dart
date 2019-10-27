@@ -16,7 +16,7 @@ class _$OccurrenceModel extends OccurrenceModel {
   @override
   final String updatedAt;
   @override
-  final LatLng coors;
+  final LatLng coordinates;
   @override
   final LinkModel links;
   @override
@@ -34,7 +34,7 @@ class _$OccurrenceModel extends OccurrenceModel {
       this.name,
       this.code,
       this.updatedAt,
-      this.coors,
+      this.coordinates,
       this.links,
       this.type,
       this.status,
@@ -43,8 +43,8 @@ class _$OccurrenceModel extends OccurrenceModel {
     if (id == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'id');
     }
-    if (coors == null) {
-      throw new BuiltValueNullFieldError('OccurrenceModel', 'coors');
+    if (coordinates == null) {
+      throw new BuiltValueNullFieldError('OccurrenceModel', 'coordinates');
     }
     if (links == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'links');
@@ -67,7 +67,7 @@ class _$OccurrenceModel extends OccurrenceModel {
         name == other.name &&
         code == other.code &&
         updatedAt == other.updatedAt &&
-        coors == other.coors &&
+        coordinates == other.coordinates &&
         links == other.links &&
         type == other.type &&
         status == other.status &&
@@ -85,7 +85,7 @@ class _$OccurrenceModel extends OccurrenceModel {
                             $jc($jc($jc(0, id.hashCode), name.hashCode),
                                 code.hashCode),
                             updatedAt.hashCode),
-                        coors.hashCode),
+                        coordinates.hashCode),
                     links.hashCode),
                 type.hashCode),
             status.hashCode),
@@ -99,7 +99,7 @@ class _$OccurrenceModel extends OccurrenceModel {
           ..add('name', name)
           ..add('code', code)
           ..add('updatedAt', updatedAt)
-          ..add('coors', coors)
+          ..add('coordinates', coordinates)
           ..add('links', links)
           ..add('type', type)
           ..add('status', status)
@@ -128,9 +128,9 @@ class OccurrenceModelBuilder
   String get updatedAt => _$this._updatedAt;
   set updatedAt(String updatedAt) => _$this._updatedAt = updatedAt;
 
-  LatLng _coors;
-  LatLng get coors => _$this._coors;
-  set coors(LatLng coors) => _$this._coors = coors;
+  LatLng _coordinates;
+  LatLng get coordinates => _$this._coordinates;
+  set coordinates(LatLng coordinates) => _$this._coordinates = coordinates;
 
   LinkModelBuilder _links;
   LinkModelBuilder get links => _$this._links ??= new LinkModelBuilder();
@@ -156,7 +156,7 @@ class OccurrenceModelBuilder
       _name = _$v.name;
       _code = _$v.code;
       _updatedAt = _$v.updatedAt;
-      _coors = _$v.coors;
+      _coordinates = _$v.coordinates;
       _links = _$v.links?.toBuilder();
       _type = _$v.type?.toBuilder();
       _status = _$v.status?.toBuilder();
@@ -189,7 +189,7 @@ class OccurrenceModelBuilder
               name: name,
               code: code,
               updatedAt: updatedAt,
-              coors: coors,
+              coordinates: coordinates,
               links: links.build(),
               type: _type?.build(),
               status: _status?.build(),

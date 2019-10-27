@@ -57,7 +57,8 @@ mixin OccurrenceMapper {
       ..updatedAt = data.attributes.updatedAt
       ..name = data.attributes.name
       ..code = data.attributes.codeInt
-      ..coors = new LatLng(data.attributes.latitude, data.attributes.longitude)
+      ..coordinates =
+          new LatLng(data.attributes.latitude, data.attributes.longitude)
       ..links = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..type = TypeModel((b) => b
         ..id = type?.id
