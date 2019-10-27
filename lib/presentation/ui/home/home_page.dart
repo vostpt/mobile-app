@@ -237,11 +237,12 @@ class RecentListWidget extends StatelessWidget {
  */
 class MapWidget extends StatelessWidget {
   final HomeBloc bloc;
-  MapWidget(this.bloc);
-
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
-  List<Marker> _markers = [];
+  MapWidget(this.bloc);
+
+
+  final List<Marker> _markers = List<Marker>();
 
   Widget _loadingWidget = Center(
     child: Container(
@@ -271,9 +272,10 @@ class MapWidget extends StatelessWidget {
             stream: bloc.occurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                _markers = snapshot.data
+                _markers.clear();
+                _markers.addAll(snapshot.data
                     .map((occurrence) => _createMarker(occurrence))
-                    .toList();
+                    .toList());
                 _loadingWidget = Container();
               }
 

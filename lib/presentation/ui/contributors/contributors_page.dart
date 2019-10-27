@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/models/contributor.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
