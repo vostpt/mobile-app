@@ -10,4 +10,5 @@ const double marginMedium = 12;
 const double textSizeIntroTitle = 26;
 const double textSizeIntroContent = 18;
 const double textSizeNormal = 14;
+const double textSizeLarge = 18;
 const double textSizeButton = 18;
