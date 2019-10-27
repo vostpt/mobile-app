@@ -1,32 +1,25 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vost/presentation/model/Contributor.dart';
+import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
 
-class Contributors extends StatefulWidget {
+class ContributorsPage extends StatefulWidget {
+  final ContributorsBloc bloc;
+
+  const ContributorsPage({Key key, this.bloc}) : super(key: key);
   @override
   _ContributorsState createState() => _ContributorsState();
 }
 
-class _ContributorsState extends State<Contributors> {
-  List<Contributor> _contributors;
-
+class _ContributorsState extends State<ContributorsPage> {
   @override
   void initState() {
     super.initState();
-    _loadContributors();
-  }
 
-  _loadContributors() async {
-    var jsonListContributors = jsonDecode(await DefaultAssetBundle.of(context)
-        .loadString('assets/data/contributors.json'));
-
-    List<Contributor> contributors = List<Contributor>.from(
-        jsonListContributors.map((m) => Contributor.fromJson(m)).toList());
-
-    this.setState(() {
-      _contributors = contributors;
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async => widget
+        .bloc.contributorsJsonSink
+        .add(await DefaultAssetBundle.of(context)
+            .loadString('assets/data/contributors.json')));
   }
 
   void _openContributorPage(String url) async {
@@ -50,64 +43,41 @@ class _ContributorsState extends State<Contributors> {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt."),
           ),
           Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(
-                indent: 80.0,
-                thickness: 1.0,
-              ),
-              itemCount: _contributors.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () =>
-                      _openContributorPage(_contributors[index].profileUrl),
-                  child: ListTile(
-                    leading: Image.network(
-                      _contributors[index].profilePicture,
-                      height: 60,
-                      width: 60,
+            child: StreamBuilder<List<Contributor>>(
+                stream: widget.bloc.contributors,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Text("A carregar"),
+                    );
+                  }
+
+                  return ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                      indent: 80.0,
+                      thickness: 1.0,
                     ),
-                    title: Text(_contributors[index].name),
-                    subtitle: Text(_contributors[index].category),
-                  ),
-                );
-              },
-            ),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => _openContributorPage(
+                            snapshot.data[index].profileUrl),
+                        child: ListTile(
+                          leading: Image.network(
+                            snapshot.data[index].profilePicture,
+                            height: 60,
+                            width: 60,
+                          ),
+                          title: Text(snapshot.data[index].name),
+                          subtitle: Text(snapshot.data[index].category),
+                        ),
+                      );
+                    },
+                  );
+                }),
           )
         ],
       ),
     );
-  }
-}
-
-class Contributor {
-  String username;
-  String profileUrl;
-  String name;
-  String profilePicture;
-  String category;
-
-  Contributor(
-      {this.username,
-      this.profileUrl,
-      this.name,
-      this.profilePicture,
-      this.category});
-
-  Contributor.fromJson(Map<String, dynamic> json) {
-    username = json['username'];
-    profileUrl = json['profileUrl'];
-    name = json['name'];
-    profilePicture = json['profilePicture'];
-    category = json['category'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['profileUrl'] = this.profileUrl;
-    data['name'] = this.name;
-    data['profilePicture'] = this.profilePicture;
-    data['category'] = this.category;
-    return data;
   }
 }
