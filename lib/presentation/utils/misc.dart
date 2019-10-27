@@ -53,7 +53,7 @@ LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
 List<Contact> getContacts() {
   return List<Contact>.generate(
       6,
-      (int index) => Contact(
+          (int index) => Contact(
           "Teste",
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg/1920px-An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg",
           "Info",
