@@ -38,6 +38,7 @@ import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
+import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 
 /// As an [InheritedWidget] this class will provide its childs the objects it hold
@@ -67,6 +68,15 @@ class DependencyProvider extends InheritedWidget {
       _homeBloc = HomeBloc(_occurrencesManager);
     }
     return _homeBloc;
+  }
+
+  ContributorsBloc _contributorsBloc;
+
+  ContributorsBloc getContributorsBloc({bool forceCreation = false}) {
+    if (_contributorsBloc == null || forceCreation) {
+      _contributorsBloc = ContributorsBloc();
+    }
+    return _contributorsBloc;
   }
 
   /// Initializes app dependencies,
