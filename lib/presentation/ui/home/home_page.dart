@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/keys.dart';
@@ -47,12 +48,14 @@ class _MyHomePageState extends BaseState<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: StreamBuilder<int>(
-          initialData: widget.bloc.currentPageSubject.value,
-          stream: widget.bloc.currentPageStream,
-          builder: (context, snapshot) {
-            return _pages[snapshot.data];
-          }),
+      body: SafeArea(
+        child: StreamBuilder<int>(
+            initialData: widget.bloc.currentPageSubject.value,
+            stream: widget.bloc.currentPageStream,
+            builder: (context, snapshot) {
+              return _pages[snapshot.data];
+            }),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
@@ -185,32 +188,55 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 }
 
-class RecentListWidget extends StatelessWidget {
+class RecentListWidget extends StatefulWidget {
   final HomeBloc bloc;
 
   RecentListWidget(this.bloc);
 
   @override
+  _RecentListWidgetState createState() => _RecentListWidgetState();
+}
+
+class _RecentListWidgetState extends State<RecentListWidget> {
+  @override
+  void initState() {
+    super.initState();
+    widget.bloc.refreshErrorStream
+        .listen((_) => _refreshController.refreshFailed());
+  }
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<OccurrenceModel>>(
-        stream: bloc.occurrencesStream,
+        stream: widget.bloc.occurrencesStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
           }
 
+          _refreshController.refreshCompleted();
           if (snapshot.data != null) {
             return Container(
                 color: Colors.white,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    indent: 50.0,
-                    thickness: 2.0,
+                child: SmartRefresher(
+                  controller: _refreshController,
+                  header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
+                  onRefresh: _onRefresh,
+                  enablePullDown: true,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                      indent: 50.0,
+                      thickness: 2.0,
+                    ),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return OccurrencesListItemWidget(
+                          occurrence: snapshot.data[index]);
+                    },
                   ),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return OccurrencesListItemWidget(occurrence: snapshot.data[index]);
-                  },
                 ));
           }
           return Container(
@@ -219,6 +245,14 @@ class RecentListWidget extends StatelessWidget {
             ),
           );
         });
+  }
+
+  void _onRefresh() => widget.bloc.fetchNewDataSink.add(Event());
+
+  @override
+  void dispose() {
+    super.dispose();
+    _refreshController.dispose();
   }
 }
 
@@ -239,8 +273,8 @@ class MapWidget extends StatelessWidget {
   final HomeBloc bloc;
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
-  MapWidget(this.bloc);
 
+  MapWidget(this.bloc);
 
   final List<Marker> _markers = List<Marker>();
 
