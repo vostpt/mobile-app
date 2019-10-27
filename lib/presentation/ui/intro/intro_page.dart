@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
@@ -52,7 +51,6 @@ class _IntroState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     var widget = WillPopScope(
       onWillPop: () {
         return Future.value(_previousSlide());

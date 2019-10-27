@@ -14,7 +14,7 @@ import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
-import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
+import 'package:vost/presentation/ui/utils/occurrences_list_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
@@ -176,15 +176,12 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   /// Callback to navigate to About screen
   void _onAboutTap() {
-    //todo: navigate to About screen
-    Navigator.pushNamed(context, routeAbout);
+    navigateToAboutScreen(context);
   }
 
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
-    //todo: navigate to report a problem
-
-    Navigator.of(context).pushNamed(routeProblem);
+    navigateToReportAProblem(context);
   }
 }
 
@@ -196,7 +193,7 @@ class RecentListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<OccurrenceModel>>(
-        stream: bloc.mockDataStream,
+        stream: bloc.occurrencesStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
@@ -212,7 +209,7 @@ class RecentListWidget extends StatelessWidget {
                   ),
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return OccurrencesItem(occurrence: snapshot.data[index]);
+                    return OccurrencesListItemWidget(occurrence: snapshot.data[index]);
                   },
                 ));
           }
@@ -240,18 +237,19 @@ class RecentListWidget extends StatelessWidget {
  */
 class MapWidget extends StatelessWidget {
   final HomeBloc bloc;
-  MapWidget(this.bloc);
-
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
-  List<Marker> _markers = [];
+  MapWidget(this.bloc);
+
+
+  final List<Marker> _markers = List<Marker>();
 
   Widget _loadingWidget = Center(
     child: Container(
       color: Colors.white70,
       height: 100.0,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(marginSmall),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -271,12 +269,13 @@ class MapWidget extends StatelessWidget {
     return Stack(
       children: <Widget>[
         StreamBuilder<List<OccurrenceModel>>(
-            stream: bloc.mockDataStream,
+            stream: bloc.occurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                _markers = snapshot.data
+                _markers.clear();
+                _markers.addAll(snapshot.data
                     .map((occurrence) => _createMarker(occurrence))
-                    .toList();
+                    .toList());
                 _loadingWidget = Container();
               }
 
