@@ -3,8 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:vost/presentation/utils/constants.dart' as Constants;
-import 'package:vost/presentation/models/contacts.dart';
+import 'package:vost/constants.dart' as Constants;
+import 'package:vost/presentation/models/contact.dart';
 
 launchURL(String url) async {
   if (await canLaunch(url)) {

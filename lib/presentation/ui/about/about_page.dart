@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
-import 'package:vost/presentation/models/contacts.dart';
+import 'package:vost/presentation/models/contact.dart';
+import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class AboutPage extends StatelessWidget {
@@ -12,7 +13,6 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        leading: Icon(Icons.arrow_back_ios),
         title: Text('VOST Portugal'),
       ),
       body: ListView(
@@ -83,7 +83,7 @@ class AboutPage extends StatelessWidget {
             ),
             Flexible(
               child: GestureDetector(
-                onTap: _onContributionsTap,
+                onTap: () => _onContributionsTap(context),
                 child: Container(
                   color: colorPrimary,
                   height: 50.0,
@@ -107,7 +107,8 @@ class AboutPage extends StatelessWidget {
   }
 
   ///Callback to navigate to contributors screen
-  void _onContributionsTap() {
+  void _onContributionsTap(BuildContext context) {
     print("Contributions tapped");
+    navigateToContributions(context);
   }
 }

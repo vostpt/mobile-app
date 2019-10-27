@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vost/presentation/utils/misc.dart';
-import 'package:vost/presentation/utils/constants.dart' as Constants;
+import 'package:vost/constants.dart' as Constants;
 
 class OnSiteHelpWidget extends StatelessWidget {
 

@@ -176,15 +176,12 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   /// Callback to navigate to About screen
   void _onAboutTap() {
-    //todo: navigate to About screen
-    Navigator.pushNamed(context, routeAbout);
+    navigateToAboutScreen(context);
   }
 
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
-    //todo: navigate to report a problem
-
-    Navigator.of(context).pushNamed(routeProblem);
+    navigateToReportAProblem(context);
   }
 }
 
@@ -196,7 +193,7 @@ class RecentListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<OccurrenceModel>>(
-        stream: bloc.mockDataStream,
+        stream: bloc.occurrencesStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
@@ -270,7 +267,7 @@ class MapWidget extends StatelessWidget {
     return Stack(
       children: <Widget>[
         StreamBuilder<List<OccurrenceModel>>(
-            stream: bloc.mockDataStream,
+            stream: bloc.occurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers = snapshot.data

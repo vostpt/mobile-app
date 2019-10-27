@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vost/presentation/model/Contributor.dart';
+import 'package:vost/presentation/models/contributor.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
+import 'package:vost/presentation/utils/misc.dart';
 
 class ContributorsPage extends StatefulWidget {
   final ContributorsBloc bloc;
@@ -20,12 +21,6 @@ class _ContributorsState extends State<ContributorsPage> {
         .bloc.contributorsJsonSink
         .add(await DefaultAssetBundle.of(context)
             .loadString('assets/data/contributors.json')));
-  }
-
-  void _openContributorPage(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
   }
 
   @override
@@ -60,7 +55,7 @@ class _ContributorsState extends State<ContributorsPage> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () => _openContributorPage(
+                        onTap: () => launchURL(
                             snapshot.data[index].profileUrl),
                         child: ListTile(
                           leading: Image.network(
