@@ -60,18 +60,8 @@ List<Contact> getContacts() {
           ContactType.EMAIL));
 }
 
-///Callback to launch url in browser
-_launchURL() async {
-  const url = 'URL';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 ///Callback to launch email
-_launchEmail() async {
+launchEmail() async {
   const url = 'mailto:<email address>?subject=<subject>&body=<body>';
   if (await canLaunch(url)) {
     await launch(url);
@@ -81,7 +71,7 @@ _launchEmail() async {
 }
 
 ///Callback to launch phone
-_launchPhone() async {
+launchPhone() async {
   const url = 'tel:<phone number>';
   if (await canLaunch(url)) {
     await launch(url);

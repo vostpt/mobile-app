@@ -27,16 +27,13 @@ class ProblemReportPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(paddingText),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: <Widget>[
             Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In iaculis nunc sed augue. A scelerisque purus semper eget duis at tellus at urna. Quisque sagittis purus sit amet volutpat. Maecenas volutpat blandit aliquam etiam. Eu facilisis sed odio morbi quis commodo odio. Aliquet risus feugiat in ante metus. Nec ullamcorper sit amet risus. Libero id faucibus nisl tincidunt eget nullam. Non consectetur a erat nam at. Cursus eget nunc scelerisque viverra mauris in aliquam sem. At tempor commodo ullamcorper a lacus vestibulum sed. Urna molestie at elementum eu facilisis sed. Fermentum dui faucibus in ornare. Arcu vitae elementum curabitur vitae nunc sed velit dignissim. Nunc faucibus a pellentesque sit amet porttitor eget. Nunc sed velit dignissim sodales ut eu sem. Interdum posuere lorem ipsum dolor. Eu mi bibendum neque egestas congue quisque. Convallis convallis tellus id interdum velit laoreet id donec.",textAlign: TextAlign.justify,),
-            SizedBox(height: sizedBoxHeight,),
+            SizedBox(height: marginUltra,),
             GestureDetector(
               onTap:_handleEmailClick,
               child: Text(reportEmail))
-          
           ],
         ),
       ),

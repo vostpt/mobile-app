@@ -14,7 +14,7 @@ import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
-import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
+import 'package:vost/presentation/ui/utils/occurrences_list_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
 class HomePage extends BasePage<HomeBloc> {
@@ -208,7 +208,7 @@ class RecentListWidget extends StatelessWidget {
                   ),
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return OccurrencesItem(occurrence: snapshot.data[index]);
+                    return OccurrencesListItemWidget(occurrence: snapshot.data[index]);
                   },
                 ));
           }
@@ -247,7 +247,7 @@ class MapWidget extends StatelessWidget {
       color: Colors.white70,
       height: 100.0,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(marginSmall),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
