@@ -18,12 +18,14 @@ import 'package:vost/data/remote/services/parish_service.dart';
 import 'package:vost/data/remote/services/species_service.dart';
 import 'package:vost/data/remote/services/status_service.dart';
 import 'package:vost/data/remote/services/types_service.dart';
+import 'package:vost/data/sharedpreferences/vost_shared_preferences.dart';
 import 'package:vost/di/network_dependencies.dart';
 import 'package:vost/domain/managers/county_manager.dart';
 import 'package:vost/domain/managers/district_manager.dart';
 import 'package:vost/domain/managers/family_manager.dart';
 import 'package:vost/domain/managers/occurrences_manager.dart';
 import 'package:vost/domain/managers/parish_manager.dart';
+import 'package:vost/domain/managers/shared_preferences_manager.dart';
 import 'package:vost/domain/managers/species_manager.dart';
 import 'package:vost/domain/managers/status_manager.dart';
 import 'package:vost/domain/managers/types_manager.dart';
@@ -51,6 +53,7 @@ class DependencyProvider extends InheritedWidget {
   SpeciesManager _speciesManager;
   FamilyManager _familyManager;
   OccurrencesManager _occurrencesManager;
+  SharedPreferencesManager _sharedPreferencesManager;
 
   DependencyProvider({
     Key key,
@@ -68,8 +71,10 @@ class DependencyProvider extends InheritedWidget {
 
   /// Initializes app dependencies,
   Future<void> initialize() async {
-    // Storage Dependencies
-    var sharedPrefences = await SharedPreferences.getInstance();
+    // Shared Preferences
+    var sharedPreferences = await SharedPreferences.getInstance();
+    var vostSharedPreferences = VostSharedPreferences(sharedPreferences);
+    _sharedPreferencesManager = SharedPreferencesManager(vostSharedPreferences);
 
     // Interceptors
     var loggingInterceptor = getLoggingInterceptor();
@@ -110,28 +115,33 @@ class DependencyProvider extends InheritedWidget {
     var parishResponseMapper = ParishResponseMapper(linkResponseMapper);
     var countyListResponseMapper = CountyListResponseMapper(linkResponseMapper);
     var countyResponseMapper = CountyResponseMapper(linkResponseMapper);
-    var districtListResponseMapper = DistrictListResponseMapper(linkResponseMapper);
+    var districtListResponseMapper =
+        DistrictListResponseMapper(linkResponseMapper);
     var districtResponseMapper = DistrictResponseMapper(linkResponseMapper);
     var familyListResponseMapper = FamilyListResponseMapper(linkResponseMapper);
     var familyResponseMapper = FamilyResponseMapper(linkResponseMapper);
-    var occurrenceListResponseMapper = OccurrenceListResponseMapper(linkResponseMapper);
+    var occurrenceListResponseMapper =
+        OccurrenceListResponseMapper(linkResponseMapper);
     var occurrenceResponseMapper = OccurrenceResponseMapper(linkResponseMapper);
     var statusListResponseMapper = StatusListResponseMapper(linkResponseMapper);
     var statusResponseMapper = StatusResponseMapper(linkResponseMapper);
     var typeListResponseMapper = TypeListResponseMapper(linkResponseMapper);
     var typeResponseMapper = TypeResponseMapper(linkResponseMapper);
-    var speciesListResponseMapper = SpeciesListResponseMapper(linkResponseMapper);
+    var speciesListResponseMapper =
+        SpeciesListResponseMapper(linkResponseMapper);
     var speciesResponseMapper = SpeciesResponseMapper(linkResponseMapper);
 
     // Managers
     _parishManager = ParishManager(parishService, parishListResponseMapper);
     _countyManager = CountyManager(countyService, countyListResponseMapper);
-    _districtManager = DistrictManager(districtService, districtListResponseMapper);
+    _districtManager =
+        DistrictManager(districtService, districtListResponseMapper);
     _statusManager = StatusManager(statusService, statusListResponseMapper);
     _typesManager = TypesManager(typesService, typeListResponseMapper);
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
     _familyManager = FamilyManager(familyService, familyListResponseMapper);
-    _occurrencesManager = OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
+    _occurrencesManager =
+        OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need
