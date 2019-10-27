@@ -3,6 +3,8 @@ import 'package:intl/intl.dart' as intl;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:vost/presentation/utils/constants.dart' as Constants;
 import 'package:vost/presentation/models/contacts.dart';
 
 launchURL(String url) async {
@@ -123,4 +125,33 @@ String formatTime(String date) {
   DateTime dateTime = DateTime.parse(date);
   intl.DateFormat dateFormat = intl.DateFormat("HH:mm dd-MM-yyyy");
   return dateFormat.format(dateTime).toString();
+
+String getFormattedDate(DateTime date, String typeOfFormat) {
+  String formattedDate = Constants.EMPTY_INPUT_STRING;
+  intl.DateFormat formatter;
+
+  if (date != null) {
+    switch(typeOfFormat) {
+      case Constants.FORMAT_DATE_FULL: {
+        formatter = new intl.DateFormat('HH:mm yyyy-MM-dd');
+        break;
+      }
+      case Constants.FORMAT_DATE_DAY: {
+        formatter = new intl.DateFormat('yyyy-MM-dd');
+        break;
+      }
+      case Constants.FORMAT_DATE_HOUR: {
+        formatter = new intl.DateFormat('HH:mm');
+        break;
+      }
+      default: {
+
+      }
+    }
+
+    formattedDate = formatter.format(date);
+  }
+
+  return formattedDate;
+
 }
