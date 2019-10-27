@@ -1,3 +1,4 @@
+import 'package:latlong/latlong.dart';
 import 'package:vost/common/mapper.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
@@ -56,6 +57,7 @@ mixin OccurrenceMapper {
       ..updatedAt = data.attributes.updatedAt
       ..name = data.attributes.name
       ..code = data.attributes.codeInt
+      ..coors = new LatLng(data.attributes.latitude, data.attributes.longitude)
       ..links = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..type = TypeModel((b) => b
         ..id = type?.id

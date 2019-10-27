@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/keys.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -15,8 +16,6 @@ import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
-
-import 'package:vost/keys.dart';
 
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
@@ -41,7 +40,7 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   void _initializePages() {
     _pages.add(RecentListWidget(widget.bloc));
-    _pages.add(MapWidget());
+    _pages.add(MapWidget(widget.bloc));
   }
 
   @override
@@ -239,6 +238,9 @@ class RecentListWidget extends StatelessWidget {
  * and a project for this open-source project
  */
 class MapWidget extends StatelessWidget {
+  final HomeBloc bloc;
+  MapWidget(this.bloc);
+
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
 
@@ -246,25 +248,54 @@ class MapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        FlutterMap(
-          mapController: mapController,
-          options: MapOptions(
-            center: _center,
-            zoom: 7.0,
-            minZoom: 1.0,
-            maxZoom: 20.0,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: MAPBOX_URL_TEMPLATE,
-              additionalOptions: {
-                'accessToken': MAPBOX_ACCESS_TOKEN,
-                'id': 'mapbox.streets',
-              },
-            ),
-          ],
-        ),
+        StreamBuilder<List<OccurrenceModel>>(
+            stream: bloc.mockDataStream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: Text('A carregar'),
+                );
+              }
+              return FlutterMap(
+                mapController: mapController,
+                options: MapOptions(
+                  center: _center,
+                  zoom: 7.0,
+                  minZoom: 1.0,
+                  maxZoom: 20.0,
+                ),
+                layers: [
+                  TileLayerOptions(
+                    urlTemplate: MAPBOX_URL_TEMPLATE,
+                    additionalOptions: {
+                      'accessToken': MAPBOX_ACCESS_TOKEN,
+                      'id': 'mapbox.streets',
+                    },
+                  ),
+                  MarkerLayerOptions(
+                      markers: snapshot.data
+                          .map((occurrence) => _createMarker(occurrence))
+                          .toList())
+                ],
+              );
+            }),
       ],
     );
+  }
+
+  Marker _createMarker(OccurrenceModel occurrence) {
+    return new Marker(
+        width: 100,
+        height: 100,
+        point: occurrence.coors,
+        builder: (context) {
+          return IconButton(
+            icon: Icon(
+              Icons.place,
+              color: Colors.green,
+            ),
+            onPressed: () => print("clicked"),
+          );
+        });
   }
 }
