@@ -39,6 +39,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>A VOST precisa de saber a sua localização</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>A VOST precisa de saber a sua localização</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>A VOST precisa de saber a sua localização</string>
+    <key>NSLocationUsageDescription</key>
+    <string>A VOST precisa de saber a sua localização</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>A VOST precisa de saber a sua localização</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
