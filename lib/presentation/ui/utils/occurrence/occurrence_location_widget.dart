@@ -21,8 +21,8 @@ class OccurrenceLocationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var iconSize = size.width / 10;
+    final size = MediaQuery.of(context).size;
+    final iconSize = size.width / 10;
     return OccurrenceWidgetBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
