@@ -13,7 +13,7 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
   static final listIndex = 0;
   static final mapIndex = 1;
 
-  OccurrencesManager _occurrenceManager;
+  final OccurrencesManager _occurrenceManager;
 
   /// Event to fetch new data
   var _fetchNewDataSubject = PublishSubject<Event>();

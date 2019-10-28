@@ -205,7 +205,7 @@ class _RecentListWidgetState extends State<RecentListWidget> {
         .listen((_) => _refreshController.refreshFailed());
   }
 
-  RefreshController _refreshController =
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   @override
@@ -218,7 +218,7 @@ class _RecentListWidgetState extends State<RecentListWidget> {
           }
 
           _refreshController.refreshCompleted();
-          if (snapshot.data != null) {
+          if (!snapshot.hasData) {
             return Container(
                 color: Colors.white,
                 child: SmartRefresher(
