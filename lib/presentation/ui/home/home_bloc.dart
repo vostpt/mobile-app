@@ -19,13 +19,12 @@ class HomeBloc extends BaseBloc {
 
   Sink<Event> get fetchNewDataSink => _fetchNewDataSubject.sink;
 
-  /// Event to relay MockData information to the UI
-  var _mockDataSubject = BehaviorSubject<List<OccurrenceModel>>();
+  var _occurrencesSubject = BehaviorSubject<List<OccurrenceModel>>();
 
-  Stream<List<OccurrenceModel>> get mockDataStream => _mockDataSubject.stream;
+  Stream<List<OccurrenceModel>> get occurrencesStream => _occurrencesSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
-  var currentTypeOfDataSubject = BehaviorSubject<int>(seedValue: 0);
+  var currentTypeOfDataSubject = BehaviorSubject<int>.seeded(0);
 
   Sink<int> get currentTypeOfDataSink => currentTypeOfDataSubject.sink;
 
@@ -36,7 +35,7 @@ class HomeBloc extends BaseBloc {
   Sink<Event> get changeTypeOfDataSink => _changeTypeOfDataSubject.sink;
 
   /// Event to relay information about current page
-  var currentPageSubject = BehaviorSubject<int>(seedValue: 0);
+  var currentPageSubject = BehaviorSubject<int>.seeded(0);
 
   Sink<int> get currentPageSink => currentPageSubject.sink;
 
@@ -50,7 +49,7 @@ class HomeBloc extends BaseBloc {
     disposable.add(_fetchNewDataSubject.stream
         .flatMap((_) => _countyManager.getRecentOccurrences())
         .map((base) => base.toList())
-        .listen(_mockDataSubject.add, onError: (error) {
+        .listen(_occurrencesSubject.add, onError: (error) {
       print(error);
       handleOnError(genericErrorMessage);
     }));

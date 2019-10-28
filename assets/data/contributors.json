@@ -1,0 +1,50 @@
+[{
+  "username": "Vanethos",
+  "profileUrl": "https://github.com/Vanethos",
+  "name": "Gonçalo Palma",
+  "profilePicture": "https://avatars0.githubusercontent.com/u/10728633?s=460&v=4",
+  "category": "developer"
+},
+  {
+    "username": "OldMetalmind",
+    "profileUrl": "https://github.com/OldMetalmind",
+    "name": "Filipe Barroso",
+    "profilePicture": "https://avatars1.githubusercontent.com/u/404874?s=460&v=4",
+    "category": "developer"
+  },
+  {
+    "username": "Lima21",
+    "profileUrl": "https://github.com/lima21",
+    "name": "Gonçalo Lima",
+    "profilePicture": "https://avatars2.githubusercontent.com/u/16529736?s=460&v=4",
+    "category": "developer"
+  },
+  {
+    "username": "404shades",
+    "profileUrl": "https://github.com/404shades",
+    "name": "Rohan Malik",
+    "profilePicture": "https://avatars1.githubusercontent.com/u/22107134?s=460&v=4",
+    "category": "developer"
+  },
+  {
+    "username": "TomerPacific",
+    "profileUrl": "https://github.com/TomerPacific",
+    "name": "Tomer Ben-Rachel",
+    "profilePicture": "https://avatars1.githubusercontent.com/u/23402988?s=460&v=4",
+    "category": "developer"
+  },
+  {
+    "username": "",
+    "profileUrl": "https://dribbble.com/ffrutuoso",
+    "name": "Francisco Frutuoso",
+    "profilePicture": "https://cdn.dribbble.com/users/462982/avatars/normal/b5f85fad3d918de82df3902394c777ef.jpg?1523271582",
+    "category": "design"
+  },
+  {
+    "username": "",
+    "profileUrl": "https://twitter.com/BicaCurta/photo",
+    "name": "Jorge Gomes",
+    "profilePicture": "https://pbs.twimg.com/profile_images/1080934978006011907/Se_YpAPL_400x400.jpg",
+    "category": "copy"
+  }
+]

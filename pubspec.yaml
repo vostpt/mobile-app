@@ -8,11 +8,15 @@ environment:
 
 dependencies:
   sensors: ^0.4.1
+  flutter_page_indicator: ^0.0.3
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^0.1.2
+
+  #map
+  flutter_map: ^0.7.3
 
   #testing
   test: ^1.5.1+1
@@ -23,7 +27,7 @@ dependencies:
   built_value: ^6.3.0
 
   #core
-  rxdart: ^0.20.0
+  rxdart: ^0.22.4
   shared_preferences: ^0.4.3
   stream_disposable: ^0.0.1
 
@@ -39,8 +43,10 @@ dependencies:
   flare_flutter: ^1.6.2
 
   #Navigation
-  url_launcher: ^5.1.4
+  url_launcher: ^5.2.1
 
+  #permissions
+  notification_permissions: ^0.4.3
 
 dev_dependencies:
   build_runner: ^1.2.3
@@ -54,4 +60,5 @@ flutter:
 
   assets:
     - assets/flare/vost_logo.flr
+    - assets/data/contributors.json
     - assets/images/
