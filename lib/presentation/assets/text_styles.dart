@@ -10,10 +10,8 @@ TextStyle styleBottomBarText() => TextStyle(
 TextStyle styleButtonText() => TextStyle(
     color: Colors.white, fontSize: textSizeNormal, fontWeight: FontWeight.w600);
 
-TextStyle styleIntroContent() => TextStyle(
-    fontSize: textSizeIntroContent,
-    color: colorTextGrey
-);
+TextStyle styleIntroContent() =>
+    TextStyle(fontSize: textSizeIntroContent, color: colorTextGrey);
 
 TextStyle styleIntroTitle() => TextStyle(
       fontSize: textSizeIntroTitle,
@@ -23,25 +21,53 @@ TextStyle styleIntroTitle() => TextStyle(
 
 TextStyle styleBottomBarTextAboutPage() => TextStyle(
       color: Colors.white,
-      fontSize: 18.0,
+      fontSize: textSizeLarge,
     );
 
 TextStyle styleContentTextAboutPage() => TextStyle(
       color: Colors.black,
-      fontSize: 18.0,
+      fontSize: textSizeLarge,
     );
 
 TextStyle styleContactHeadingAboutPage() => TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
-      fontSize: 24.0,
+      fontSize: textSizeHeading,
     );
-    
+
 TextStyle styleOccurrencesSubText() => TextStyle(
-      color: Color(0x99000000),
+      color: colorTextGrey,
     );
 
 TextStyle styleFlatButton() => TextStyle(
-  fontSize: textSizeButton,
+      fontSize: textSizeButton,
+    );
 
+TextStyle styleOccurrenceTitle() => TextStyle(
+  fontSize: textSizeMedium,
+  fontWeight: FontWeight.w400,
+);
+
+TextStyle styleLastUpdated() => TextStyle(
+  fontSize: textSizeNormal,
+  color: colorTextGrey
+);
+
+TextStyle styleMeans() => TextStyle(
+  fontSize: textSizeNormal,
+  color: colorTextGrey,
+  fontWeight: FontWeight.w600,
+);
+
+
+TextStyle styleMeansNumber() => TextStyle(
+  fontSize: textSizeLarge,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+);
+
+TextStyle styleTimeWidgetText() => TextStyle(
+  fontSize: textSizeLarge,
+  color: Colors.green,
+  fontWeight: FontWeight.bold,
 );

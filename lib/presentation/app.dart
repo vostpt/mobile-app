@@ -4,6 +4,7 @@ import 'package:vost/di/dependency_provider.dart';
 import 'package:vost/localization/vost_localizations_delegate.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/about/about_page.dart';
+import 'package:vost/presentation/ui/contributors/contributors_page.dart';
 import 'package:vost/presentation/ui/home/home_page.dart';
 import 'package:vost/presentation/ui/intro/intro_page.dart';
 import 'package:vost/presentation/ui/problem_report/problem_report_page.dart';
@@ -12,11 +13,11 @@ import 'package:vost/presentation/ui/splash/splash_page.dart';
 import 'assets/colors.dart';
 
 class VostApp extends StatelessWidget {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Vost App',
+      title: 'Vost App',
       theme: ThemeData(
         primaryColor: colorPrimary,
         accentColor: colorAccent,
@@ -32,9 +33,12 @@ class VostApp extends StatelessWidget {
               title: 'Vost App',
               bloc: DependencyProvider.of(context).getHomeBloc(),
             ),
-        routeSplash: (context) => SplashPage(title: 'Splash Page', bloc: DependencyProvider.of(context).getSplashBloc(),),
-        routeAbout:(context) => AboutPage(),
-        routeProblem:(context) => ProblemReportPage(),
+        routeSplash: (context) =>  SplashPage(title: 'Splash Page', bloc: DependencyProvider.of(context).getSplashBloc(),),
+        routeAbout: (context) => AboutPage(),
+        routeProblem: (context) => ProblemReportPage(),
+        routeContributors: (context) => ContributorsPage(
+              bloc: DependencyProvider.of(context).getContributorsBloc(),
+            ),
         routeIntro: (context) => IntroPage(bloc: DependencyProvider.of(context).getIntroBloc()),
       },
     );

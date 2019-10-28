@@ -38,6 +38,7 @@ import 'package:vost/domain/mappers/parish_mapper.dart';
 import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
+import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/intro/intro_bloc.dart';
 import 'package:vost/presentation/ui/splash/splash_bloc.dart';
@@ -76,7 +77,14 @@ class DependencyProvider extends InheritedWidget {
   }
 
   IntroBloc getIntroBloc() {
-    return IntroBloc(_sharedPreferencesManager);
+
+  ContributorsBloc _contributorsBloc;
+
+  ContributorsBloc getContributorsBloc({bool forceCreation = false}) {
+    if (_contributorsBloc == null || forceCreation) {
+      _contributorsBloc = ContributorsBloc();
+    }
+    return _contributorsBloc;
   }
 
   /// Initializes app dependencies,

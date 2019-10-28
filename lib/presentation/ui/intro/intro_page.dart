@@ -56,7 +56,6 @@ class _IntroState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     var widget = WillPopScope(
       onWillPop: () {
         return Future.value(_previousSlide());

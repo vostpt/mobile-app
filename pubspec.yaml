@@ -59,4 +59,5 @@ flutter:
 
   assets:
     - assets/flare/vost_logo.flr
+    - assets/data/contributors.json
     - assets/images/

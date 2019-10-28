@@ -1,4 +1,5 @@
 import 'package:built_value/built_value.dart';
+import 'package:latlong/latlong.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/domain/models/status_model.dart';
 import 'package:vost/domain/models/type_model.dart';
@@ -16,7 +17,7 @@ abstract class OccurrenceModel
   int get code;
   @nullable
   String get updatedAt;
-
+  LatLng get coordinates;
   LinkModel get links;
   @nullable
   TypeModel get type;

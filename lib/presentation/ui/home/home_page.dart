@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/keys.dart';
 import 'package:vost/localization/vost_localizations.dart';
 import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
@@ -13,10 +14,8 @@ import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
-import 'package:vost/presentation/ui/occurrences/occurrences_item.dart';
+import 'package:vost/presentation/ui/utils/occurrences_list_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
-
-import 'package:vost/keys.dart';
 
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
@@ -41,7 +40,7 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   void _initializePages() {
     _pages.add(RecentListWidget(widget.bloc));
-    _pages.add(MapWidget());
+    _pages.add(MapWidget(widget.bloc));
   }
 
   @override
@@ -177,15 +176,12 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   /// Callback to navigate to About screen
   void _onAboutTap() {
-    //todo: navigate to About screen
-    Navigator.pushNamed(context, routeAbout);
+    navigateToAboutScreen(context);
   }
 
   /// Callback to navigate to Report a Problem screen
   void _onReportTap() {
-    //todo: navigate to report a problem
-
-    Navigator.of(context).pushNamed(routeProblem);
+    navigateToReportAProblem(context);
   }
 }
 
@@ -197,11 +193,12 @@ class RecentListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<OccurrenceModel>>(
-        stream: bloc.mockDataStream,
+        stream: bloc.occurrencesStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text("A carregar"));
           }
+
           if (snapshot.data != null) {
             return Container(
                 color: Colors.white,
@@ -212,7 +209,7 @@ class RecentListWidget extends StatelessWidget {
                   ),
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return OccurrencesItem(occurrence: snapshot.data[index]);
+                    return OccurrencesListItemWidget(occurrence: snapshot.data[index]);
                   },
                 ));
           }
@@ -239,32 +236,91 @@ class RecentListWidget extends StatelessWidget {
  * and a project for this open-source project
  */
 class MapWidget extends StatelessWidget {
+  final HomeBloc bloc;
   final MapController mapController = MapController();
   final LatLng _center = LatLng(39.806251, -8.088591);
+  MapWidget(this.bloc);
+
+
+  final List<Marker> _markers = List<Marker>();
+
+  Widget _loadingWidget = Center(
+    child: Container(
+      color: Colors.white70,
+      height: 100.0,
+      child: Padding(
+        padding: const EdgeInsets.all(marginSmall),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            CircularProgressIndicator(
+              strokeWidth: 4.0,
+              valueColor: AlwaysStoppedAnimation<Color>(colorPrimary),
+            ),
+            Text("A carregar pontos")
+          ],
+        ),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        FlutterMap(
-          mapController: mapController,
-          options: MapOptions(
-            center: _center,
-            zoom: 7.0,
-            minZoom: 1.0,
-            maxZoom: 20.0,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: MAPBOX_URL_TEMPLATE,
-              additionalOptions: {
-                'accessToken': MAPBOX_ACCESS_TOKEN,
-                'id': 'mapbox.streets',
-              },
-            ),
-          ],
-        ),
+        StreamBuilder<List<OccurrenceModel>>(
+            stream: bloc.occurrencesStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                _markers.clear();
+                _markers.addAll(snapshot.data
+                    .map((occurrence) => _createMarker(occurrence))
+                    .toList());
+                _loadingWidget = Container();
+              }
+
+              return Stack(
+                children: <Widget>[
+                  FlutterMap(
+                    mapController: mapController,
+                    options: MapOptions(
+                      center: _center,
+                      zoom: 7.0,
+                      minZoom: 1.0,
+                      maxZoom: 20.0,
+                    ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate: MAPBOX_URL_TEMPLATE,
+                        additionalOptions: {
+                          'accessToken': MAPBOX_ACCESS_TOKEN,
+                          'id': 'mapbox.streets',
+                        },
+                      ),
+                      MarkerLayerOptions(markers: _markers)
+                    ],
+                  ),
+                  _loadingWidget,
+                ],
+              );
+            }),
       ],
     );
+  }
+
+  Marker _createMarker(OccurrenceModel occurrence) {
+    return new Marker(
+        width: 100,
+        height: 100,
+        point: occurrence.coordinates,
+        builder: (context) {
+          return IconButton(
+            icon: Icon(
+              Icons.place,
+              color: Colors.green,
+            ),
+            onPressed: () => print("clicked"),
+          );
+        });
   }
 }

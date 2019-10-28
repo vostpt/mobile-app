@@ -34,3 +34,9 @@ const String mockBase = "http://$mockHost/";
 
 /// Problem Report Email
 const reportEmail = "email@email.com";
+
+/// DateTime
+const String EMPTY_INPUT_STRING = "--";
+const String FORMAT_DATE_DAY = "day";
+const String FORMAT_DATE_HOUR = "hour";
+const String FORMAT_DATE_FULL = "full";
