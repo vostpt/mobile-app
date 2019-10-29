@@ -4,15 +4,16 @@ import 'package:vost/domain/managers/occurrences_manager.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';
+import 'package:vost/presentation/ui/utils/refresh_bloc_mixin.dart';
 
-class HomeBloc extends BaseBloc {
+class HomeBloc extends BaseBloc with RefreshBlocMixin {
   static final recentsIndex = 0;
   static final followingIndex = 1;
 
   static final listIndex = 0;
   static final mapIndex = 1;
 
-  OccurrencesManager _countyManager;
+  final OccurrencesManager _occurrenceManager;
 
   /// Event to fetch new data
   var _fetchNewDataSubject = PublishSubject<Event>();
@@ -45,13 +46,13 @@ class HomeBloc extends BaseBloc {
   var _changePageSubject = PublishSubject<Event>();
   Sink<Event> get changePageSink => _changePageSubject.sink;
 
-  HomeBloc(this._countyManager) {
+  HomeBloc(this._occurrenceManager) {
     disposable.add(_fetchNewDataSubject.stream
-        .flatMap((_) => _countyManager.getRecentOccurrences())
+        .flatMap((_) => _occurrenceManager.getRecentOccurrences())
         .map((base) => base.toList())
         .listen(_occurrencesSubject.add, onError: (error) {
-      print(error);
       handleOnError(genericErrorMessage);
+      handleRefreshErrorWithStackTrace(error, "Refresh Error");
     }));
 
     disposable.add(_changeTypeOfDataSubject.stream.listen((_) {

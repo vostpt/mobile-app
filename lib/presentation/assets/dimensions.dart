@@ -1,3 +1,4 @@
+const marginMini = 4.0;
 const marginSmall = 8.0;
 const paddingText = 12.0;
 const marginUltra = 40.0;
