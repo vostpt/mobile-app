@@ -25,7 +25,7 @@ class _ContributorsState extends State<ContributorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text("Contribuidores"),
