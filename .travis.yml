@@ -51,6 +51,7 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
       script:
         - flutter/bin/flutter pub get
+        - rm ios/Podfile.lock
         - gem install cocoapods
         #- cd ios
         #- pod setup
