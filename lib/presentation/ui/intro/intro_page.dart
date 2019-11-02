@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vost/common/event.dart';
+import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
+import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/utils/intro_slider_content_widget.dart';
 
-class IntroPage extends StatefulWidget {
-  IntroPage({Key key})
-      : super(key: key);
+import 'intro_bloc.dart';
+
+class IntroPage extends BasePage<IntroBloc> {
+  IntroPage({IntroBloc bloc, Key key})
+      : super(key: key, bloc: bloc);
 
   @override
   _IntroState createState() {
@@ -126,6 +131,7 @@ class _IntroState extends State<IntroPage> {
   }
 
   void _navigateToHome() {
+    widget.bloc.navigateSink.add(Event());
     navigateToHomeAndRemoveStack(context);
   }
 
@@ -156,6 +162,14 @@ class _IntroState extends State<IntroPage> {
     }
     return _pageController.page == 0;
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.bloc.dispose();
+  }
+
+
 }
 
 class IntroWelcomePage extends StatelessWidget {

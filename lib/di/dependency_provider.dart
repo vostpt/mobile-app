@@ -40,6 +40,8 @@ import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/intro/intro_bloc.dart';
+import 'package:vost/presentation/ui/splash/splash_bloc.dart';
 
 /// As an [InheritedWidget] this class will provide its childs the objects it hold
 ///
@@ -69,6 +71,12 @@ class DependencyProvider extends InheritedWidget {
     }
     return _homeBloc;
   }
+
+  SplashBloc getSplashBloc() {
+    return SplashBloc(_sharedPreferencesManager);
+  }
+
+  IntroBloc getIntroBloc() {
 
   ContributorsBloc _contributorsBloc;
 

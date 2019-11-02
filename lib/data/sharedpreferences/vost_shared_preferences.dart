@@ -10,15 +10,15 @@ class VostSharedPreferences {
 
   VostSharedPreferences(this._sharedPreferences);
 
-  //region Test
-  String getTestKey() {
-    return _sharedPreferences.getString(_testKey);
+  //region Seen Tutorial
+  bool hasSeenTutorial() {
+    return _sharedPreferences.getBool(_seenTutorialKey);
   }
 
-  Future<bool> saveTestKey(String key) async {
-    return await _sharedPreferences.setString(_testKey, key);
+  Future<bool> saveHasSeenTutorial(bool value) async {
+    return await _sharedPreferences.setBool(_seenTutorialKey, value);
   }
   //endregion
 }
 
-const _testKey = "test_shared";
+const _seenTutorialKey = "seen_tutorial";
