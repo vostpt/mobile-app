@@ -13,6 +13,12 @@ TextStyle styleButtonText() => TextStyle(
 TextStyle styleIntroContent() =>
     TextStyle(fontSize: textSizeIntroContent, color: colorTextGrey);
 
+TextStyle styleMediumBlackText() =>
+    TextStyle(fontSize: 16, color: Colors.black);
+
+TextStyle styleAllowAccessTextButton() =>
+    TextStyle(fontSize: textSizeLarge, color: colorPrimary);
+
 TextStyle styleIntroTitle() => TextStyle(
       fontSize: textSizeIntroTitle,
       fontWeight: FontWeight.bold,

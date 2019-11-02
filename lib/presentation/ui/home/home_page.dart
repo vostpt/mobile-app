@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:location_permissions/location_permissions.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
@@ -269,9 +270,18 @@ class _RecentListWidgetState extends State<RecentListWidget> {
  * In order to have a new key, go to https://www.mapbox.com/ and create a free account
  * and a project for this open-source project
  */
-class MapWidget extends StatelessWidget {
+class MapWidget extends StatefulWidget {
   final HomeBloc bloc;
+
+  MapWidget(this.bloc);
+
+  @override
+  _MapWidgetState createState() => _MapWidgetState();
+}
+
+class _MapWidgetState extends State<MapWidget> {
   final MapController mapController = MapController();
+
   final LatLng _center = LatLng(39.806251, -8.088591);
 
   MapWidget(this.bloc);
@@ -298,12 +308,32 @@ class MapWidget extends StatelessWidget {
     ),
   );
 
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      var permission = await LocationPermissions().checkPermissionStatus();
+      if (permission != PermissionStatus.granted) {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: true, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: _PermissionWidget(),
+            );
+          },
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         StreamBuilder<List<OccurrenceModel>>(
-            stream: bloc.occurrencesStream,
+            stream: widget.bloc.occurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers.clear();
@@ -358,3 +388,52 @@ class MapWidget extends StatelessWidget {
         });
   }
 }
+
+class _PermissionWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(child: Text("Permissions", style: styleIntroTitle(),)),
+        SizedBox(
+          height: size.shortestSide * .40,
+          width: size.shortestSide * .40,
+          child: InkWell(
+            onTap: _requestPermission,
+            child: Icon(Icons.not_listed_location, size: size.shortestSide * .40,),
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.only(top: marginMega),
+            alignment: Alignment(0, 0),
+            width: size.shortestSide * .7,
+            child: Text(
+              "This app needs the GPS location so that it can show where you are in this map, do you want to allow it?",
+              textAlign: TextAlign.center,
+              style: styleMediumBlackText(),
+            )),
+        FlatButton(
+            padding: EdgeInsets.all(marginMedium),
+            onPressed: () {
+              _requestPermission();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Allow Location".toUpperCase(),
+              style: styleAllowAccessTextButton(),
+            )),
+      ],
+    );
+  }
+
+  void _requestPermission() async {
+    debugPrint("Requesting dem permissions");
+    await LocationPermissions().requestPermissions();
+  }
+}
+
