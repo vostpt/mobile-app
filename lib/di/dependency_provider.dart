@@ -77,6 +77,8 @@ class DependencyProvider extends InheritedWidget {
   }
 
   IntroBloc getIntroBloc() {
+    return IntroBloc(_sharedPreferencesManager);
+  }
 
   ContributorsBloc _contributorsBloc;
 

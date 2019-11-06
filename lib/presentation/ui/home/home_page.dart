@@ -219,7 +219,7 @@ class _RecentListWidgetState extends State<RecentListWidget> {
           }
 
           _refreshController.refreshCompleted();
-          if (!snapshot.hasData) {
+          if (snapshot.hasData) {
             return Container(
                 color: Colors.white,
                 child: SmartRefresher(
@@ -283,8 +283,6 @@ class _MapWidgetState extends State<MapWidget> {
   final MapController mapController = MapController();
 
   final LatLng _center = LatLng(39.806251, -8.088591);
-
-  MapWidget(this.bloc);
 
   final List<Marker> _markers = List<Marker>();
 
