@@ -17,8 +17,8 @@ abstract class BaseResponse implements Built<BaseResponse, BaseResponseBuilder>,
 
   static Serializer<BaseResponse> get serializer => _$baseResponseSerializer;
 
-  LinkResponse get links;
-  MetaResponse get meta;
+  @nullable LinkResponse get links;
+  @nullable MetaResponse get meta;
   DataResponse get data;
   @nullable BuiltList<DataResponse> get included;
 

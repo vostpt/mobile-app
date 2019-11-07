@@ -1,6 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/data/remote/endpoints/occurrences_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
+import 'package:vost/data/remote/models/response/base_response.dart';
 
 class OccurrencesService {
   final OccurrencesEndpoints _endpoints;
@@ -32,5 +33,10 @@ class OccurrencesService {
       order: order
     ))
         .map((response) => BaseListResponse.fromJson(response.data));
+  }
+
+  Observable<BaseResponse> getSingleOccurrence(String selfLink) {
+    return Observable.fromFuture(_endpoints.getSingleOccurrence(selfLink))
+        .map((response) => BaseResponse.fromJson(response.data));
   }
 }

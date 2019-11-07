@@ -22,7 +22,8 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   var _occurrencesSubject = BehaviorSubject<List<OccurrenceModel>>();
 
-  Stream<List<OccurrenceModel>> get occurrencesStream => _occurrencesSubject.stream;
+  Stream<List<OccurrenceModel>> get occurrencesStream =>
+      _occurrencesSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
   var currentTypeOfDataSubject = BehaviorSubject<int>.seeded(0);
@@ -33,6 +34,7 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   /// Event to change type of data
   var _changeTypeOfDataSubject = PublishSubject<Event>();
+
   Sink<Event> get changeTypeOfDataSink => _changeTypeOfDataSubject.sink;
 
   /// Event to relay information about current page
@@ -44,7 +46,19 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   /// Event to change page
   var _changePageSubject = PublishSubject<Event>();
+
   Sink<Event> get changePageSink => _changePageSubject.sink;
+
+  /// Event to fetch data about a specific occurrence
+  var _getOccurrenceByIdSubject = PublishSubject<String>();
+
+  Sink<String> get getOccurrenceByIdSink => _getOccurrenceByIdSubject.sink;
+
+  /// Event to stream the data for a getOccurrenceById
+  var _getOccurrenceByIdDataSubject = BehaviorSubject<OccurrenceModel>();
+
+  Stream<OccurrenceModel> get getOccurrenceByIdDataStream =>
+      _getOccurrenceByIdDataSubject.stream;
 
   HomeBloc(this._occurrenceManager) {
     disposable.add(_fetchNewDataSubject.stream
@@ -66,5 +80,15 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
       int newIndex = currentIndex == recentsIndex ? mapIndex : recentsIndex;
       currentPageSubject.add(newIndex);
     }));
+
+    disposable.add(_getOccurrenceByIdSubject.stream
+        .flatMap(_occurrenceManager.getOccurrenceBySelfLink)
+        .listen((data) {
+      // for debugging only
+      print("Received a new data by id: $data");
+      _getOccurrenceByIdDataSubject.add(data);
+    },
+            onError: (error, stack) =>
+                handleOnErrorWithStackTrace(error, "An error has occurred")));
   }
 }
