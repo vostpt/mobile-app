@@ -48,6 +48,26 @@ abstract class AttributeResponse
   @nullable
   String get startedAt;
 
+  @BuiltValueField(wireName: 'remote_id')
+  @nullable
+  String get remoteId;
+
+  @BuiltValueField(wireName:"ground_assets_involved")
+  @nullable
+  int get groundAssetsInvolved;
+
+  @BuiltValueField(wireName:"ground_operatives_involved")
+  @nullable
+  int get groundOperativesInvolved;
+
+  @BuiltValueField(wireName:"aerial_assets_involved")
+  @nullable
+  int get aerialAssetsInvolved;
+
+  @BuiltValueField(wireName:"aerial_operatives_involved")
+  @nullable
+  int get aerialOperativesInvolved;
+
   factory AttributeResponse([updates(AttributeResponseBuilder b)]) =
   _$AttributeResponse;
 }
@@ -124,6 +144,36 @@ class AttributeResponseSerializer
         ..add(serializers.serialize(object.startedAt,
             specifiedType: const FullType(String)));
     }
+    if (object.groundAssetsInvolved != null) {
+      result
+        ..add('ground_assets_involved')
+        ..add(serializers.serialize(object.groundAssetsInvolved,
+            specifiedType: const FullType(int)));
+    }
+    if (object.groundOperativesInvolved != null) {
+      result
+        ..add('ground_operatives_involved')
+        ..add(serializers.serialize(object.groundOperativesInvolved,
+            specifiedType: const FullType(int)));
+    }
+    if (object.aerialAssetsInvolved != null) {
+      result
+        ..add('aerial_assets_involved')
+        ..add(serializers.serialize(object.aerialAssetsInvolved,
+            specifiedType: const FullType(int)));
+    }
+    if (object.aerialOperativesInvolved != null) {
+      result
+        ..add('aerial_operatives_involved')
+        ..add(serializers.serialize(object.aerialOperativesInvolved,
+            specifiedType: const FullType(int)));
+    }
+    if (object.remoteId != null) {
+      result
+        ..add('remote_id')
+        ..add(serializers.serialize(object.remoteId,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -179,6 +229,26 @@ class AttributeResponseSerializer
           break;
         case 'started_at':
           result.startedAt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'ground_assets_involved':
+          result.groundAssetsInvolved = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'ground_operatives_involved':
+          result.groundOperativesInvolved = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'aerial_assets_involved':
+          result.aerialAssetsInvolved = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'aerial_operatives_involved':
+          result.aerialOperativesInvolved = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'remote_id':
+          result.remoteId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }

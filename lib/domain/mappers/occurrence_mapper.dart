@@ -5,6 +5,7 @@ import 'package:vost/data/remote/models/response/base_response.dart';
 import 'package:vost/data/remote/models/response/data_response.dart';
 import 'package:vost/data/remote/models/response/link_response.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/domain/models/on_site_means_model.dart';
 import 'package:vost/domain/models/parish_model.dart';
 import 'package:vost/domain/models/status_model.dart';
 import 'package:vost/domain/models/type_model.dart';
@@ -52,6 +53,8 @@ mixin OccurrenceMapper {
         data.relationships?.status?.data?.type, included);
     var parish = getAttributeById(data.relationships?.parish?.data?.id,
         data.relationships?.parish?.data?.type, included);
+    var onSiteMeans = getAttributeById(data.relationships?.source?.data?.id,
+        data.relationships?.source?.data?.type, included);
     return OccurrenceModel((b) => b
       ..id = data.id
       ..updatedAt = data.attributes.updatedAt
@@ -60,29 +63,47 @@ mixin OccurrenceMapper {
       ..coordinates =
           new LatLng(data.attributes.latitude, data.attributes.longitude)
       ..links = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
-      ..type = TypeModel((b) => b
-        ..id = type?.id
-        ..type = type?.type
-        ..name = type?.attributes?.name
-        ..code = type?.attributes?.codeInt
-        ..links = type?.links != null
-            ? linkMapper.map(type?.links).toBuilder()
-            : null).toBuilder()
-      ..status = StatusModel((b) => b
-        ..id = status?.id
-        ..type = status?.type
-        ..name = status?.attributes?.name
-        ..code = status?.attributes?.codeInt
-        ..links = status?.links != null
-            ? linkMapper.map(type?.links).toBuilder()
-            : null).toBuilder()
-      ..parish = ParishModel((b) => b
-        ..id = parish?.id
-        ..type = parish?.type
-        ..name = parish?.attributes?.name
-        ..code = parish?.attributes?.codeInt
-        ..links = parish?.links != null
-            ? linkMapper.map(parish?.links).toBuilder()
-            : null).toBuilder());
+      ..type = type != null
+          ? TypeModel((b) => b
+            ..id = type?.id
+            ..type = type?.type
+            ..name = type?.attributes?.name
+            ..code = type?.attributes?.codeInt
+            ..links = type?.links != null
+                ? linkMapper.map(type?.links).toBuilder()
+                : null).toBuilder()
+          : null
+      ..status = status != null
+          ? StatusModel((b) => b
+            ..id = status?.id
+            ..type = status?.type
+            ..name = status?.attributes?.name
+            ..code = status?.attributes?.codeInt
+            ..links = status?.links != null
+                ? linkMapper.map(type?.links).toBuilder()
+                : null).toBuilder()
+          : null
+      ..parish = parish != null
+          ? ParishModel((b) => b
+            ..id = parish?.id
+            ..type = parish?.type
+            ..name = parish?.attributes?.name
+            ..code = parish?.attributes?.codeInt
+            ..links = parish?.links != null
+                ? linkMapper.map(parish?.links).toBuilder()
+                : null).toBuilder()
+          : null
+      ..onSiteMeans = onSiteMeans != null
+          ? OnSiteMeansModel((b) => b
+            ..remoteId = onSiteMeans.attributes.remoteId
+            ..groundAssetsInvolved = onSiteMeans.attributes.groundAssetsInvolved ?? 0
+            ..groundOperativesInvolved =
+                onSiteMeans.attributes.groundOperativesInvolved ?? 0
+            ..aerialAssetsInvolved = onSiteMeans.attributes.aerialAssetsInvolved ?? 0
+            ..aerialOperativesInvolved =
+                onSiteMeans.attributes.aerialOperativesInvolved ?? 0
+            ..createdAt = onSiteMeans.attributes.createdAt
+            ..updatedAt = onSiteMeans.attributes.updatedAt).toBuilder()
+          : null);
   }
 }

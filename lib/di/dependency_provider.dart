@@ -40,6 +40,8 @@ import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/intro/intro_bloc.dart';
+import 'package:vost/presentation/ui/splash/splash_bloc.dart';
 
 /// As an [InheritedWidget] this class will provide its childs the objects it hold
 ///
@@ -68,6 +70,14 @@ class DependencyProvider extends InheritedWidget {
       _homeBloc = HomeBloc(_occurrencesManager);
     }
     return _homeBloc;
+  }
+
+  SplashBloc getSplashBloc() {
+    return SplashBloc(_sharedPreferencesManager);
+  }
+
+  IntroBloc getIntroBloc() {
+    return IntroBloc(_sharedPreferencesManager);
   }
 
   ContributorsBloc _contributorsBloc;
@@ -151,7 +161,7 @@ class DependencyProvider extends InheritedWidget {
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
     _familyManager = FamilyManager(familyService, familyListResponseMapper);
     _occurrencesManager =
-        OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
+        OccurrencesManager(occurrenceService, occurrenceListResponseMapper, occurrenceResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need

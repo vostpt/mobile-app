@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 ///
 /// Here we have declared the routes and the navigation functions
 
+
 const routeSplash = "splash";
 const routeIntro = "intro";
 const routeHome = "home";

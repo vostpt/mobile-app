@@ -27,6 +27,16 @@ class _$AttributeResponse extends AttributeResponse {
   final String endedAt;
   @override
   final String startedAt;
+  @override
+  final String remoteId;
+  @override
+  final int groundAssetsInvolved;
+  @override
+  final int groundOperativesInvolved;
+  @override
+  final int aerialAssetsInvolved;
+  @override
+  final int aerialOperativesInvolved;
 
   factory _$AttributeResponse(
           [void Function(AttributeResponseBuilder) updates]) =>
@@ -42,7 +52,12 @@ class _$AttributeResponse extends AttributeResponse {
       this.createdAt,
       this.updatedAt,
       this.endedAt,
-      this.startedAt})
+      this.startedAt,
+      this.remoteId,
+      this.groundAssetsInvolved,
+      this.groundOperativesInvolved,
+      this.aerialAssetsInvolved,
+      this.aerialOperativesInvolved})
       : super._();
 
   @override
@@ -66,7 +81,12 @@ class _$AttributeResponse extends AttributeResponse {
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
         endedAt == other.endedAt &&
-        startedAt == other.startedAt;
+        startedAt == other.startedAt &&
+        remoteId == other.remoteId &&
+        groundAssetsInvolved == other.groundAssetsInvolved &&
+        groundOperativesInvolved == other.groundOperativesInvolved &&
+        aerialAssetsInvolved == other.aerialAssetsInvolved &&
+        aerialOperativesInvolved == other.aerialOperativesInvolved;
   }
 
   @override
@@ -79,16 +99,30 @@ class _$AttributeResponse extends AttributeResponse {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, codeString.hashCode),
-                                        codeInt.hashCode),
-                                    name.hashCode),
-                                locality.hashCode),
-                            longitude.hashCode),
-                        latitude.hashCode),
-                    createdAt.hashCode),
-                updatedAt.hashCode),
-            endedAt.hashCode),
-        startedAt.hashCode));
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc(
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(
+                                                                0,
+                                                                codeString
+                                                                    .hashCode),
+                                                            codeInt.hashCode),
+                                                        name.hashCode),
+                                                    locality.hashCode),
+                                                longitude.hashCode),
+                                            latitude.hashCode),
+                                        createdAt.hashCode),
+                                    updatedAt.hashCode),
+                                endedAt.hashCode),
+                            startedAt.hashCode),
+                        remoteId.hashCode),
+                    groundAssetsInvolved.hashCode),
+                groundOperativesInvolved.hashCode),
+            aerialAssetsInvolved.hashCode),
+        aerialOperativesInvolved.hashCode));
   }
 
   @override
@@ -103,7 +137,12 @@ class _$AttributeResponse extends AttributeResponse {
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
           ..add('endedAt', endedAt)
-          ..add('startedAt', startedAt))
+          ..add('startedAt', startedAt)
+          ..add('remoteId', remoteId)
+          ..add('groundAssetsInvolved', groundAssetsInvolved)
+          ..add('groundOperativesInvolved', groundOperativesInvolved)
+          ..add('aerialAssetsInvolved', aerialAssetsInvolved)
+          ..add('aerialOperativesInvolved', aerialOperativesInvolved))
         .toString();
   }
 }
@@ -152,6 +191,30 @@ class AttributeResponseBuilder
   String get startedAt => _$this._startedAt;
   set startedAt(String startedAt) => _$this._startedAt = startedAt;
 
+  String _remoteId;
+  String get remoteId => _$this._remoteId;
+  set remoteId(String remoteId) => _$this._remoteId = remoteId;
+
+  int _groundAssetsInvolved;
+  int get groundAssetsInvolved => _$this._groundAssetsInvolved;
+  set groundAssetsInvolved(int groundAssetsInvolved) =>
+      _$this._groundAssetsInvolved = groundAssetsInvolved;
+
+  int _groundOperativesInvolved;
+  int get groundOperativesInvolved => _$this._groundOperativesInvolved;
+  set groundOperativesInvolved(int groundOperativesInvolved) =>
+      _$this._groundOperativesInvolved = groundOperativesInvolved;
+
+  int _aerialAssetsInvolved;
+  int get aerialAssetsInvolved => _$this._aerialAssetsInvolved;
+  set aerialAssetsInvolved(int aerialAssetsInvolved) =>
+      _$this._aerialAssetsInvolved = aerialAssetsInvolved;
+
+  int _aerialOperativesInvolved;
+  int get aerialOperativesInvolved => _$this._aerialOperativesInvolved;
+  set aerialOperativesInvolved(int aerialOperativesInvolved) =>
+      _$this._aerialOperativesInvolved = aerialOperativesInvolved;
+
   AttributeResponseBuilder();
 
   AttributeResponseBuilder get _$this {
@@ -166,6 +229,11 @@ class AttributeResponseBuilder
       _updatedAt = _$v.updatedAt;
       _endedAt = _$v.endedAt;
       _startedAt = _$v.startedAt;
+      _remoteId = _$v.remoteId;
+      _groundAssetsInvolved = _$v.groundAssetsInvolved;
+      _groundOperativesInvolved = _$v.groundOperativesInvolved;
+      _aerialAssetsInvolved = _$v.aerialAssetsInvolved;
+      _aerialOperativesInvolved = _$v.aerialOperativesInvolved;
       _$v = null;
     }
     return this;
@@ -197,7 +265,12 @@ class AttributeResponseBuilder
             createdAt: createdAt,
             updatedAt: updatedAt,
             endedAt: endedAt,
-            startedAt: startedAt);
+            startedAt: startedAt,
+            remoteId: remoteId,
+            groundAssetsInvolved: groundAssetsInvolved,
+            groundOperativesInvolved: groundOperativesInvolved,
+            aerialAssetsInvolved: aerialAssetsInvolved,
+            aerialOperativesInvolved: aerialOperativesInvolved);
     replace(_$result);
     return _$result;
   }

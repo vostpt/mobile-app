@@ -19,16 +19,22 @@ class _$BaseResponseSerializer implements StructuredSerializer<BaseResponse> {
   Iterable<Object> serialize(Serializers serializers, BaseResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'links',
-      serializers.serialize(object.links,
-          specifiedType: const FullType(LinkResponse)),
-      'meta',
-      serializers.serialize(object.meta,
-          specifiedType: const FullType(MetaResponse)),
       'data',
       serializers.serialize(object.data,
           specifiedType: const FullType(DataResponse)),
     ];
+    if (object.links != null) {
+      result
+        ..add('links')
+        ..add(serializers.serialize(object.links,
+            specifiedType: const FullType(LinkResponse)));
+    }
+    if (object.meta != null) {
+      result
+        ..add('meta')
+        ..add(serializers.serialize(object.meta,
+            specifiedType: const FullType(MetaResponse)));
+    }
     if (object.included != null) {
       result
         ..add('included')
@@ -90,12 +96,6 @@ class _$BaseResponse extends BaseResponse {
 
   _$BaseResponse._({this.links, this.meta, this.data, this.included})
       : super._() {
-    if (links == null) {
-      throw new BuiltValueNullFieldError('BaseResponse', 'links');
-    }
-    if (meta == null) {
-      throw new BuiltValueNullFieldError('BaseResponse', 'meta');
-    }
     if (data == null) {
       throw new BuiltValueNullFieldError('BaseResponse', 'data');
     }
@@ -190,17 +190,17 @@ class BaseResponseBuilder
     try {
       _$result = _$v ??
           new _$BaseResponse._(
-              links: links.build(),
-              meta: meta.build(),
+              links: _links?.build(),
+              meta: _meta?.build(),
               data: data.build(),
               included: _included?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'links';
-        links.build();
+        _links?.build();
         _$failedField = 'meta';
-        meta.build();
+        _meta?.build();
         _$failedField = 'data';
         data.build();
         _$failedField = 'included';

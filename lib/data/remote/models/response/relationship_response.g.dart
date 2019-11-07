@@ -60,6 +60,12 @@ class _$RelationshipResponseSerializer
         ..add(serializers.serialize(object.type,
             specifiedType: const FullType(RelationshipTypeResponse)));
     }
+    if (object.source != null) {
+      result
+        ..add('source')
+        ..add(serializers.serialize(object.source,
+            specifiedType: const FullType(RelationshipSourceResponse)));
+    }
     return result;
   }
 
@@ -105,6 +111,11 @@ class _$RelationshipResponseSerializer
                   specifiedType: const FullType(RelationshipTypeResponse))
               as RelationshipTypeResponse);
           break;
+        case 'source':
+          result.source.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(RelationshipSourceResponse))
+              as RelationshipSourceResponse);
+          break;
       }
     }
 
@@ -125,6 +136,8 @@ class _$RelationshipResponse extends RelationshipResponse {
   final RelationshipStatusResponse status;
   @override
   final RelationshipTypeResponse type;
+  @override
+  final RelationshipSourceResponse source;
 
   factory _$RelationshipResponse(
           [void Function(RelationshipResponseBuilder) updates]) =>
@@ -136,7 +149,8 @@ class _$RelationshipResponse extends RelationshipResponse {
       this.parish,
       this.species,
       this.status,
-      this.type})
+      this.type,
+      this.source})
       : super._();
 
   @override
@@ -157,7 +171,8 @@ class _$RelationshipResponse extends RelationshipResponse {
         parish == other.parish &&
         species == other.species &&
         status == other.status &&
-        type == other.type;
+        type == other.type &&
+        source == other.source;
   }
 
   @override
@@ -165,11 +180,13 @@ class _$RelationshipResponse extends RelationshipResponse {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, district.hashCode), family.hashCode),
-                    parish.hashCode),
-                species.hashCode),
-            status.hashCode),
-        type.hashCode));
+                $jc(
+                    $jc($jc($jc(0, district.hashCode), family.hashCode),
+                        parish.hashCode),
+                    species.hashCode),
+                status.hashCode),
+            type.hashCode),
+        source.hashCode));
   }
 
   @override
@@ -180,7 +197,8 @@ class _$RelationshipResponse extends RelationshipResponse {
           ..add('parish', parish)
           ..add('species', species)
           ..add('status', status)
-          ..add('type', type))
+          ..add('type', type)
+          ..add('source', source))
         .toString();
   }
 }
@@ -224,6 +242,12 @@ class RelationshipResponseBuilder
       _$this._type ??= new RelationshipTypeResponseBuilder();
   set type(RelationshipTypeResponseBuilder type) => _$this._type = type;
 
+  RelationshipSourceResponseBuilder _source;
+  RelationshipSourceResponseBuilder get source =>
+      _$this._source ??= new RelationshipSourceResponseBuilder();
+  set source(RelationshipSourceResponseBuilder source) =>
+      _$this._source = source;
+
   RelationshipResponseBuilder();
 
   RelationshipResponseBuilder get _$this {
@@ -234,6 +258,7 @@ class RelationshipResponseBuilder
       _species = _$v.species?.toBuilder();
       _status = _$v.status?.toBuilder();
       _type = _$v.type?.toBuilder();
+      _source = _$v.source?.toBuilder();
       _$v = null;
     }
     return this;
@@ -263,7 +288,8 @@ class RelationshipResponseBuilder
               parish: _parish?.build(),
               species: _species?.build(),
               status: _status?.build(),
-              type: _type?.build());
+              type: _type?.build(),
+              source: _source?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -279,6 +305,8 @@ class RelationshipResponseBuilder
         _status?.build();
         _$failedField = 'type';
         _type?.build();
+        _$failedField = 'source';
+        _source?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'RelationshipResponse', _$failedField, e.toString());
