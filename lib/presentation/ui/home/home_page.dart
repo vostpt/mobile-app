@@ -19,6 +19,11 @@ import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/utils/occurrences_list_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
+import '../utils/occurrence/occurrence_location_widget.dart';
+import '../utils/occurrence/occurrence_on_site_help_widget.dart';
+import '../utils/occurrence/occurrence_status_widget.dart';
+import '../utils/occurrence/occurrence_time_widget.dart';
+
 class HomePage extends BasePage<HomeBloc> {
   HomePage({Key key, this.title, HomeBloc bloc}) : super(key: key, bloc: bloc);
   final String title;
@@ -224,7 +229,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                 color: Colors.white,
                 child: SmartRefresher(
                   controller: _refreshController,
-                  header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
+                  header: WaterDropMaterialHeader(
+                    backgroundColor: Theme.of(context).accentColor,
+                  ),
                   onRefresh: _onRefresh,
                   enablePullDown: true,
                   child: ListView.separated(
@@ -235,7 +242,8 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => widget.bloc.getOccurrenceByIdSink.add(snapshot.data[index].links.self),
+                        onTap: () => widget.bloc.getOccurrenceByIdSink
+                            .add(snapshot.data[index].links.self),
                         child: OccurrencesListItemWidget(
                             occurrence: snapshot.data[index]),
                       );
@@ -309,7 +317,6 @@ class _MapWidgetState extends State<MapWidget> {
     ),
   );
 
-
   @override
   void initState() {
     super.initState();
@@ -366,6 +373,9 @@ class _MapWidgetState extends State<MapWidget> {
                     ],
                   ),
                   _loadingWidget,
+                  getOccurrenceFloatingActionButton(),
+                  removeSelectedOccurrenceFloatingActionButton(),
+                  getOccurrenceTypeWidget(),
                 ],
               );
             }),
@@ -382,16 +392,143 @@ class _MapWidgetState extends State<MapWidget> {
           return IconButton(
             icon: Icon(
               Icons.place,
-              color: Colors.green,
+              color: selectedOccurrence != occurrence
+                  ? Colors.green
+                  : Colors.orange,
             ),
-            onPressed: () => print("clicked"),
+            onPressed: () {
+              selectedOccurrence = occurrence;
+              setState(() {});
+            },
           );
         });
+  }
+
+  bool openOccurrence = false;
+  OccurrenceModel selectedOccurrence;
+
+  Widget getOccurrenceFloatingActionButton() {
+    if (selectedOccurrence != null) {
+      return Align(
+        alignment: Alignment.bottomRight,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 5, right: 5),
+          child: FloatingActionButton(
+            onPressed: () {
+              openOccurrence = !openOccurrence;
+              setState(() {});
+            },
+            child: Icon(
+                openOccurrence ? Icons.arrow_downward : Icons.arrow_upward),
+            backgroundColor: Colors.orange[300],
+          ),
+        ),
+      );
+    }
+    return Container();
+  }
+
+  Widget removeSelectedOccurrenceFloatingActionButton() {
+    if (selectedOccurrence != null) {
+      return Align(
+        alignment: Alignment.bottomLeft,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 5, left: 5),
+          child: FloatingActionButton(
+            onPressed: () {
+              openOccurrence = false;
+              selectedOccurrence = null;
+              setState(() {});
+            },
+            child: Icon(Icons.clear),
+            backgroundColor: Colors.orange[300],
+          ),
+        ),
+      );
+    }
+    return Container();
+  }
+
+  Widget getOccurrenceTypeWidgetType() {
+    return Container(
+        padding: !openOccurrence ? EdgeInsets.only(bottom: 35) : null,
+        margin: openOccurrence ? EdgeInsets.only(bottom: 5) : null,
+        color: Colors.white,
+        child: ListTile(
+          title: Text(
+            getFormattedDate(
+                DateTime.parse(selectedOccurrence.updatedAt), "day"),
+            style: styleLastUpdated(),
+          ),
+          subtitle: Text(
+            selectedOccurrence.type.name,
+            style: styleTimeWidgetText(),
+          ),
+        ));
+  }
+
+  Widget getOccurrenceTypeWidget() {
+    if (selectedOccurrence != null && !openOccurrence) {
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[getOccurrenceTypeWidgetType()],
+          ),
+        ),
+      );
+    } else if (selectedOccurrence != null && openOccurrence) {
+      widget.bloc.getOccurrenceByIdSink.add(selectedOccurrence.links.self);
+      return StreamBuilder<OccurrenceModel>(
+          stream: widget.bloc.getOccurrenceByIdDataStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      OccurrenceLocationWidget(
+                          DateTime.parse(snapshot.data.updatedAt),
+                          snapshot.data.parish.name,
+                          snapshot.data.coordinates,
+                          snapshot.data.type.name),
+                      OccurrenceStatusWidget(
+                        snapshot.data.status.name,
+                        DateTime.parse(snapshot.data.updatedAt),
+                      ),
+                      OccurrenceOnSiteHelpWidget(
+                          DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
+                          snapshot.data.onSiteMeans.groundOperativesInvolved,
+                          snapshot.data.onSiteMeans.groundAssetsInvolved,
+                          snapshot.data.onSiteMeans.aerialAssetsInvolved),
+                      OccurrenceTimeWidget(
+                        snapshot.data.endedAt == null
+                            ? null
+                            : DateTime.parse(snapshot.data.startedAt),
+                        snapshot.data.endedAt == null
+                            ? null
+                            : DateTime.parse(snapshot.data.endedAt),
+                        DateTime.parse(snapshot.data.updatedAt),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          });
+    }
+    return Container();
   }
 }
 
 class _PermissionWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -400,13 +537,20 @@ class _PermissionWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(child: Text("Permissions", style: styleIntroTitle(),)),
+        Container(
+            child: Text(
+          "Permissions",
+          style: styleIntroTitle(),
+        )),
         SizedBox(
           height: size.shortestSide * .40,
           width: size.shortestSide * .40,
           child: InkWell(
             onTap: _requestPermission,
-            child: Icon(Icons.not_listed_location, size: size.shortestSide * .40,),
+            child: Icon(
+              Icons.not_listed_location,
+              size: size.shortestSide * .40,
+            ),
           ),
         ),
         Container(
@@ -437,4 +581,3 @@ class _PermissionWidget extends StatelessWidget {
     await LocationPermissions().requestPermissions();
   }
 }
-

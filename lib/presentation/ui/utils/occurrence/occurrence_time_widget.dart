@@ -78,12 +78,14 @@ class OccurrenceTimeWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
-              child: Text(
-                "Ultima atualização : " +
-                    getFormattedDate(
-                        this._lastUpdated, Constants.FORMAT_DATE_FULL),
-                textAlign: TextAlign.center,
-                style: styleLastUpdated(),
+              child: Flexible(
+                child: Text(
+                  "Ultima atualização : " +
+                      getFormattedDate(
+                          this._lastUpdated, Constants.FORMAT_DATE_FULL),
+                  textAlign: TextAlign.center,
+                  style: styleLastUpdated(),
+                ),
               ),
             ),
           ],

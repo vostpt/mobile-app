@@ -37,9 +37,11 @@ class OccurrenceLocationWidget extends StatelessWidget {
               SizedBox(
                 width: marginSmall,
               ),
-              Text(
-                _occurrence,
-                style: styleTimeWidgetText(),
+              Flexible(
+                child: Text(
+                  _occurrence,
+                  style: styleTimeWidgetText(),
+                ),
               )
             ],
           ),
@@ -115,11 +117,13 @@ class OccurrenceLocationWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                child: Text(
-                  "Ultima atualização : " +
-                      getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
-                  textAlign: TextAlign.center,
-                  style: styleLastUpdated(),
+                child: Flexible(
+                  child: Text(
+                    "Ultima atualização : " +
+                        getFormattedDate(this._lastUpdated, FORMAT_DATE_FULL),
+                    textAlign: TextAlign.center,
+                    style: styleLastUpdated(),
+                  ),
                 ),
               ),
             ],
