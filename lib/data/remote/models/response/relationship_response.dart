@@ -4,6 +4,7 @@ import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/models/response/relationship_district_response.dart';
 import 'package:vost/data/remote/models/response/relationship_family_response.dart';
 import 'package:vost/data/remote/models/response/relationship_parish_response.dart';
+import 'package:vost/data/remote/models/response/relationship_source_response.dart';
 import 'package:vost/data/remote/models/response/relationship_species_response.dart';
 import 'package:vost/data/remote/models/response/relationship_status_response.dart';
 import 'package:vost/data/remote/models/response/relationship_type_response.dart';
@@ -21,6 +22,7 @@ abstract class RelationshipResponse implements Built<RelationshipResponse, Relat
   @nullable RelationshipSpeciesResponse get species;
   @nullable RelationshipStatusResponse get status;
   @nullable RelationshipTypeResponse get type;
+  @nullable RelationshipSourceResponse get source;
 
   factory RelationshipResponse([updates(RelationshipResponseBuilder b)]) = _$RelationshipResponse;
 }

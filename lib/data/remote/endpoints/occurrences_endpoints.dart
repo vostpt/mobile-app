@@ -20,7 +20,7 @@ class OccurrencesEndpoints {
     queryPageNumber : pageNumber,
     queryPageSize : pageSize,
     querySearch : search,
-    queryExact : exact ? "true" : "false",
+    queryExact : exact ? 1 : 0,
     queryEvents : events,
     queryTypes : types,
     queryStatuses : statuses,
@@ -29,6 +29,10 @@ class OccurrencesEndpoints {
     queryParishes : parishes,
     querySort : sort,
     queryOrder : order,
-    });
+    }..removeWhere((key, val) => val == null));
+  }
+
+  Future<Response> getSingleOccurrence(String selfLink) {
+    return _dio.get(selfLink);
   }
 }

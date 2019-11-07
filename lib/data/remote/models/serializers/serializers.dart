@@ -13,6 +13,7 @@ import 'package:vost/data/remote/models/response/relationship_district_response.
 import 'package:vost/data/remote/models/response/relationship_family_response.dart';
 import 'package:vost/data/remote/models/response/relationship_parish_response.dart';
 import 'package:vost/data/remote/models/response/relationship_response.dart';
+import 'package:vost/data/remote/models/response/relationship_source_response.dart';
 import 'package:vost/data/remote/models/response/relationship_species_response.dart';
 import 'package:vost/data/remote/models/response/relationship_status_response.dart';
 import 'package:vost/data/remote/models/response/relationship_type_response.dart';
@@ -63,6 +64,7 @@ part 'serializers.g.dart';
   RelationshipResponse,
   RelationshipSpeciesResponse,
   RelationshipStatusResponse,
+  RelationshipSourceResponse,
   RelationshipTypeResponse
 ])
 Serializers serializers = _$serializers;

@@ -161,7 +161,7 @@ class DependencyProvider extends InheritedWidget {
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
     _familyManager = FamilyManager(familyService, familyListResponseMapper);
     _occurrencesManager =
-        OccurrencesManager(occurrenceService, occurrenceListResponseMapper);
+        OccurrencesManager(occurrenceService, occurrenceListResponseMapper, occurrenceResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need
