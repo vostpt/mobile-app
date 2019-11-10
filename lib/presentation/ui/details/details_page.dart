@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vost/common/event.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
+import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/utils/occurrence/occurrence_location_widget.dart';
@@ -29,6 +31,24 @@ class _DetailsState extends BaseState<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.occurrence.name ?? widget.occurrence.type.name),
+        actions: <Widget>[
+          StreamBuilder<FavoriteIconState>(
+            stream: widget.bloc.isOccurrenceFavoriteStream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data == FavoriteIconState.LOADING) {
+                return Container(padding: EdgeInsets.all(marginSmall),child: AspectRatio(aspectRatio: 1.0,child: CircularProgressIndicator()));
+              }
+              bool isFavorite =  snapshot.data == FavoriteIconState.FAVORITE;
+              return IconButton(
+                onPressed: () => widget.bloc.changeFavoriteStateSink.add(Event()),
+                icon: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? Theme.of(context).accentColor : colorTextGrey,
+                ),
+              );
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(marginScreen),

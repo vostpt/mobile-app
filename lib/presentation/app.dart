@@ -48,7 +48,7 @@ class VostApp extends StatelessWidget {
         switch(routeSettings.name) {
           case routeDetails:
             var occurrence = routeSettings.arguments as OccurrenceModel;
-            var bloc = DependencyProvider.of(context).getDetailsBloc(occurrence.links.self);
+            var bloc = DependencyProvider.of(context).getDetailsBloc(selfLink: occurrence.links.self, occurrenceId: occurrence.id);
             return MaterialPageRoute(
               settings: routeSettings,
               builder: (context) => DetailsPage(occurrence: occurrence, bloc: bloc)

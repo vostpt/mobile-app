@@ -90,8 +90,8 @@ class DependencyProvider extends InheritedWidget {
     return _contributorsBloc;
   }
 
-  DetailsBloc getDetailsBloc (String selfLink) {
-    return DetailsBloc(_occurrencesManager, selfLink);
+  DetailsBloc getDetailsBloc ({String occurrenceId, String selfLink}) {
+    return DetailsBloc(sharedPreferencesManager: _sharedPreferencesManager, manager: _occurrencesManager, selfLink: selfLink, occurrenceId: occurrenceId);
   }
 
   /// Initializes app dependencies,

@@ -19,6 +19,17 @@ class VostSharedPreferences {
     return await _sharedPreferences.setBool(_seenTutorialKey, value);
   }
   //endregion
+
+  //region Saved Occurrences
+  List<String> getListOfOccurrences() {
+    return _sharedPreferences.getStringList(_listOfSavedOccurrences);
+  }
+
+  Future<bool> saveListOfOccurrences(List<String> preferences) {
+    return _sharedPreferences.setStringList(_listOfSavedOccurrences, preferences);
+  }
+  //endregion
 }
 
 const _seenTutorialKey = "seen_tutorial";
+const _listOfSavedOccurrences = "list_of_saved_occurrences";
