@@ -44,6 +44,9 @@ abstract class OccurrenceModel
   @nullable
   ParishModel get parish;
 
+  /// Describes if the object has the full details given by [links.self]
+  bool get isDetailed;
+
   OccurrenceModel._();
 
   factory OccurrenceModel([updates(OccurrenceModelBuilder b)]) =

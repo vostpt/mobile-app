@@ -104,6 +104,7 @@ mixin OccurrenceMapper {
                 onSiteMeans.attributes.aerialOperativesInvolved ?? 0
             ..createdAt = onSiteMeans.attributes.createdAt
             ..updatedAt = onSiteMeans.attributes.updatedAt).toBuilder()
-          : null);
+          : null
+      ..isDetailed = false);
   }
 }

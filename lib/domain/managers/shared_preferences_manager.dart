@@ -22,4 +22,20 @@ class SharedPreferencesManager {
     return _sharedPreferences.saveHasSeenTutorial(value);
   }
   //endregion
+
+  //region Saved Preferences
+  List<String> getListOfSavedOccurrences() {
+    return _sharedPreferences.getListOfOccurrences() ?? List();
+  }
+
+  Future<bool> updateFavoritedOccurrence(String id) {
+    List<String> occurrences = getListOfSavedOccurrences();
+    if (!occurrences.contains(id)) {
+      occurrences.add(id);
+    } else {
+      occurrences.remove(id);
+    }
+    return _sharedPreferences.saveListOfOccurrences(occurrences);
+  }
+  //endregion
 }

@@ -31,6 +31,8 @@ class _$OccurrenceModel extends OccurrenceModel {
   final StatusModel status;
   @override
   final ParishModel parish;
+  @override
+  final bool isDetailed;
 
   factory _$OccurrenceModel([void Function(OccurrenceModelBuilder) updates]) =>
       (new OccurrenceModelBuilder()..update(updates)).build();
@@ -47,7 +49,8 @@ class _$OccurrenceModel extends OccurrenceModel {
       this.onSiteMeans,
       this.type,
       this.status,
-      this.parish})
+      this.parish,
+      this.isDetailed})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'id');
@@ -57,6 +60,9 @@ class _$OccurrenceModel extends OccurrenceModel {
     }
     if (links == null) {
       throw new BuiltValueNullFieldError('OccurrenceModel', 'links');
+    }
+    if (isDetailed == null) {
+      throw new BuiltValueNullFieldError('OccurrenceModel', 'isDetailed');
     }
   }
 
@@ -83,7 +89,8 @@ class _$OccurrenceModel extends OccurrenceModel {
         onSiteMeans == other.onSiteMeans &&
         type == other.type &&
         status == other.status &&
-        parish == other.parish;
+        parish == other.parish &&
+        isDetailed == other.isDetailed;
   }
 
   @override
@@ -98,18 +105,20 @@ class _$OccurrenceModel extends OccurrenceModel {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, id.hashCode),
-                                                name.hashCode),
-                                            code.hashCode),
-                                        startedAt.hashCode),
-                                    endedAt.hashCode),
-                                updatedAt.hashCode),
-                            coordinates.hashCode),
-                        links.hashCode),
-                    onSiteMeans.hashCode),
-                type.hashCode),
-            status.hashCode),
-        parish.hashCode));
+                                            $jc(
+                                                $jc($jc(0, id.hashCode),
+                                                    name.hashCode),
+                                                code.hashCode),
+                                            startedAt.hashCode),
+                                        endedAt.hashCode),
+                                    updatedAt.hashCode),
+                                coordinates.hashCode),
+                            links.hashCode),
+                        onSiteMeans.hashCode),
+                    type.hashCode),
+                status.hashCode),
+            parish.hashCode),
+        isDetailed.hashCode));
   }
 
   @override
@@ -126,7 +135,8 @@ class _$OccurrenceModel extends OccurrenceModel {
           ..add('onSiteMeans', onSiteMeans)
           ..add('type', type)
           ..add('status', status)
-          ..add('parish', parish))
+          ..add('parish', parish)
+          ..add('isDetailed', isDetailed))
         .toString();
   }
 }
@@ -185,6 +195,10 @@ class OccurrenceModelBuilder
   ParishModelBuilder get parish => _$this._parish ??= new ParishModelBuilder();
   set parish(ParishModelBuilder parish) => _$this._parish = parish;
 
+  bool _isDetailed;
+  bool get isDetailed => _$this._isDetailed;
+  set isDetailed(bool isDetailed) => _$this._isDetailed = isDetailed;
+
   OccurrenceModelBuilder();
 
   OccurrenceModelBuilder get _$this {
@@ -201,6 +215,7 @@ class OccurrenceModelBuilder
       _type = _$v.type?.toBuilder();
       _status = _$v.status?.toBuilder();
       _parish = _$v.parish?.toBuilder();
+      _isDetailed = _$v.isDetailed;
       _$v = null;
     }
     return this;
@@ -236,7 +251,8 @@ class OccurrenceModelBuilder
               onSiteMeans: _onSiteMeans?.build(),
               type: _type?.build(),
               status: _status?.build(),
-              parish: _parish?.build());
+              parish: _parish?.build(),
+              isDetailed: isDetailed);
     } catch (_) {
       String _$failedField;
       try {
