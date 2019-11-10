@@ -108,8 +108,8 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Container(
-            child: Flexible(
+          Flexible(
+            child: Container(
               child: Text(
                 "Ultima atualização : " +
                     getFormattedDate(
