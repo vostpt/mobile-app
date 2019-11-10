@@ -6,11 +6,6 @@ import 'package:vost/domain/models/occurrence_model.dart';
 import 'package:vost/presentation/ui/_base/base_bloc.dart';
 
 class DetailsBloc extends BaseBloc {
-  /// Event to fetch data about a specific occurrence
-  var _getOccurrenceByIdSubject = PublishSubject<String>();
-
-  Sink<String> get getOccurrenceByIdSink => _getOccurrenceByIdSubject.sink;
-
   /// Event to stream the data for a getOccurrenceById
   var _getOccurrenceByIdDataSubject = BehaviorSubject<OccurrenceModel>();
 
