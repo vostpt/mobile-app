@@ -235,7 +235,7 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => widget.bloc.getOccurrenceByIdSink.add(snapshot.data[index].links.self),
+                        onTap: () => navigateToDetails(context, snapshot.data[index]),
                         child: OccurrencesListItemWidget(
                             occurrence: snapshot.data[index]),
                       );

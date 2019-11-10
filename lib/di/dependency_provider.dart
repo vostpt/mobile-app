@@ -39,6 +39,7 @@ import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
+import 'package:vost/presentation/ui/details/details_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/intro/intro_bloc.dart';
 import 'package:vost/presentation/ui/splash/splash_bloc.dart';
@@ -87,6 +88,10 @@ class DependencyProvider extends InheritedWidget {
       _contributorsBloc = ContributorsBloc();
     }
     return _contributorsBloc;
+  }
+
+  DetailsBloc getDetailsBloc (String selfLink) {
+    return DetailsBloc(_occurrencesManager, selfLink);
   }
 
   /// Initializes app dependencies,

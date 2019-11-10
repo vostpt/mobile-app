@@ -45,6 +45,9 @@ class OccurrencesManager {
   }
 
   Observable<OccurrenceModel> getOccurrenceBySelfLink(String selfLink) {
-    return _service.getSingleOccurrence(selfLink).map(_singleMapper.map);
+    return _service
+        .getSingleOccurrence(selfLink)
+        .map(_singleMapper.map)
+        .map((occurrence) => occurrence.rebuild((b) => b..isDetailed = true));
   }
 }

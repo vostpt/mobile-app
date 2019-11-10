@@ -44,6 +44,8 @@ abstract class OccurrenceModel
   @nullable
   ParishModel get parish;
 
+  bool get isDetailed;
+
   OccurrenceModel._();
 
   factory OccurrenceModel([updates(OccurrenceModelBuilder b)]) =
