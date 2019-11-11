@@ -9,8 +9,9 @@ import 'package:vost/constants.dart';
 
 class OccurrencesListItemWidget extends StatelessWidget {
   final OccurrenceModel occurrence;
+  final bool isFavorite;
 
-  OccurrencesListItemWidget({this.occurrence});
+  OccurrencesListItemWidget({this.occurrence, this.isFavorite});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class OccurrencesListItemWidget extends StatelessWidget {
                     style: styleOccurrenceTitle()),
               ),
               Icon(
-                Icons.star,
-                color: colorStarred,
+                isFavorite ? Icons.star : Icons.star_border,
+                color: isFavorite ? colorStarred : colorTextGrey,
                 size: iconSize,
               )
             ],
