@@ -13,6 +13,7 @@ import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
+import 'package:vost/presentation/models/home_list_item.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
@@ -211,7 +212,7 @@ class _RecentListWidgetState extends State<RecentListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<OccurrenceModel>>(
+    return StreamBuilder<List<HomeListItem>>(
         stream: widget.bloc.occurrencesStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -235,9 +236,12 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => navigateToDetails(context, snapshot.data[index]),
+                        onTap: () async {
+                          await navigateToDetails(context, snapshot.data[index].occurrence);
+                          widget.bloc.verifyNewFavoritesSink.add(Event());
+                        },
                         child: OccurrencesListItemWidget(
-                            occurrence: snapshot.data[index]),
+                            occurrence: snapshot.data[index].occurrence, isFavorite: snapshot.data[index].isFavorite,),
                       );
                     },
                   ),
@@ -333,13 +337,13 @@ class _MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        StreamBuilder<List<OccurrenceModel>>(
+        StreamBuilder<List<HomeListItem>>(
             stream: widget.bloc.occurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers.clear();
                 _markers.addAll(snapshot.data
-                    .map((occurrence) => _createMarker(occurrence))
+                    .map((occurrence) => _createMarker(occurrence.occurrence))
                     .toList());
                 _loadingWidget = Container();
               }
