@@ -91,4 +91,14 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
             onError: (error, stack) =>
                 handleOnErrorWithStackTrace(error, "An error has occurred")));
   }
+
+  //Events to manage if full occurrence window is open
+  var openOccurrence = BehaviorSubject<bool>.seeded(false);
+  Sink<bool> get openOccurrenceSink => openOccurrence.sink;
+  Stream<bool> get openOccurrenceStream => openOccurrence.stream;
+
+  //Events to manage if there is a selected Occurence
+  var selectedOccurrence = BehaviorSubject<OccurrenceModel>.seeded(null);
+  Sink<OccurrenceModel> get selectedOccurrenceSink => selectedOccurrence.sink;
+  Stream<OccurrenceModel> get selectedOccurrenceStream => selectedOccurrence.stream;
 }
