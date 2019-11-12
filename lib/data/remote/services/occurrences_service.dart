@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:vost/constants.dart';
 import 'package:vost/data/remote/endpoints/occurrences_endpoints.dart';
 import 'package:vost/data/remote/models/response/base_list_response.dart';
 import 'package:vost/data/remote/models/response/base_response.dart';
@@ -9,7 +10,7 @@ class OccurrencesService {
   OccurrencesService(this._endpoints);
 
   Observable<BaseListResponse> getRecentOccurrences() {
-    return Observable.fromFuture(_endpoints.getRecentOccurrences())
+    return Observable.fromFuture(_endpoints.getOccurrences(pageNumber:1, pageSize: pageSize))
         .map((response) => BaseListResponse.fromJson(response.data));
   }
 

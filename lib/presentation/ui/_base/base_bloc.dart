@@ -12,10 +12,10 @@ abstract class BaseBloc {
   bool isDisposed = false;
 
   /// Exposes stream so both pages know if an async call is in place
-  final _isLoadingWithMessage = BehaviorSubject<LoadingValues>();
+  final _isLoading = BehaviorSubject<bool>();
 
-  Stream<LoadingValues> get isLoadingStreamWithMessage =>
-      _isLoadingWithMessage.stream;
+  Stream<bool> get isLoadingStream =>
+      _isLoading.stream;
 
   /// relays error information
   final _errorSubject = PublishSubject<String>();
@@ -45,20 +45,21 @@ abstract class BaseBloc {
     _closePageSubject.add(Event());
   }
 
+  showLoading() {
+    _isLoading.add(true);
+  }
+
+  hideLoading() {
+    _isLoading.add(false);
+  }
+
   @mustCallSuper
   dispose() {
     errorSink.close();
-    _isLoadingWithMessage.close();
+    _isLoading.close();
     _errorSubject.close();
     _closePageSubject.close();
     isDisposed = true;
     disposable.dispose(className: this.runtimeType.toString());
   }
-}
-
-class LoadingValues {
-  bool isLoading;
-  String message;
-
-  LoadingValues(this.isLoading, this.message);
 }
