@@ -23,15 +23,24 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   Sink<Event> get fetchNewDataSink => _fetchNewDataSubject.sink;
 
+  /// Event to fetch new Favorites List
+  var _fetchNewFavoritesListSubject = PublishSubject<Event>();
+  Sink<Event> get fetchNewFavoritesListSink => _fetchNewFavoritesListSubject.sink;
+
   /// Event to verify the favorite items
   var _verifyNewFavoritesSubject = PublishSubject<Event>();
 
   Sink<Event> get verifyNewFavoritesSink => _verifyNewFavoritesSubject.sink;
 
+  /// List of Recent Occurrences
   var _occurrencesSubject = BehaviorSubject<List<HomeListItem>>();
 
   Stream<List<HomeListItem>> get occurrencesStream =>
       _occurrencesSubject.stream;
+
+  /// List of Favorited Occurrences
+  var _favoritedOccurrencesSubject = BehaviorSubject<List<HomeListItem>>();
+  Stream<List<HomeListItem>> get favoritedOccurrencesStream => _favoritedOccurrencesSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
   var currentTypeOfDataSubject = BehaviorSubject<int>.seeded(0);
@@ -69,16 +78,30 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
       _getOccurrenceByIdDataSubject.stream;
 
   /// Subject that holds the list of occurrences
-  var _occurrencesListSubject =
+  var _listOfRecentOccurrencesSubject =
+      BehaviorSubject<List<OccurrenceModel>>.seeded([]);
+
+  /// Subject that holds the list of favorite occurrences
+  var _listOfFavoriteOccurrencesSubject =
       BehaviorSubject<List<OccurrenceModel>>.seeded([]);
 
   HomeBloc(this._occurrenceManager, this._sharedPreferencesManager) {
     disposable.add(_fetchNewDataSubject.stream
         .flatMap((_) => _occurrenceManager.getRecentOccurrences())
-        .doOnData(_occurrencesListSubject.add)
+        .doOnData(_listOfRecentOccurrencesSubject.add)
         .map(mapOccurrencesToHomeItem)
         .map((base) => base.toList())
         .listen(_occurrencesSubject.add, onError: (error) {
+      handleOnError(genericErrorMessage);
+      handleRefreshErrorWithStackTrace(error, "Refresh Error");
+    }));
+
+    disposable.add(_fetchNewFavoritesListSubject.stream
+        .flatMap((_) => _occurrenceManager.getOccurrences(ids: _sharedPreferencesManager.getListOfSavedOccurrences()))
+        .doOnData(_listOfFavoriteOccurrencesSubject.add)
+        .map(mapOccurrencesToHomeItem)
+        .map((base) => base.toList())
+        .listen(_favoritedOccurrencesSubject.add, onError: (error) {
       handleOnError(genericErrorMessage);
       handleRefreshErrorWithStackTrace(error, "Refresh Error");
     }));
@@ -106,8 +129,14 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
                 handleOnErrorWithStackTrace(error, "An error has occurred")));
 
     disposable.add(_verifyNewFavoritesSubject.stream
-        .map((_) => mapOccurrencesToHomeItem(_occurrencesListSubject.value))
+        .map((_) => mapOccurrencesToHomeItem(_listOfRecentOccurrencesSubject.value))
         .listen(_occurrencesSubject.add));
+
+    disposable.add(_verifyNewFavoritesSubject.stream
+        .listen((_) => _fetchNewFavoritesListSubject.add(Event())));
+
+    _fetchNewDataSubject.add(Event());
+    _fetchNewFavoritesListSubject.add(Event());
   }
 
   List<HomeListItem> mapOccurrencesToHomeItem(
