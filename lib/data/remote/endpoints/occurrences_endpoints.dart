@@ -31,21 +31,6 @@ class OccurrencesEndpoints {
       queryOrder : order,
       queryId: (ids != null && ids.isNotEmpty) ? ids : null
     }..removeWhere((key, val) => val == null)));
-    return _dio.get(pathOccurrences, queryParameters: {
-    queryPageNumber : pageNumber,
-    queryPageSize : pageSize,
-    querySearch : search,
-    queryExact : exact != null ? (exact ? 1 : 0) : null,
-    queryEvents : events,
-    queryTypes : types,
-    queryStatuses : statuses,
-    queryDistricts : districts,
-    queryCounties : counties,
-    queryParishes : parishes,
-    querySort : sort,
-    queryOrder : order,
-      queryId: (ids != null && ids.isNotEmpty) ? ids.join(",") : null
-    }..removeWhere((key, val) => val == null));
   }
 
   Future<Response> getSingleOccurrence(String selfLink) {
