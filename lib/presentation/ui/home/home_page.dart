@@ -243,8 +243,10 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => widget.bloc.getOccurrenceByIdSink
-                            .add(snapshot.data[index].links.self),
+                        onTap: () async {
+                          await navigateToDetails(context, snapshot.data[index].occurrence);
+                          widget.bloc.verifyNewFavoritesSink.add(Event());
+                        },
                         child: OccurrencesListItemWidget(
                             occurrence: snapshot.data[index]),
                       );
@@ -321,7 +323,6 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
     super.initState();
-    isFullInfo = false;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var permission = await LocationPermissions().checkPermissionStatus();
       if (permission != PermissionStatus.granted) {
@@ -390,15 +391,13 @@ class _MapWidgetState extends State<MapWidget> {
         stream: widget.bloc.openOccurrenceStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            isFullInfo = snapshot.data;
             return StreamBuilder<OccurrenceModel>(
                 stream: widget.bloc.selectedOccurrenceStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return GetOccurrenceFloatingActionButton(
-                        homebloc: widget.bloc, open: isFullInfo);
+                        homebloc: widget.bloc);
                   }
-                  selectedOccurrenceId = "";
                   return Container();
                 });
           }
@@ -418,13 +417,10 @@ class _MapWidgetState extends State<MapWidget> {
         });
   }
 
-  bool isFullInfo = false;
   String selectedOccurrenceId = "";
 
   Marker _createMarker(OccurrenceModel occurrence) {
     return new Marker(
-        width: 100,
-        height: 100,
         point: occurrence.coordinates,
         builder: (context) {
           return IconButton(
@@ -436,6 +432,7 @@ class _MapWidgetState extends State<MapWidget> {
             ),
             onPressed: () {
               selectedOccurrenceId = occurrence.id;
+              //markerColor = Colors.orange;
               setState(() {});
               widget.bloc.selectedOccurrenceSink.add(occurrence);
             },
@@ -450,6 +447,7 @@ class _MapWidgetState extends State<MapWidget> {
           if (snapshot.hasData) {
             return fillOccurrenceTypeWidget(snapshot.data);
           }
+          selectedOccurrenceId = "";
           return Container();
         });
   }
@@ -459,7 +457,6 @@ class _MapWidgetState extends State<MapWidget> {
         stream: widget.bloc.openOccurrenceStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            isFullInfo = snapshot.hasData;
             if (snapshot.data) {
               widget.bloc.getOccurrenceByIdSink
                   .add(selectedOcorrence.links.self);
@@ -557,26 +554,34 @@ class RemoveSelectedOccurrenceFloatingActionButton extends StatelessWidget {
 
 class GetOccurrenceFloatingActionButton extends StatelessWidget {
   final HomeBloc homebloc;
-  final bool open;
-  GetOccurrenceFloatingActionButton(
-      {Key key, @required this.homebloc, @required this.open})
+  GetOccurrenceFloatingActionButton({Key key, @required this.homebloc})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomRight,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 5, right: 5),
-        child: FloatingActionButton(
-          onPressed: () {
-            homebloc.openOccurrenceSink.add(!open);
-          },
-          child: Icon(open ? Icons.arrow_downward : Icons.arrow_upward),
-          backgroundColor: Colors.orange[300],
-        ),
-      ),
-    );
+    return StreamBuilder<bool>(
+        stream: homebloc.openOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 5, right: 5),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    homebloc.openOccurrenceSink.add(!snapshot.data);
+                  },
+                  child: Icon(snapshot.data
+                      ? Icons.arrow_downward
+                      : Icons.arrow_upward),
+                  backgroundColor: Colors.orange[300],
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }
 
