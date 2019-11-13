@@ -421,6 +421,8 @@ class _MapWidgetState extends State<MapWidget> {
 
   Marker _createMarker(OccurrenceModel occurrence) {
     return new Marker(
+        width: 25,
+        height: 25,
         point: occurrence.coordinates,
         builder: (context) {
           return IconButton(
