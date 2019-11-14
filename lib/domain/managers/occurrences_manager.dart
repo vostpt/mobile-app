@@ -25,6 +25,7 @@ class OccurrencesManager {
       List<int> districts,
       List<int> counties,
       List<int> parishes,
+      List<String> ids,
       String sort,
       String order}) {
     return _service
@@ -40,7 +41,9 @@ class OccurrencesManager {
             counties: counties,
             parishes: parishes,
             sort: sort,
-            order: order)
+            order: order,
+            ids: ids
+    )
         .map(_listMapper.map);
   }
 

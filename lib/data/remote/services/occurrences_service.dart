@@ -17,7 +17,7 @@ class OccurrencesService {
 
   Observable<BaseListResponse> getOccurrences({int pageNumber, int pageSize, String search, bool exact,
     List<int> events, List<int> types,List<int> statuses, List<int> districts, List<int> counties,
-    List<int> parishes, String sort, String order
+    List<int> parishes, String sort, String order, List<String> ids
   }) {
     return Observable.fromFuture(_endpoints.getOccurrences(
       pageNumber: pageNumber,
@@ -31,7 +31,8 @@ class OccurrencesService {
       counties: counties,
       parishes: parishes,
       sort: sort,
-      order: order
+      order: order,
+      ids:ids
     ))
         .map((response) => BaseListResponse.fromJson(response.data));
   }

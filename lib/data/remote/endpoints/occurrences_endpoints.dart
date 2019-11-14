@@ -14,7 +14,7 @@ class OccurrencesEndpoints {
 
   Future<Response> getOccurrences({int pageNumber, int pageSize, String search, bool exact,
     List<int> events, List<int> types,List<int> statuses, List<int> districts, List<int> counties,
-    List<int> parishes, String sort, String order, List<int> ids
+    List<int> parishes, String sort, String order, List<String> ids
   }) {
     return _dio.getUri(Uri(path: pathOccurrences, queryParameters: {
       queryPageNumber : pageNumber?.toString(),
