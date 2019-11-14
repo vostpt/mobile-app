@@ -25,6 +25,7 @@ class OccurrencesManager {
       List<int> districts,
       List<int> counties,
       List<int> parishes,
+      List<String> ids,
       String sort,
       String order}) {
     return _service
@@ -40,11 +41,16 @@ class OccurrencesManager {
             counties: counties,
             parishes: parishes,
             sort: sort,
-            order: order)
+            order: order,
+            ids: ids
+    )
         .map(_listMapper.map);
   }
 
   Observable<OccurrenceModel> getOccurrenceBySelfLink(String selfLink) {
-    return _service.getSingleOccurrence(selfLink).map(_singleMapper.map);
+    return _service
+        .getSingleOccurrence(selfLink)
+        .map(_singleMapper.map)
+        .map((occurrence) => occurrence.rebuild((b) => b..isDetailed = true));
   }
 }

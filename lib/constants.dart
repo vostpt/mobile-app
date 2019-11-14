@@ -27,6 +27,7 @@ const queryCounties = "counties";
 const queryParishes = "parishes";
 const querySort = "sort";
 const queryOrder = "order";
+const queryId = "ids[]";
 
 /// Mock endpoints
 const String mockHost = "mockserver";
@@ -40,3 +41,6 @@ const String EMPTY_INPUT_STRING = "--";
 const String FORMAT_DATE_DAY = "day";
 const String FORMAT_DATE_HOUR = "hour";
 const String FORMAT_DATE_FULL = "full";
+
+/// API
+const int pageSize = 20;

@@ -13,6 +13,7 @@ import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/error_messages.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
+import 'package:vost/presentation/models/home_list_item.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
@@ -31,9 +32,6 @@ class _MyHomePageState extends BaseState<HomePage> {
   @override
   void initState() {
     super.initState();
-    // this will help us fetch new data from the server
-    widget.bloc.fetchNewDataSink.add(Event());
-
     // initialize the pages
     _initializePages();
   }
@@ -41,22 +39,20 @@ class _MyHomePageState extends BaseState<HomePage> {
   List<Widget> _pages = [];
 
   void _initializePages() {
-    _pages.add(RecentListWidget(widget.bloc));
-    _pages.add(MapWidget(widget.bloc));
+    _pages.add(ListManagerWidget(bloc: widget.bloc));
+    _pages.add(MapManagerWidget(bloc : widget.bloc));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: SafeArea(
-        child: StreamBuilder<int>(
+      body:  StreamBuilder<int>(
             initialData: widget.bloc.currentPageSubject.value,
             stream: widget.bloc.currentPageStream,
             builder: (context, snapshot) {
               return _pages[snapshot.data];
             }),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
@@ -189,10 +185,30 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 }
 
+/// Widget that either shows a list of recent or favorite occurrences
+class ListManagerWidget extends StatelessWidget {
+  final HomeBloc bloc;
+  List<Widget> pages;
+
+  ListManagerWidget({this.bloc, Key key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    pages  = [RecentListWidget(bloc, true), RecentListWidget(bloc, false)];
+    return StreamBuilder(
+        stream: bloc.currentTypeOfDataStream,
+        builder: (context, snapshot) {
+          return pages[(snapshot.data ?? 0)];
+        },
+    );
+  }
+}
+
 class RecentListWidget extends StatefulWidget {
   final HomeBloc bloc;
+  final bool isRecent;
 
-  RecentListWidget(this.bloc);
+  RecentListWidget(this.bloc, this.isRecent);
 
   @override
   _RecentListWidgetState createState() => _RecentListWidgetState();
@@ -209,49 +225,92 @@ class _RecentListWidgetState extends State<RecentListWidget> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<OccurrenceModel>>(
-        stream: widget.bloc.occurrencesStream,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text("A carregar"));
-          }
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          StreamBuilder<List<HomeListItem>>(
+              stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text("A carregar"));
+                }
 
-          _refreshController.refreshCompleted();
-          if (snapshot.hasData) {
-            return Container(
-                color: Colors.white,
-                child: SmartRefresher(
-                  controller: _refreshController,
-                  header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
-                  onRefresh: _onRefresh,
-                  enablePullDown: true,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(
-                      indent: 50.0,
-                      thickness: 2.0,
-                    ),
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => widget.bloc.getOccurrenceByIdSink.add(snapshot.data[index].links.self),
-                        child: OccurrencesListItemWidget(
-                            occurrence: snapshot.data[index]),
-                      );
-                    },
+                _refreshController.refreshCompleted();
+                if (snapshot.hasData) {
+                  return Container(
+                      color: Colors.white,
+                      child: NotificationListener(
+                        onNotification: (t) {
+                          if (t is ScrollEndNotification &&
+                              _scrollController.position.pixels >=
+                                  _scrollController.position.maxScrollExtent) {
+                            widget.bloc.fetchNextPageSink.add(Event());
+                          }
+                          return false;
+                        },
+                        child: SmartRefresher(
+                          controller: _refreshController,
+                          header: WaterDropMaterialHeader(
+                            backgroundColor: Theme.of(context).accentColor,
+                          ),
+                          onRefresh: _onRefresh,
+                          enablePullDown: true,
+                          child: ListView.separated(
+                            controller: _scrollController,
+                            separatorBuilder: (context, index) => Divider(
+                              indent: 50.0,
+                              thickness: 2.0,
+                            ),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () async {
+                                  await navigateToDetails(
+                                      context, snapshot.data[index].occurrence);
+                                  widget.bloc.verifyNewFavoritesSink.add(Event());
+                                },
+                                child: OccurrencesListItemWidget(
+                                  occurrence: snapshot.data[index].occurrence,
+                                  isFavorite: snapshot.data[index].isFavorite,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ));
+                }
+                return Container(
+                  child: Center(
+                    child: Image.asset('assets/images/vost_logo_white.png'),
                   ),
-                ));
-          }
-          return Container(
-            child: Center(
-              child: Image.asset('assets/images/vost_logo_white.png'),
-            ),
-          );
-        });
+                );
+              }),
+          StreamBuilder<bool>(
+              stream: widget.bloc.isLoadingStream,
+              builder: (context, snapshot) {
+                if (snapshot.data ?? false) {
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.all(marginScreen),
+                      child: Card(
+                          shape: CircleBorder(),
+                          child: Container(padding: EdgeInsets.all(marginMedium),child: CircularProgressIndicator())),
+                    ),
+                  );
+                }
+                return Container();
+              }),
+        ],
+      ),
+    );
   }
 
-  void _onRefresh() => widget.bloc.fetchNewDataSink.add(Event());
+  void _onRefresh() => widget.isRecent ? widget.bloc.fetchNewDataSink.add(Event()) : widget.bloc.fetchNewFavoritesListSink.add(Event());
 
   @override
   void dispose() {
@@ -260,6 +319,24 @@ class _RecentListWidgetState extends State<RecentListWidget> {
   }
 }
 
+
+class MapManagerWidget extends StatelessWidget {
+  final HomeBloc bloc;
+  List<Widget> pages;
+
+  MapManagerWidget({this.bloc, Key key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    pages  = [MapWidget(bloc, true), MapWidget(bloc, false)];
+    return StreamBuilder(
+      stream: bloc.currentTypeOfDataStream,
+      builder: (context, snapshot) {
+        return pages[(snapshot.data ?? 0)];
+      },
+    );
+  }
+}
 /*
  * Map Widget
  *
@@ -275,8 +352,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
  */
 class MapWidget extends StatefulWidget {
   final HomeBloc bloc;
+  final bool isRecent;
 
-  MapWidget(this.bloc);
+  MapWidget(this.bloc, this.isRecent);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -309,7 +387,6 @@ class _MapWidgetState extends State<MapWidget> {
     ),
   );
 
-
   @override
   void initState() {
     super.initState();
@@ -333,13 +410,13 @@ class _MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        StreamBuilder<List<OccurrenceModel>>(
-            stream: widget.bloc.occurrencesStream,
+        StreamBuilder<List<HomeListItem>>(
+            stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers.clear();
                 _markers.addAll(snapshot.data
-                    .map((occurrence) => _createMarker(occurrence))
+                    .map((occurrence) => _createMarker(occurrence.occurrence))
                     .toList());
                 _loadingWidget = Container();
               }
@@ -391,7 +468,6 @@ class _MapWidgetState extends State<MapWidget> {
 }
 
 class _PermissionWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -400,13 +476,20 @@ class _PermissionWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(child: Text("Permissions", style: styleIntroTitle(),)),
+        Container(
+            child: Text(
+          "Permissions",
+          style: styleIntroTitle(),
+        )),
         SizedBox(
           height: size.shortestSide * .40,
           width: size.shortestSide * .40,
           child: InkWell(
             onTap: _requestPermission,
-            child: Icon(Icons.not_listed_location, size: size.shortestSide * .40,),
+            child: Icon(
+              Icons.not_listed_location,
+              size: size.shortestSide * .40,
+            ),
           ),
         ),
         Container(

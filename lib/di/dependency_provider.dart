@@ -9,7 +9,6 @@ import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/endpoints/species_endpoints.dart';
 import 'package:vost/data/remote/endpoints/status_endpoints.dart';
 import 'package:vost/data/remote/endpoints/types_endpoints.dart';
-import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/district_service.dart';
 import 'package:vost/data/remote/services/family_service.dart';
@@ -39,6 +38,7 @@ import 'package:vost/domain/mappers/species_mapper.dart';
 import 'package:vost/domain/mappers/status_mapper.dart';
 import 'package:vost/domain/mappers/type_mapper.dart';
 import 'package:vost/presentation/ui/contributors/contributors_bloc.dart';
+import 'package:vost/presentation/ui/details/details_bloc.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
 import 'package:vost/presentation/ui/intro/intro_bloc.dart';
 import 'package:vost/presentation/ui/splash/splash_bloc.dart';
@@ -67,7 +67,7 @@ class DependencyProvider extends InheritedWidget {
 
   HomeBloc getHomeBloc({bool forceCreation = false}) {
     if (_homeBloc == null || forceCreation) {
-      _homeBloc = HomeBloc(_occurrencesManager);
+      _homeBloc = HomeBloc(_occurrencesManager, _sharedPreferencesManager);
     }
     return _homeBloc;
   }
@@ -89,6 +89,10 @@ class DependencyProvider extends InheritedWidget {
     return _contributorsBloc;
   }
 
+  DetailsBloc getDetailsBloc ({String occurrenceId, String selfLink}) {
+    return DetailsBloc(sharedPreferencesManager: _sharedPreferencesManager, manager: _occurrencesManager, selfLink: selfLink, occurrenceId: occurrenceId);
+  }
+
   /// Initializes app dependencies,
   Future<void> initialize() async {
     // Shared Preferences
@@ -107,7 +111,6 @@ class DependencyProvider extends InheritedWidget {
         createDioOptions(baseUrlProd, connectionTimeout, connectionReadTimeout);
     var dio = await createDio(
         dioOptions, errorInterceptor, responseInterceptor, requestInterceptor);
-    var parser = Parser();
 
     // endpoints
     var parishEndpoints = ParishEndpoints(dio);
