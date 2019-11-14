@@ -42,22 +42,20 @@ class _MyHomePageState extends BaseState<HomePage> {
   List<Widget> _pages = [];
 
   void _initializePages() {
-    _pages.add(RecentListWidget(widget.bloc));
-    _pages.add(MapWidget(widget.bloc));
+    _pages.add(ListManagerWidget(bloc: widget.bloc));
+    _pages.add(MapManagerWidget(bloc : widget.bloc));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: SafeArea(
-        child: StreamBuilder<int>(
+      body:  StreamBuilder<int>(
             initialData: widget.bloc.currentPageSubject.value,
             stream: widget.bloc.currentPageStream,
             builder: (context, snapshot) {
               return _pages[snapshot.data];
             }),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
@@ -190,10 +188,30 @@ class _MyHomePageState extends BaseState<HomePage> {
   }
 }
 
+/// Widget that either shows a list of recent or favorite occurrences
+class ListManagerWidget extends StatelessWidget {
+  final HomeBloc bloc;
+  List<Widget> pages;
+
+  ListManagerWidget({this.bloc, Key key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    pages  = [RecentListWidget(bloc, true), RecentListWidget(bloc, false)];
+    return StreamBuilder(
+        stream: bloc.currentTypeOfDataStream,
+        builder: (context, snapshot) {
+          return pages[(snapshot.data ?? 0)];
+        },
+    );
+  }
+}
+
 class RecentListWidget extends StatefulWidget {
   final HomeBloc bloc;
+  final bool isRecent;
 
-  RecentListWidget(this.bloc);
+  RecentListWidget(this.bloc, this.isRecent);
 
   @override
   _RecentListWidgetState createState() => _RecentListWidgetState();
@@ -212,50 +230,52 @@ class _RecentListWidgetState extends State<RecentListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<HomeListItem>>(
-        stream: widget.bloc.occurrencesStream,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text("A carregar"));
-          }
+    return SafeArea(
+      child: StreamBuilder<List<HomeListItem>>(
+          stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: Text("A carregar"));
+            }
 
-          _refreshController.refreshCompleted();
-          if (snapshot.hasData) {
-            return Container(
-                color: Colors.white,
-                child: SmartRefresher(
-                  controller: _refreshController,
-                  header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
-                  onRefresh: _onRefresh,
-                  enablePullDown: true,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(
-                      indent: 50.0,
-                      thickness: 2.0,
+            _refreshController.refreshCompleted();
+            if (snapshot.hasData) {
+              return Container(
+                  color: Colors.white,
+                  child: SmartRefresher(
+                    controller: _refreshController,
+                    header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
+                    onRefresh: _onRefresh,
+                    enablePullDown: true,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => Divider(
+                        indent: 50.0,
+                        thickness: 2.0,
+                      ),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () async {
+                            await navigateToDetails(context, snapshot.data[index].occurrence);
+                            widget.bloc.verifyNewFavoritesSink.add(Event());
+                          },
+                          child: OccurrencesListItemWidget(
+                              occurrence: snapshot.data[index].occurrence, isFavorite: snapshot.data[index].isFavorite,),
+                        );
+                      },
                     ),
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () async {
-                          await navigateToDetails(context, snapshot.data[index].occurrence);
-                          widget.bloc.verifyNewFavoritesSink.add(Event());
-                        },
-                        child: OccurrencesListItemWidget(
-                            occurrence: snapshot.data[index].occurrence, isFavorite: snapshot.data[index].isFavorite,),
-                      );
-                    },
-                  ),
-                ));
-          }
-          return Container(
-            child: Center(
-              child: Image.asset('assets/images/vost_logo_white.png'),
-            ),
-          );
-        });
+                  ));
+            }
+            return Container(
+              child: Center(
+                child: Image.asset('assets/images/vost_logo_white.png'),
+              ),
+            );
+          }),
+    );
   }
 
-  void _onRefresh() => widget.bloc.fetchNewDataSink.add(Event());
+  void _onRefresh() => widget.isRecent ? widget.bloc.fetchNewDataSink.add(Event()) : widget.bloc.fetchNewFavoritesListSink.add(Event());
 
   @override
   void dispose() {
@@ -264,6 +284,24 @@ class _RecentListWidgetState extends State<RecentListWidget> {
   }
 }
 
+
+class MapManagerWidget extends StatelessWidget {
+  final HomeBloc bloc;
+  List<Widget> pages;
+
+  MapManagerWidget({this.bloc, Key key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    pages  = [MapWidget(bloc, true), MapWidget(bloc, false)];
+    return StreamBuilder(
+      stream: bloc.currentTypeOfDataStream,
+      builder: (context, snapshot) {
+        return pages[(snapshot.data ?? 0)];
+      },
+    );
+  }
+}
 /*
  * Map Widget
  *
@@ -279,8 +317,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
  */
 class MapWidget extends StatefulWidget {
   final HomeBloc bloc;
+  final bool isRecent;
 
-  MapWidget(this.bloc);
+  MapWidget(this.bloc, this.isRecent);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -338,7 +377,7 @@ class _MapWidgetState extends State<MapWidget> {
     return Stack(
       children: <Widget>[
         StreamBuilder<List<HomeListItem>>(
-            stream: widget.bloc.occurrencesStream,
+            stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers.clear();

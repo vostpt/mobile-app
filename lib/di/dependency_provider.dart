@@ -112,7 +112,6 @@ class DependencyProvider extends InheritedWidget {
         createDioOptions(baseUrlProd, connectionTimeout, connectionReadTimeout);
     var dio = await createDio(
         dioOptions, errorInterceptor, responseInterceptor, requestInterceptor);
-    var parser = Parser();
 
     // endpoints
     var parishEndpoints = ParishEndpoints(dio);

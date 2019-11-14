@@ -27,6 +27,7 @@ const queryCounties = "counties";
 const queryParishes = "parishes";
 const querySort = "sort";
 const queryOrder = "order";
+const queryId = "ids[]";
 
 /// Mock endpoints
 const String mockHost = "mockserver";
