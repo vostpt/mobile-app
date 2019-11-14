@@ -9,7 +9,6 @@ import 'package:vost/data/remote/endpoints/parish_endpoints.dart';
 import 'package:vost/data/remote/endpoints/species_endpoints.dart';
 import 'package:vost/data/remote/endpoints/status_endpoints.dart';
 import 'package:vost/data/remote/endpoints/types_endpoints.dart';
-import 'package:vost/data/remote/models/_base/parser.dart';
 import 'package:vost/data/remote/services/county_service.dart';
 import 'package:vost/data/remote/services/district_service.dart';
 import 'package:vost/data/remote/services/family_service.dart';

@@ -32,9 +32,6 @@ class _MyHomePageState extends BaseState<HomePage> {
   @override
   void initState() {
     super.initState();
-    // this will help us fetch new data from the server
-    widget.bloc.fetchNewDataSink.add(Event());
-
     // initialize the pages
     _initializePages();
   }
@@ -228,50 +225,88 @@ class _RecentListWidgetState extends State<RecentListWidget> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: StreamBuilder<List<HomeListItem>>(
-          stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: Text("A carregar"));
-            }
+      child: Stack(
+        children: <Widget>[
+          StreamBuilder<List<HomeListItem>>(
+              stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text("A carregar"));
+                }
 
-            _refreshController.refreshCompleted();
-            if (snapshot.hasData) {
-              return Container(
-                  color: Colors.white,
-                  child: SmartRefresher(
-                    controller: _refreshController,
-                    header:  WaterDropMaterialHeader(backgroundColor: Theme.of(context).accentColor,),
-                    onRefresh: _onRefresh,
-                    enablePullDown: true,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => Divider(
-                        indent: 50.0,
-                        thickness: 2.0,
-                      ),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () async {
-                            await navigateToDetails(context, snapshot.data[index].occurrence);
-                            widget.bloc.verifyNewFavoritesSink.add(Event());
-                          },
-                          child: OccurrencesListItemWidget(
-                              occurrence: snapshot.data[index].occurrence, isFavorite: snapshot.data[index].isFavorite,),
-                        );
-                      },
+                _refreshController.refreshCompleted();
+                if (snapshot.hasData) {
+                  return Container(
+                      color: Colors.white,
+                      child: NotificationListener(
+                        onNotification: (t) {
+                          if (t is ScrollEndNotification &&
+                              _scrollController.position.pixels >=
+                                  _scrollController.position.maxScrollExtent) {
+                            widget.bloc.fetchNextPageSink.add(Event());
+                          }
+                          return false;
+                        },
+                        child: SmartRefresher(
+                          controller: _refreshController,
+                          header: WaterDropMaterialHeader(
+                            backgroundColor: Theme.of(context).accentColor,
+                          ),
+                          onRefresh: _onRefresh,
+                          enablePullDown: true,
+                          child: ListView.separated(
+                            controller: _scrollController,
+                            separatorBuilder: (context, index) => Divider(
+                              indent: 50.0,
+                              thickness: 2.0,
+                            ),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () async {
+                                  await navigateToDetails(
+                                      context, snapshot.data[index].occurrence);
+                                  widget.bloc.verifyNewFavoritesSink.add(Event());
+                                },
+                                child: OccurrencesListItemWidget(
+                                  occurrence: snapshot.data[index].occurrence,
+                                  isFavorite: snapshot.data[index].isFavorite,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ));
+                }
+                return Container(
+                  child: Center(
+                    child: Image.asset('assets/images/vost_logo_white.png'),
+                  ),
+                );
+              }),
+          StreamBuilder<bool>(
+              stream: widget.bloc.isLoadingStream,
+              builder: (context, snapshot) {
+                if (snapshot.data ?? false) {
+                  return Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: EdgeInsets.all(marginScreen),
+                      child: Card(
+                          shape: CircleBorder(),
+                          child: Container(padding: EdgeInsets.all(marginMedium),child: CircularProgressIndicator())),
                     ),
-                  ));
-            }
-            return Container(
-              child: Center(
-                child: Image.asset('assets/images/vost_logo_white.png'),
-              ),
-            );
-          }),
+                  );
+                }
+                return Container();
+              }),
+        ],
+      ),
     );
   }
 
@@ -351,7 +386,6 @@ class _MapWidgetState extends State<MapWidget> {
       ),
     ),
   );
-
 
   @override
   void initState() {
@@ -434,7 +468,6 @@ class _MapWidgetState extends State<MapWidget> {
 }
 
 class _PermissionWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -443,13 +476,20 @@ class _PermissionWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(child: Text("Permissions", style: styleIntroTitle(),)),
+        Container(
+            child: Text(
+          "Permissions",
+          style: styleIntroTitle(),
+        )),
         SizedBox(
           height: size.shortestSide * .40,
           width: size.shortestSide * .40,
           child: InkWell(
             onTap: _requestPermission,
-            child: Icon(Icons.not_listed_location, size: size.shortestSide * .40,),
+            child: Icon(
+              Icons.not_listed_location,
+              size: size.shortestSide * .40,
+            ),
           ),
         ),
         Container(

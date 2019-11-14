@@ -17,10 +17,10 @@ class OccurrencesEndpoints {
     List<int> parishes, String sort, String order, List<String> ids
   }) {
     return _dio.getUri(Uri(path: pathOccurrences, queryParameters: {
-      queryPageNumber : pageNumber,
-      queryPageSize : pageSize,
+      queryPageNumber : pageNumber?.toString(),
+      queryPageSize : pageSize?.toString(),
       querySearch : search,
-      queryExact : exact != null ? (exact ? 1 : 0) : null,
+      queryExact : (exact != null ? (exact ? 1 : 0) : null)?.toString(),
       queryEvents : events,
       queryTypes : types,
       queryStatuses : statuses,
