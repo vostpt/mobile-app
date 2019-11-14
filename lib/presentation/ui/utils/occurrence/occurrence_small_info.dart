@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vost/constants.dart' as Constants;
+import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
@@ -20,9 +21,9 @@ class OccurrenceSmallInfoWidget extends StatelessWidget {
           shrinkWrap: true,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 30),
+              margin: EdgeInsets.only(bottom: marginUltra),
               color: Colors.white,
-              child: ListTile(contentPadding: EdgeInsets.only(bottom: 15),
+              child: ListTile(contentPadding: EdgeInsets.only(bottom: paddingText),
                 title: Text(
                   getFormattedDate(
                       DateTime.parse(_updatedAt), Constants.FORMAT_DATE_DAY),

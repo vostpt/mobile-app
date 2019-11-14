@@ -244,8 +244,8 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () async {
-                          await navigateToDetails(context, snapshot.data[index].occurrence);
-                          widget.bloc.verifyNewFavoritesSink.add(Event());
+                          //await navigateToDetails(context, snapshot.data[index].occurrence);
+                          //widget.bloc.verifyNewFavoritesSink.add(Event());
                         },
                         child: OccurrencesListItemWidget(
                             occurrence: snapshot.data[index]),
