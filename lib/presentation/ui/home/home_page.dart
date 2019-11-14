@@ -17,6 +17,11 @@ import 'package:vost/presentation/models/home_list_item.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
 import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/home/home_bloc.dart';
+import 'package:vost/presentation/ui/utils/occurrence/occurrence_location_widget.dart';
+import 'package:vost/presentation/ui/utils/occurrence/occurrence_on_site_help_widget.dart';
+import 'package:vost/presentation/ui/utils/occurrence/occurrence_small_info.dart';
+import 'package:vost/presentation/ui/utils/occurrence/occurrence_status_widget.dart';
+import 'package:vost/presentation/ui/utils/occurrence/occurrence_time_widget.dart';
 import 'package:vost/presentation/ui/utils/occurrences_list_item.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
@@ -40,19 +45,19 @@ class _MyHomePageState extends BaseState<HomePage> {
 
   void _initializePages() {
     _pages.add(ListManagerWidget(bloc: widget.bloc));
-    _pages.add(MapManagerWidget(bloc : widget.bloc));
+    _pages.add(MapManagerWidget(bloc: widget.bloc));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body:  StreamBuilder<int>(
-            initialData: widget.bloc.currentPageSubject.value,
-            stream: widget.bloc.currentPageStream,
-            builder: (context, snapshot) {
-              return _pages[snapshot.data];
-            }),
+      body: StreamBuilder<int>(
+          initialData: widget.bloc.currentPageSubject.value,
+          stream: widget.bloc.currentPageStream,
+          builder: (context, snapshot) {
+            return _pages[snapshot.data];
+          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: StreamBuilder<int>(
           initialData: widget.bloc.currentPageSubject.value,
@@ -190,16 +195,16 @@ class ListManagerWidget extends StatelessWidget {
   final HomeBloc bloc;
   List<Widget> pages;
 
-  ListManagerWidget({this.bloc, Key key}) : super(key : key);
+  ListManagerWidget({this.bloc, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    pages  = [RecentListWidget(bloc, true), RecentListWidget(bloc, false)];
+    pages = [RecentListWidget(bloc, true), RecentListWidget(bloc, false)];
     return StreamBuilder(
-        stream: bloc.currentTypeOfDataStream,
-        builder: (context, snapshot) {
-          return pages[(snapshot.data ?? 0)];
-        },
+      stream: bloc.currentTypeOfDataStream,
+      builder: (context, snapshot) {
+        return pages[(snapshot.data ?? 0)];
+      },
     );
   }
 }
@@ -233,7 +238,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
       child: Stack(
         children: <Widget>[
           StreamBuilder<List<HomeListItem>>(
-              stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
+              stream: widget.isRecent
+                  ? widget.bloc.occurrencesStream
+                  : widget.bloc.favoritedOccurrencesStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: Text("A carregar"));
@@ -271,7 +278,8 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                                 onTap: () async {
                                   await navigateToDetails(
                                       context, snapshot.data[index].occurrence);
-                                  widget.bloc.verifyNewFavoritesSink.add(Event());
+                                  widget.bloc.verifyNewFavoritesSink
+                                      .add(Event());
                                 },
                                 child: OccurrencesListItemWidget(
                                   occurrence: snapshot.data[index].occurrence,
@@ -299,7 +307,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                       margin: EdgeInsets.all(marginScreen),
                       child: Card(
                           shape: CircleBorder(),
-                          child: Container(padding: EdgeInsets.all(marginMedium),child: CircularProgressIndicator())),
+                          child: Container(
+                              padding: EdgeInsets.all(marginMedium),
+                              child: CircularProgressIndicator())),
                     ),
                   );
                 }
@@ -310,7 +320,9 @@ class _RecentListWidgetState extends State<RecentListWidget> {
     );
   }
 
-  void _onRefresh() => widget.isRecent ? widget.bloc.fetchNewDataSink.add(Event()) : widget.bloc.fetchNewFavoritesListSink.add(Event());
+  void _onRefresh() => widget.isRecent
+      ? widget.bloc.fetchNewDataSink.add(Event())
+      : widget.bloc.fetchNewFavoritesListSink.add(Event());
 
   @override
   void dispose() {
@@ -319,16 +331,15 @@ class _RecentListWidgetState extends State<RecentListWidget> {
   }
 }
 
-
 class MapManagerWidget extends StatelessWidget {
   final HomeBloc bloc;
   List<Widget> pages;
 
-  MapManagerWidget({this.bloc, Key key}) : super(key : key);
+  MapManagerWidget({this.bloc, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    pages  = [MapWidget(bloc, true), MapWidget(bloc, false)];
+    pages = [MapWidget(bloc, true), MapWidget(bloc, false)];
     return StreamBuilder(
       stream: bloc.currentTypeOfDataStream,
       builder: (context, snapshot) {
@@ -337,6 +348,7 @@ class MapManagerWidget extends StatelessWidget {
     );
   }
 }
+
 /*
  * Map Widget
  *
@@ -411,7 +423,9 @@ class _MapWidgetState extends State<MapWidget> {
     return Stack(
       children: <Widget>[
         StreamBuilder<List<HomeListItem>>(
-            stream: widget.isRecent ? widget.bloc.occurrencesStream : widget.bloc.favoritedOccurrencesStream,
+            stream: widget.isRecent
+                ? widget.bloc.occurrencesStream
+                : widget.bloc.favoritedOccurrencesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 _markers.clear();
@@ -443,6 +457,9 @@ class _MapWidgetState extends State<MapWidget> {
                     ],
                   ),
                   _loadingWidget,
+                  getOccurrenceTypeWidget(),
+                  getOccurrenceFloatingActionButton(),
+                  removeSelectedOccurrenceFloatingActionButton(),
                 ],
               );
             }),
@@ -450,19 +467,89 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
+  String selectedOccurrenceId = "";
   Marker _createMarker(OccurrenceModel occurrence) {
     return new Marker(
-        width: 100,
-        height: 100,
+        width: 30,
+        height: 30,
         point: occurrence.coordinates,
         builder: (context) {
           return IconButton(
             icon: Icon(
               Icons.place,
-              color: Colors.green,
+              color: selectedOccurrenceId != occurrence.id
+                  ? Colors.green
+                  : Colors.orange,
             ),
-            onPressed: () => print("clicked"),
+            onPressed: () {
+              selectedOccurrenceId = occurrence.id;
+              setState(() {});
+              widget.bloc.selectedOccurrenceSink.add(occurrence);
+            },
           );
+        });
+  }
+
+  getOccurrenceFloatingActionButton() {
+    return StreamBuilder<bool>(
+        stream: widget.bloc.openOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return StreamBuilder<OccurrenceModel>(
+                stream: widget.bloc.selectedOccurrenceStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return GetOccurrenceFloatingActionButton(
+                        homebloc: widget.bloc);
+                  }
+                  return Container();
+                });
+          }
+          return Container();
+        });
+  }
+
+  removeSelectedOccurrenceFloatingActionButton() {
+    return StreamBuilder<OccurrenceModel>(
+        stream: widget.bloc.selectedOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return RemoveSelectedOccurrenceFloatingActionButton(
+                homebloc: widget.bloc);
+          }
+          return Container();
+        });
+  }
+
+  Widget getOccurrenceTypeWidget() {
+    return StreamBuilder<OccurrenceModel>(
+        stream: widget.bloc.selectedOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return fillOccurrenceTypeWidget(snapshot.data);
+          }
+          selectedOccurrenceId = "";
+          return Container();
+        });
+  }
+
+  Widget fillOccurrenceTypeWidget(OccurrenceModel selectedOcorrence) {
+    return StreamBuilder<bool>(
+        stream: widget.bloc.openOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data) {
+              widget.bloc.getOccurrenceByIdSink
+                  .add(selectedOcorrence.links.self);
+              return GetSelectedOccurrenceFullInfo(homebloc: widget.bloc);
+            } else {
+              return OccurrenceSmallInfoWidget(
+                  selectedOcorrence.updatedAt, selectedOcorrence.type.name);
+            }
+          } else {
+            return OccurrenceSmallInfoWidget(
+                selectedOcorrence.updatedAt, selectedOcorrence.type.name);
+          }
         });
   }
 }
@@ -521,3 +608,112 @@ class _PermissionWidget extends StatelessWidget {
   }
 }
 
+class RemoveSelectedOccurrenceFloatingActionButton extends StatelessWidget {
+  final HomeBloc homebloc;
+  RemoveSelectedOccurrenceFloatingActionButton(
+      {Key key, @required this.homebloc})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Container(
+        margin: EdgeInsets.only(bottom: 5, left: 5),
+        child: FloatingActionButton(
+          onPressed: () {
+            homebloc.openOccurrenceSink.add(false);
+            homebloc.selectedOccurrenceSink.add(null);
+          },
+          child: Icon(Icons.clear),
+          backgroundColor: Colors.orange[300],
+        ),
+      ),
+    );
+  }
+}
+
+class GetOccurrenceFloatingActionButton extends StatelessWidget {
+  final HomeBloc homebloc;
+  GetOccurrenceFloatingActionButton({Key key, @required this.homebloc})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+        stream: homebloc.openOccurrenceStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 5, right: 5),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    homebloc.openOccurrenceSink.add(!snapshot.data);
+                  },
+                  child: Icon(snapshot.data
+                      ? Icons.arrow_downward
+                      : Icons.arrow_upward),
+                  backgroundColor: Colors.orange[300],
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
+}
+
+class GetSelectedOccurrenceFullInfo extends StatelessWidget {
+  final HomeBloc homebloc;
+  GetSelectedOccurrenceFullInfo({Key key, @required this.homebloc})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<OccurrenceModel>(
+        stream: homebloc.getOccurrenceByIdDataStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    OccurrenceLocationWidget(
+                        DateTime.parse(snapshot.data.updatedAt),
+                        snapshot.data.parish.name,
+                        snapshot.data.coordinates,
+                        snapshot.data.type.name),
+                    OccurrenceStatusWidget(
+                      snapshot.data.status.name,
+                      DateTime.parse(snapshot.data.updatedAt),
+                    ),
+                    OccurrenceOnSiteHelpWidget(
+                        DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
+                        snapshot.data.onSiteMeans.groundOperativesInvolved,
+                        snapshot.data.onSiteMeans.groundAssetsInvolved,
+                        snapshot.data.onSiteMeans.aerialAssetsInvolved),
+                    OccurrenceTimeWidget(
+                      snapshot.data.endedAt == null
+                          ? null
+                          : DateTime.parse(snapshot.data.startedAt),
+                      snapshot.data.endedAt == null
+                          ? null
+                          : DateTime.parse(snapshot.data.endedAt),
+                      DateTime.parse(snapshot.data.updatedAt),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
+}
