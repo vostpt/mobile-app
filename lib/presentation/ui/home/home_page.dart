@@ -437,25 +437,31 @@ class _MapWidgetState extends State<MapWidget> {
 
               return Stack(
                 children: <Widget>[
-                  FlutterMap(
-                    mapController: mapController,
-                    options: MapOptions(
-                      center: _center,
-                      zoom: 7.0,
-                      minZoom: 1.0,
-                      maxZoom: 20.0,
-                    ),
-                    layers: [
-                      TileLayerOptions(
-                        urlTemplate: MAPBOX_URL_TEMPLATE,
-                        additionalOptions: {
-                          'accessToken': MAPBOX_ACCESS_TOKEN,
-                          'id': 'mapbox.streets',
-                        },
+                  /*GestureDetector(
+                    onTap: () {
+                      widget.bloc.openOccurrenceSink.add(false);
+                      widget.bloc.selectedOccurrenceSink.add(null);
+                    },
+                    child: */FlutterMap(
+                      mapController: mapController,
+                      options: MapOptions(
+                        center: _center,
+                        zoom: 7.0,
+                        minZoom: 1.0,
+                        maxZoom: 20.0,
                       ),
-                      MarkerLayerOptions(markers: _markers)
-                    ],
-                  ),
+                      layers: [
+                        TileLayerOptions(
+                          urlTemplate: MAPBOX_URL_TEMPLATE,
+                          additionalOptions: {
+                            'accessToken': MAPBOX_ACCESS_TOKEN,
+                            'id': 'mapbox.streets',
+                          },
+                        ),
+                        MarkerLayerOptions(markers: _markers)
+                      ],
+                    ),
+                  //),
                   _loadingWidget,
                   getOccurrenceTypeWidget(),
                   getOccurrenceFloatingActionButton(),
@@ -625,7 +631,10 @@ class RemoveSelectedOccurrenceFloatingActionButton extends StatelessWidget {
             homebloc.openOccurrenceSink.add(false);
             homebloc.selectedOccurrenceSink.add(null);
           },
-          child: Icon(Icons.clear),
+          child: Icon(
+            Icons.clear,
+            color: Colors.white,
+          ),
           backgroundColor: Colors.orange[300],
         ),
       ),
@@ -652,9 +661,10 @@ class GetOccurrenceFloatingActionButton extends StatelessWidget {
                   onPressed: () {
                     homebloc.openOccurrenceSink.add(!snapshot.data);
                   },
-                  child: Icon(snapshot.data
-                      ? Icons.arrow_downward
-                      : Icons.arrow_upward),
+                  child: Icon(
+                    snapshot.data ? Icons.arrow_downward : Icons.arrow_upward,
+                    color: Colors.white,
+                  ),
                   backgroundColor: Colors.orange[300],
                 ),
               ),
