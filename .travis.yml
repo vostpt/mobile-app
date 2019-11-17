@@ -33,7 +33,9 @@ matrix:
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - touch lib/keys.dart
-        - echo 'const MAPBOX_ACCESS_TOKEN  = "";\nconst MAPBOX_URL_TEMPLATE = "";' > lib/keys.dart
+        - echo '' > lib/keys.dart
+        - echo 'const MAPBOX_ACCESS_TOKEN  = "";' >> lib/keys.dart
+        - echo 'const MAPBOX_URL_TEMPLATE = "";' >> lib/keys.dart
       before_install:
         - yes | sdkmanager "platforms;android-28"
       script:
