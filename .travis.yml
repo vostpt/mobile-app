@@ -32,12 +32,13 @@ matrix:
         - export GRADLE_HOME=$PWD/gradle-4.10.2
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+        - touch lib/keys.dart
+        - echo 'const MAPBOX_ACCESS_TOKEN  = "";\nconst MAPBOX_URL_TEMPLATE = "";' > lib/keys.dart
       before_install:
         - yes | sdkmanager "platforms;android-28"
       script:
         - ./flutter/bin/flutter build apk
         - flutter/bin/flutter test test
-
     - os: osx
       language: generic
       before_script:
@@ -54,6 +55,7 @@ matrix:
         - gem install cocoapods
         - cd ios
         - pod setup
+        - pod repo update
         - pod install
         - pod update
         - cd ..
