@@ -247,6 +247,14 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                 }
 
                 _refreshController.refreshCompleted();
+
+                if (!snapshot.hasData || snapshot.data.isEmpty) {
+                  return Center(child: Text(
+                    widget.isRecent ? "No recent occurrences" : "No occurrences favorited"
+                  ),);
+                }
+
+
                 if (snapshot.hasData) {
                   return Container(
                       color: Colors.white,
