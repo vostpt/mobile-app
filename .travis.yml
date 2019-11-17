@@ -27,15 +27,15 @@ matrix:
             - libstdc++6
             - fonts-droid
       before_script:
-        - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
-        - unzip -qq gradle-3.5-bin.zip
-        - export GRADLE_HOME=$PWD/gradle-3.5
+        - wget http://services.gradle.org/distributions/gradle-4.10.2-bin.zip
+        - unzip -qq gradle-4.10.2-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-4.10.2
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
       before_install:
         - yes | sdkmanager "platforms;android-28"
       script:
-        - ./flutter/bin/flutter -v build apk
+        - ./flutter/bin/flutter build apk
         - flutter/bin/flutter test test
 
     - os: osx
@@ -52,11 +52,11 @@ matrix:
       script:
         - flutter/bin/flutter pub get
         - gem install cocoapods
-        #- cd ios
-        #- pod setup
-        #- pod install
-        #- pod update
-        #- cd ..
+        - cd ios
+        - pod setup
+        - pod install
+        - pod update
+        - cd ..
         - flutter/bin/flutter build ios --debug --no-codesign
         - flutter/bin/flutter test test
 
