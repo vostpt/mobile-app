@@ -35,7 +35,7 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
                   Image.asset(
                     'assets/images/vost_logo_grey.png',
                     width: iconSize,
-                    height:  iconSize,
+                    height: iconSize,
                   ),
                   Container(
                       child: Text(
@@ -59,7 +59,7 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
                   Image.asset(
                     'assets/images/vost_logo_grey.png',
                     width: iconSize,
-                    height:  iconSize,
+                    height: iconSize,
                   ),
                   Container(
                       child: Text(
@@ -83,7 +83,7 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
                   Image.asset(
                     'assets/images/vost_logo_grey.png',
                     width: iconSize,
-                    height:  iconSize,
+                    height: iconSize,
                   ),
                   Container(
                       child: Text(
@@ -102,19 +102,21 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
           ])
         ],
       ),
-          SizedBox(
-            height: marginSmall,
-          ),
+      SizedBox(
+        height: marginSmall,
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Container(
-            child: Text(
-              "Ultima atualização : " +
-                  getFormattedDate(
-                      this._lastUpdated, Constants.FORMAT_DATE_FULL),
-              textAlign: TextAlign.center,
-              style: styleLastUpdated(),
+          Flexible(
+            child: Container(
+              child: Text(
+                "Ultima atualização : " +
+                    getFormattedDate(
+                        this._lastUpdated, Constants.FORMAT_DATE_FULL),
+                textAlign: TextAlign.center,
+                style: styleLastUpdated(),
+              ),
             ),
           ),
         ],
