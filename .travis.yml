@@ -60,12 +60,12 @@ matrix:
       script:
         - flutter/bin/flutter pub get
         - gem install cocoapods
-        #- cd ios
-        #- pod setup
-        #- pod repo update
-        #- pod install
-        #- pod update
-        #- cd ..
+        - cd ios
+        - pod setup
+        - pod repo update
+        - pod install
+        - pod update
+        - cd ..
         - flutter/bin/flutter build ios --debug --no-codesign --verbose
         - flutter/bin/flutter test test
 
