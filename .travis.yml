@@ -61,7 +61,7 @@ matrix:
         - pod install
         - pod update
         - cd ..
-        - flutter/bin/flutter build ios --debug --no-codesign
+        - flutter/bin/flutter build ios --debug --no-codesign --verbose
         - flutter/bin/flutter test test
 
 cache:
