@@ -53,6 +53,10 @@ matrix:
         - brew install ideviceinstaller 
         - brew install ios-deploy 
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+        - touch lib/keys.dart
+        - echo '' > lib/keys.dart
+        - echo 'const MAPBOX_ACCESS_TOKEN  = "";' >> lib/keys.dart
+        - echo 'const MAPBOX_URL_TEMPLATE = "";' >> lib/keys.dart
       script:
         - flutter/bin/flutter pub get
         - gem install cocoapods
