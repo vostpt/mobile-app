@@ -61,8 +61,6 @@ matrix:
         - flutter/bin/flutter pub get
         - gem install cocoapods
         - cd ios
-        - rm -f Podfile
-        - rm -f Podfile.lock
         - pod setup
         - pod repo update
         - pod install
