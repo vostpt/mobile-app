@@ -42,6 +42,7 @@ matrix:
         - ./flutter/bin/flutter build apk
         - flutter/bin/flutter test test
     - os: osx
+      osx_image: xcode10.3
       language: generic
       before_script:
         - brew update 
@@ -52,15 +53,19 @@ matrix:
         - brew install ideviceinstaller 
         - brew install ios-deploy 
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+        - touch lib/keys.dart
+        - echo '' > lib/keys.dart
+        - echo 'const MAPBOX_ACCESS_TOKEN  = "";' >> lib/keys.dart
+        - echo 'const MAPBOX_URL_TEMPLATE = "";' >> lib/keys.dart
       script:
         - flutter/bin/flutter pub get
         - gem install cocoapods
-        - cd ios
-        - pod setup
-        - pod repo update
-        - pod install
-        - pod update
-        - cd ..
+        #- cd ios
+        #- pod setup
+        #- pod repo update
+        #- pod install
+        #- pod update
+        #- cd ..
         - flutter/bin/flutter build ios --debug --no-codesign --verbose
         - flutter/bin/flutter test test
 
