@@ -42,6 +42,7 @@ matrix:
         - ./flutter/bin/flutter build apk
         - flutter/bin/flutter test test
     - os: osx
+      osx_image: xcode10.3
       language: generic
       before_script:
         - brew update 
