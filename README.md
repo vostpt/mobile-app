@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/vostpt/mobile-app.svg?branch=develop)](https://travis-ci.com/vostpt/mobile-app)
+
 # vost
 
 Aplicação para VOST
