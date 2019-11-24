@@ -1,74 +1,85 @@
 matrix:
   include:
-    - os: linux
-      language: android
-      licenses:
-        - 'android-sdk-preview-license-.+'
-        - 'android-sdk-license-.+'
-        - 'google-gdk-license-.+'
-      android:
-        components:
-          - tools
-          - platform-tools
-          - build-tools-25.0.3
-          - android-25
-          - sys-img-armeabi-v7a-google_apis-25
-          - extra-android-m2repository
-          - extra-google-m2repository
-          - extra-google-android-support
-      jdk: oraclejdk8
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_script:
-        - wget http://services.gradle.org/distributions/gradle-4.10.2-bin.zip
-        - unzip -qq gradle-4.10.2-bin.zip
-        - export GRADLE_HOME=$PWD/gradle-4.10.2
-        - export PATH=$GRADLE_HOME/bin:$PATH
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-        - touch lib/keys.dart
-        - echo '' > lib/keys.dart
-        - echo 'const MAPBOX_ACCESS_TOKEN  = "";' >> lib/keys.dart
-        - echo 'const MAPBOX_URL_TEMPLATE = "";' >> lib/keys.dart
-      before_install:
-        - yes | sdkmanager "platforms;android-28"
-      script:
-        - ./flutter/bin/flutter build apk
-        - flutter/bin/flutter test test
-    - os: osx
-      osx_image: xcode10.3
-      language: generic
-      before_script:
-        - brew update 
-        - brew install --HEAD usbmuxd 
-        - brew unlink usbmuxd 
-        - brew link usbmuxd 
-        - brew install --HEAD libimobiledevice 
-        - brew install ideviceinstaller 
-        - brew install ios-deploy 
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-        - touch lib/keys.dart
-        - echo '' > lib/keys.dart
-        - echo 'const MAPBOX_ACCESS_TOKEN  = "";' >> lib/keys.dart
-        - echo 'const MAPBOX_URL_TEMPLATE = "";' >> lib/keys.dart
-      script:
-        - flutter/bin/flutter pub get
-        - gem install cocoapods
-        #- cd ios
-        #- pod setup
-        #- pod repo update
-        #- pod install
-        #- pod update
-        #- cd ..
-        - flutter/bin/flutter build ios --debug --no-codesign --verbose
-        - flutter/bin/flutter test test
-
+  - os: linux
+    language: android
+    licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+    android:
+      components:
+      - tools
+      - platform-tools
+      - build-tools-25.0.3
+      - android-25
+      - sys-img-armeabi-v7a-google_apis-25
+      - extra-android-m2repository
+      - extra-google-m2repository
+      - extra-google-android-support
+    jdk: oraclejdk8
+    sudo: false
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_script:
+    - chmod +x deploy_script_android.sh
+    - wget http://services.gradle.org/distributions/gradle-4.10.2-bin.zip
+    - unzip -qq gradle-4.10.2-bin.zip
+    - export GRADLE_HOME=$PWD/gradle-4.10.2
+    - export PATH=$GRADLE_HOME/bin:$PATH
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - touch lib/keys.dart
+    - echo '' > lib/keys.dart
+    - echo "const MAPBOX_ACCESS_TOKEN  = '$MAPBOX_ACCESS_TOKEN';" >> lib/keys.dart
+    - echo "const MAPBOX_URL_TEMPLATE = '$MAPBOX_URL_TEMPLATE';" >> lib/keys.dart
+    before_install:
+    - yes | sdkmanager "platforms;android-28"
+    - openssl aes-256-cbc -K $encrypted_1dfbb62697e5_key -iv $encrypted_1dfbb62697e5_iv -in file.keystore.enc -out ./android/file.keystore -d
+    - openssl aes-256-cbc -k "$IOS_DEPLOY_CERT_PASS" -in ./android/app/google-services.json.enc -d -a -out ./android/app/google-services.json
+    script:
+    - "./flutter/bin/flutter build apk"
+    - flutter/bin/flutter test test
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script: ./deploy_script_android.sh
+      on:
+        branch: beta
+  - os: osx
+    osx_image: xcode11.2
+    language: generic
+    before_script:
+    - chmod +x deploy_script_ios.sh
+    - brew update
+    - brew install --HEAD usbmuxd
+    - brew unlink usbmuxd
+    - brew link usbmuxd
+    - brew install --HEAD libimobiledevice
+    - brew install ideviceinstaller
+    - brew install ios-deploy
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - touch lib/keys.dart
+    - echo '' > lib/keys.dart
+    - echo "const MAPBOX_ACCESS_TOKEN  = '$MAPBOX_ACCESS_TOKEN';" >> lib/keys.dart
+    - echo "const MAPBOX_URL_TEMPLATE = '$MAPBOX_URL_TEMPLATE';" >> lib/keys.dart
+    before_install:
+    - openssl aes-256-cbc -k "$IOS_DEPLOY_CERT_PASS" -in ./ios/Runner/GoogleService-Info.plist.enc -d -a -out ./ios/Runner/GoogleService-Info.plist
+    script:
+    - flutter/bin/flutter pub get
+    - gem install cocoapods
+    - (cd ios; rm -rf Pods; rm Podfile.lock) 
+    - flutter/bin/flutter build ios --debug --no-codesign
+    - flutter/bin/flutter test test
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script: ./deploy_script_ios.sh
+      on:
+        branch: beta
 cache:
   directories:
-    - $HOME/.pub-cache
+  - "$HOME/.pub-cache"
