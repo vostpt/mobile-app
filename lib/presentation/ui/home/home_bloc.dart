@@ -133,9 +133,9 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
     disposable.add(_fetchNewFavoritesListSubject.stream
         .map((_) => _sharedPreferencesManager.getListOfSavedOccurrences())
-        .flatMap((ids) => (ids != null && ids.isNotEmpty)
+        .flatMap<List<OccurrenceModel>>((ids) => (ids != null && ids.isNotEmpty)
             ? _occurrenceManager.getOccurrences(ids: ids)
-            : <OccurrenceModel>[])
+            : Stream<List<String>>.empty())
         .doOnData(_listOfFavoriteOccurrencesSubject.add)
         .map(mapOccurrencesToHomeItem)
         .map((base) => base.toList())
