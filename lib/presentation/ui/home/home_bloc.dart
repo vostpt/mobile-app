@@ -26,7 +26,8 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   /// Event to fetch new Favorites List
   var _fetchNewFavoritesListSubject = PublishSubject<Event>();
-  Sink<Event> get fetchNewFavoritesListSink => _fetchNewFavoritesListSubject.sink;
+  Sink<Event> get fetchNewFavoritesListSink =>
+      _fetchNewFavoritesListSubject.sink;
 
   /// Event to verify the favorite items
   var _verifyNewFavoritesSubject = PublishSubject<Event>();
@@ -41,7 +42,8 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
   /// List of Favorited Occurrences
   var _favoritedOccurrencesSubject = BehaviorSubject<List<HomeListItem>>();
-  Stream<List<HomeListItem>> get favoritedOccurrencesStream => _favoritedOccurrencesSubject.stream;
+  Stream<List<HomeListItem>> get favoritedOccurrencesStream =>
+      _favoritedOccurrencesSubject.stream;
 
   /// Event to relay information about type of data: "Recents" or "Folowing"
   var currentTypeOfDataSubject = BehaviorSubject<int>.seeded(0);
@@ -102,8 +104,8 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
         .map(mapOccurrencesToHomeItem)
         .map((base) => base.toList())
         .listen((data) {
-          _occurrencesSubject.add(data);
-          hideLoading();
+      _occurrencesSubject.add(data);
+      hideLoading();
     }, onError: (error) {
       hideLoading();
       handleOnError(genericErrorMessage);
@@ -113,9 +115,11 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
     disposable.add(_fetchNextPageSubject.stream
         .doOnData((_) => showLoading())
         // increase the page number
-        .doOnData((_) => _pageNumberSubject.add(_pageNumberSubject.value+1))
-        .flatMap((_) => _occurrenceManager.getOccurrences(pageSize: pageSize, pageNumber: _pageNumberSubject.value))
-        .map((data) => _combineOccurrences(_listOfRecentOccurrencesSubject.value, data))
+        .doOnData((_) => _pageNumberSubject.add(_pageNumberSubject.value + 1))
+        .flatMap((_) => _occurrenceManager.getOccurrences(
+            pageSize: pageSize, pageNumber: _pageNumberSubject.value))
+        .map((data) =>
+            _combineOccurrences(_listOfRecentOccurrencesSubject.value, data))
         .map(mapOccurrencesToHomeItem)
         .map((base) => base.toList())
         .listen((data) {
@@ -129,7 +133,9 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
 
     disposable.add(_fetchNewFavoritesListSubject.stream
         .map((_) => _sharedPreferencesManager.getListOfSavedOccurrences())
-        .flatMap((ids) => (ids != null && ids.isNotEmpty) ? _occurrenceManager.getOccurrences(ids: ids) : Observable.just(<OccurrenceModel>[]))
+        .flatMap<List<OccurrenceModel>>((ids) => (ids != null && ids.isNotEmpty)
+            ? _occurrenceManager.getOccurrences(ids: ids)
+            : Stream<List<String>>.empty())
         .doOnData(_listOfFavoriteOccurrencesSubject.add)
         .map(mapOccurrencesToHomeItem)
         .map((base) => base.toList())
@@ -161,7 +167,8 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
                 handleOnErrorWithStackTrace(error, "An error has occurred")));
 
     disposable.add(_verifyNewFavoritesSubject.stream
-        .map((_) => mapOccurrencesToHomeItem(_listOfRecentOccurrencesSubject.value))
+        .map((_) =>
+            mapOccurrencesToHomeItem(_listOfRecentOccurrencesSubject.value))
         .listen(_occurrencesSubject.add));
 
     disposable.add(_verifyNewFavoritesSubject.stream
@@ -195,9 +202,9 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
   }
 
   /// Thiw method will prevent any duplicates from being found on the list
-  List<OccurrenceModel> _combineOccurrences(List<OccurrenceModel> oldValues,
-      List<OccurrenceModel> newValues) {
-    for(var value in newValues) {
+  List<OccurrenceModel> _combineOccurrences(
+      List<OccurrenceModel> oldValues, List<OccurrenceModel> newValues) {
+    for (var value in newValues) {
       if (!oldValues.contains(value)) {
         oldValues.add(value);
       }
@@ -205,7 +212,6 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
     return oldValues;
   }
 
-  
   //Events to manage if full occurrence window is open
   var openOccurrence = BehaviorSubject<bool>.seeded(false);
   Sink<bool> get openOccurrenceSink => openOccurrence.sink;
@@ -214,5 +220,6 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
   //Events to manage if there is a selected Occurence
   var selectedOccurrence = BehaviorSubject<OccurrenceModel>.seeded(null);
   Sink<OccurrenceModel> get selectedOccurrenceSink => selectedOccurrence.sink;
-  Stream<OccurrenceModel> get selectedOccurrenceStream => selectedOccurrence.stream;
+  Stream<OccurrenceModel> get selectedOccurrenceStream =>
+      selectedOccurrence.stream;
 }

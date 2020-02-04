@@ -89,13 +89,18 @@ class DependencyProvider extends InheritedWidget {
     return _contributorsBloc;
   }
 
-  DetailsBloc getDetailsBloc ({String occurrenceId, String selfLink}) {
-    return DetailsBloc(sharedPreferencesManager: _sharedPreferencesManager, manager: _occurrencesManager, selfLink: selfLink, occurrenceId: occurrenceId);
+  DetailsBloc getDetailsBloc({String occurrenceId, String selfLink}) {
+    return DetailsBloc(
+        sharedPreferencesManager: _sharedPreferencesManager,
+        manager: _occurrencesManager,
+        selfLink: selfLink,
+        occurrenceId: occurrenceId);
   }
 
   /// Initializes app dependencies,
   Future<void> initialize() async {
     // Shared Preferences
+    WidgetsFlutterBinding.ensureInitialized();
     var sharedPreferences = await SharedPreferences.getInstance();
     var vostSharedPreferences = VostSharedPreferences(sharedPreferences);
     _sharedPreferencesManager = SharedPreferencesManager(vostSharedPreferences);
@@ -163,8 +168,8 @@ class DependencyProvider extends InheritedWidget {
     _typesManager = TypesManager(typesService, typeListResponseMapper);
     _speciesManager = SpeciesManager(speciesService, speciesListResponseMapper);
     _familyManager = FamilyManager(familyService, familyListResponseMapper);
-    _occurrencesManager =
-        OccurrencesManager(occurrenceService, occurrenceListResponseMapper, occurrenceResponseMapper);
+    _occurrencesManager = OccurrencesManager(occurrenceService,
+        occurrenceListResponseMapper, occurrenceResponseMapper);
   }
 
   /// Since we just want to creat the dependencies once, at the start of the app, we won't need

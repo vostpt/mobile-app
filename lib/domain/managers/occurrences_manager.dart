@@ -1,4 +1,3 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:vost/data/remote/services/occurrences_service.dart';
 import 'package:vost/domain/mappers/occurrence_mapper.dart';
 import 'package:vost/domain/models/occurrence_model.dart';
@@ -10,11 +9,11 @@ class OccurrencesManager {
 
   OccurrencesManager(this._service, this._listMapper, this._singleMapper);
 
-  Observable<List<OccurrenceModel>> getRecentOccurrences() {
+  Stream<List<OccurrenceModel>> getRecentOccurrences() {
     return _service.getRecentOccurrences().map(_listMapper.map);
   }
 
-  Observable<List<OccurrenceModel>> getOccurrences(
+  Stream<List<OccurrenceModel>> getOccurrences(
       {int pageNumber,
       int pageSize,
       String search,
@@ -42,12 +41,11 @@ class OccurrencesManager {
             parishes: parishes,
             sort: sort,
             order: order,
-            ids: ids
-    )
+            ids: ids)
         .map(_listMapper.map);
   }
 
-  Observable<OccurrenceModel> getOccurrenceBySelfLink(String selfLink) {
+  Stream<OccurrenceModel> getOccurrenceBySelfLink(String selfLink) {
     return _service
         .getSingleOccurrence(selfLink)
         .map(_singleMapper.map)

@@ -14,13 +14,18 @@ class DetailsBloc extends BaseBloc {
 
   /// Is occurrence Favorited?
   var _isOccurrenceFavoriteSubject = BehaviorSubject<FavoriteIconState>();
-  Stream<FavoriteIconState> get isOccurrenceFavoriteStream => _isOccurrenceFavoriteSubject.stream;
+  Stream<FavoriteIconState> get isOccurrenceFavoriteStream =>
+      _isOccurrenceFavoriteSubject.stream;
 
   /// Save New Occurrence State
   var _changeFavoriteStateSubject = PublishSubject<Event>();
   Sink<Event> get changeFavoriteStateSink => _changeFavoriteStateSubject.sink;
 
-  DetailsBloc({SharedPreferencesManager sharedPreferencesManager, OccurrencesManager manager, String selfLink, String occurrenceId}) {
+  DetailsBloc(
+      {SharedPreferencesManager sharedPreferencesManager,
+      OccurrencesManager manager,
+      String selfLink,
+      String occurrenceId}) {
     disposable.add(manager.getOccurrenceBySelfLink(selfLink).listen((data) {
       // for debugging only
       print("Received a new data by id: $data");
@@ -29,25 +34,24 @@ class DetailsBloc extends BaseBloc {
         onError: (error, stack) =>
             handleOnErrorWithStackTrace(error, "An error has occurred")));
 
-    disposable.add(
-      _changeFavoriteStateSubject
-        .stream
-        .doOnData((_) => _isOccurrenceFavoriteSubject.add(FavoriteIconState.LOADING))
-        .flatMap((_) => Observable.fromFuture(sharedPreferencesManager.updateFavoritedOccurrence(occurrenceId)))
-        .listen((_) =>
-          _isOccurrenceFavoriteSubject.add(isFavorited(sharedPreferencesManager, occurrenceId)))
-    );
+    disposable.add(_changeFavoriteStateSubject.stream
+        .doOnData(
+            (_) => _isOccurrenceFavoriteSubject.add(FavoriteIconState.LOADING))
+        .flatMap((_) => Stream.fromFuture(
+            sharedPreferencesManager.updateFavoritedOccurrence(occurrenceId)))
+        .listen((_) => _isOccurrenceFavoriteSubject
+            .add(isFavorited(sharedPreferencesManager, occurrenceId))));
 
-    _isOccurrenceFavoriteSubject.add(isFavorited(sharedPreferencesManager, occurrenceId));
+    _isOccurrenceFavoriteSubject
+        .add(isFavorited(sharedPreferencesManager, occurrenceId));
   }
 
-  FavoriteIconState isFavorited(SharedPreferencesManager manager, String occurrenceId) {
-    return manager.getListOfSavedOccurrences().contains(occurrenceId) ? FavoriteIconState.FAVORITE : FavoriteIconState.NOT_FAVORITE;
+  FavoriteIconState isFavorited(
+      SharedPreferencesManager manager, String occurrenceId) {
+    return manager.getListOfSavedOccurrences().contains(occurrenceId)
+        ? FavoriteIconState.FAVORITE
+        : FavoriteIconState.NOT_FAVORITE;
   }
 }
 
-enum FavoriteIconState {
-  FAVORITE,
-  NOT_FAVORITE,
-  LOADING
-}
+enum FavoriteIconState { FAVORITE, NOT_FAVORITE, LOADING }
