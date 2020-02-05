@@ -5,7 +5,6 @@ import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:vost/common/event.dart';
-import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/navigation/navigation.dart';
@@ -15,8 +14,7 @@ import 'package:vost/presentation/ui/utils/intro_slider_content_widget.dart';
 import 'intro_bloc.dart';
 
 class IntroPage extends BasePage<IntroBloc> {
-  IntroPage({IntroBloc bloc, Key key})
-      : super(key: key, bloc: bloc);
+  IntroPage({IntroBloc bloc, Key key}) : super(key: key, bloc: bloc);
 
   @override
   _IntroState createState() {
@@ -34,7 +32,8 @@ class _IntroState extends State<IntroPage> {
 
   int _numberOfPages = 3;
 
-  BehaviorSubject<bool> _isScrollingSubject = BehaviorSubject<bool>.seeded(false);
+  BehaviorSubject<bool> _isScrollingSubject =
+      BehaviorSubject<bool>.seeded(false);
 
   @override
   void initState() {
@@ -93,7 +92,8 @@ class _IntroState extends State<IntroPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: marginMedium),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: marginMedium),
                                 child: PageIndicator(
                                   layout: PageIndicatorLayout.SLIDE,
                                   size: 10,
@@ -105,10 +105,14 @@ class _IntroState extends State<IntroPage> {
                                 ),
                               ),
                               FlatButton(
-                                child: Text("Seguinte".toUpperCase(), style: styleFlatButton(),),
+                                child: Text(
+                                  "Seguinte".toUpperCase(),
+                                  style: styleFlatButton(),
+                                ),
                                 textColor: Theme.of(context).primaryColor,
                                 onPressed: () {
-                                  if (_pageController.page < _numberOfPages - 1) {
+                                  if (_pageController.page <
+                                      _numberOfPages - 1) {
                                     _nextSlide();
                                   } else {
                                     _navigateToHome();
@@ -168,8 +172,6 @@ class _IntroState extends State<IntroPage> {
     super.dispose();
     widget.bloc.dispose();
   }
-
-
 }
 
 class IntroWelcomePage extends StatelessWidget {
@@ -183,7 +185,8 @@ class IntroWelcomePage extends StatelessWidget {
       body: SafeArea(
         child: new IntroSliderContentWidget(
           title: "Quem é a VOST Portugal?",
-          subtitle: "A VOST Portugal - Associação de Voluntários Digitais em Situações de Emergência, é um grupo de cidadãos que actuam nas redes sociais com o objectivo de informar as populações com informações fidedignas.",
+          subtitle:
+              "A VOST Portugal - Associação de Voluntários Digitais em Situações de Emergência, é um grupo de cidadãos que actuam nas redes sociais com o objectivo de informar as populações com informações fidedignas.",
           imageAsset: "assets/images/vost_logo.png",
         ),
       ),
@@ -202,7 +205,8 @@ class IntroVerifyPage extends StatelessWidget {
       body: SafeArea(
         child: new IntroSliderContentWidget(
           title: "O que é esta aplicação?",
-          subtitle: "Esta aplicação pretende que tenhas o máximo de informação possível, em tempo real, das áreas onde te encontras, no que diz respeito a emergências.\nEsta app usa dados de entidades oficiais como a ANEPC, IPMA, APA, DGAV, ICNF, bem como informação validada pela equipa da VOST Portugal. ",
+          subtitle:
+              "Esta aplicação pretende que tenhas o máximo de informação possível, em tempo real, das áreas onde te encontras, no que diz respeito a emergências.\nEsta app usa dados de entidades oficiais como a ANEPC, IPMA, APA, DGAV, ICNF, bem como informação validada pela equipa da VOST Portugal. ",
           imageAsset: "assets/images/vost_logo.png",
         ),
       ),
@@ -220,10 +224,12 @@ class IntroCodePage extends StatelessWidget {
     var title, content;
     if (Platform.isIOS) {
       title = "Permitir Notificações";
-      content = "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.\nPara isso precisamos da tua permissão para te enviarmos notificações.";
+      content =
+          "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.\nPara isso precisamos da tua permissão para te enviarmos notificações.";
     } else {
       title = "Notificações";
-      content = "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.";
+      content =
+          "Na app VOST podes subscrever a notificações mediante o tipo e a localização, para que estejas sempre informado das últimas ocorrências.";
     }
     return Scaffold(
       body: SafeArea(
@@ -236,7 +242,9 @@ class IntroCodePage extends StatelessWidget {
             child: Container(
               child: FlatButton(
                 onPressed: () async {
-                  await NotificationPermissions.requestNotificationPermissions(iosSettings: const NotificationSettingsIos(sound: true, badge: true, alert: true));
+                  await NotificationPermissions.requestNotificationPermissions(
+                      iosSettings: const NotificationSettingsIos(
+                          sound: true, badge: true, alert: true));
                   navigateToHomeAndRemoveStack(context);
                 },
                 color: Theme.of(context).primaryColor,

@@ -4,10 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'dimensions.dart';
 
-// Main Text theme used in the application, currently using `google_fonts` dependency
-// to load the Lato Font and applying in the whole project in the class [VostApp]
-// set at the widget [MaterialApp] property [theme].
-//
+/// Main Text theme used in the application, currently using `google_fonts` dependency
+/// to load the Lato Font and applying in the whole project in the class [VostApp]
+/// set at the widget [MaterialApp] property [theme].
 TextTheme mainTextTheme(BuildContext context) =>
     GoogleFonts.latoTextTheme(Theme.of(context).textTheme);
 
