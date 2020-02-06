@@ -249,11 +249,12 @@ class _RecentListWidgetState extends State<RecentListWidget> {
                 _refreshController.refreshCompleted();
 
                 if (!snapshot.hasData || snapshot.data.isEmpty) {
-                  return Center(child: Text(
-                    widget.isRecent ? "No recent occurrences" : "No occurrences favorited"
-                  ),);
+                  return Center(
+                    child: Text(widget.isRecent
+                        ? "No recent occurrences"
+                        : "No occurrences favorited"),
+                  );
                 }
-
 
                 if (snapshot.hasData) {
                   return Container(
@@ -450,30 +451,30 @@ class _MapWidgetState extends State<MapWidget> {
                       widget.bloc.openOccurrenceSink.add(false);
                       widget.bloc.selectedOccurrenceSink.add(null);
                     },
-                    child: */FlutterMap(
-                      mapController: mapController,
-                      options: MapOptions(
-                        center: _center,
-                        zoom: 7.0,
-                        minZoom: 1.0,
-                        maxZoom: 20.0,
-                      ),
-                      layers: [
-                        TileLayerOptions(
-                          urlTemplate: MAPBOX_URL_TEMPLATE,
-                          additionalOptions: {
-                            'accessToken': MAPBOX_ACCESS_TOKEN,
-                            'id': 'mapbox.streets',
-                          },
-                        ),
-                        MarkerLayerOptions(markers: _markers)
-                      ],
+                    child: */
+                  FlutterMap(
+                    mapController: mapController,
+                    options: MapOptions(
+                      center: _center,
+                      zoom: 7.0,
+                      minZoom: 1.0,
+                      maxZoom: 20.0,
                     ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate: MAPBOX_URL_TEMPLATE,
+                        additionalOptions: {
+                          'accessToken': MAPBOX_ACCESS_TOKEN,
+                          'id': 'mapbox.streets',
+                        },
+                      ),
+                      MarkerLayerOptions(markers: _markers)
+                    ],
+                  ),
                   //),
                   _loadingWidget,
                   getOccurrenceTypeWidget(),
                   getOccurrenceFloatingActionButton(),
-                  removeSelectedOccurrenceFloatingActionButton(),
                 ],
               );
             }),
@@ -518,18 +519,6 @@ class _MapWidgetState extends State<MapWidget> {
                   }
                   return Container();
                 });
-          }
-          return Container();
-        });
-  }
-
-  removeSelectedOccurrenceFloatingActionButton() {
-    return StreamBuilder<OccurrenceModel>(
-        stream: widget.bloc.selectedOccurrenceStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return RemoveSelectedOccurrenceFloatingActionButton(
-                homebloc: widget.bloc);
           }
           return Container();
         });
@@ -619,34 +608,6 @@ class _PermissionWidget extends StatelessWidget {
   void _requestPermission() async {
     debugPrint("Requesting dem permissions");
     await LocationPermissions().requestPermissions();
-  }
-}
-
-class RemoveSelectedOccurrenceFloatingActionButton extends StatelessWidget {
-  final HomeBloc homebloc;
-  RemoveSelectedOccurrenceFloatingActionButton(
-      {Key key, @required this.homebloc})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 5, left: 5),
-        child: FloatingActionButton(
-          onPressed: () {
-            homebloc.openOccurrenceSink.add(false);
-            homebloc.selectedOccurrenceSink.add(null);
-          },
-          child: Icon(
-            Icons.clear,
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.orange[300],
-        ),
-      ),
-    );
   }
 }
 
