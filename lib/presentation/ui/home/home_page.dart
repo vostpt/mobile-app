@@ -121,7 +121,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                   );
                 }),
             PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert),
+              icon: Icon(Icons.more_vert, color: colorPrimary),
               onSelected: choiceAction,
               itemBuilder: (BuildContext context) {
                 return [
