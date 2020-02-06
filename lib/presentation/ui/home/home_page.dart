@@ -659,7 +659,6 @@ class GetSelectedOccurrenceFullInfo extends StatelessWidget {
           if (snapshot.hasData) {
             return Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
               child: ListView(
                 shrinkWrap: true,
                 children: <Widget>[
