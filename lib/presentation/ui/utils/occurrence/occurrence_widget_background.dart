@@ -10,7 +10,6 @@ class OccurrenceWidgetBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        width: double.infinity,
         padding: EdgeInsets.all(marginSmall),
         child: child,
       ),
