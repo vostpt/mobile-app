@@ -625,14 +625,15 @@ class GetOccurrenceFloatingActionButton extends StatelessWidget {
             return Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                margin: EdgeInsets.only(bottom: 5, right: 5),
+                margin: EdgeInsets.all(16.0),
                 child: FloatingActionButton(
                   onPressed: () {
                     homebloc.openOccurrenceSink.add(!snapshot.data);
                   },
                   child: Icon(
-                    snapshot.data ? Icons.arrow_downward : Icons.arrow_upward,
+                    snapshot.data ? Icons.unfold_less : Icons.unfold_more,
                     color: Colors.white,
+                    size: 40,
                   ),
                   backgroundColor: Colors.orange[300],
                 ),
