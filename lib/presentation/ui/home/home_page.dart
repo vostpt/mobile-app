@@ -657,38 +657,36 @@ class GetSelectedOccurrenceFullInfo extends StatelessWidget {
         stream: homebloc.getOccurrenceByIdDataStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Align(
+            return Container(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    OccurrenceLocationWidget(
-                        DateTime.parse(snapshot.data.updatedAt),
-                        snapshot.data.parish.name,
-                        snapshot.data.coordinates,
-                        snapshot.data.type.name),
-                    OccurrenceStatusWidget(
-                      snapshot.data.status.name,
+              margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  OccurrenceLocationWidget(
                       DateTime.parse(snapshot.data.updatedAt),
-                    ),
-                    OccurrenceOnSiteHelpWidget(
-                        DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
-                        snapshot.data.onSiteMeans.groundOperativesInvolved,
-                        snapshot.data.onSiteMeans.groundAssetsInvolved,
-                        snapshot.data.onSiteMeans.aerialAssetsInvolved),
-                    OccurrenceTimeWidget(
-                      snapshot.data.endedAt == null
-                          ? null
-                          : DateTime.parse(snapshot.data.startedAt),
-                      snapshot.data.endedAt == null
-                          ? null
-                          : DateTime.parse(snapshot.data.endedAt),
-                      DateTime.parse(snapshot.data.updatedAt),
-                    ),
-                  ],
-                ),
+                      snapshot.data.parish.name,
+                      snapshot.data.coordinates,
+                      snapshot.data.type.name),
+                  OccurrenceStatusWidget(
+                    snapshot.data.status.name,
+                    DateTime.parse(snapshot.data.updatedAt),
+                  ),
+                  OccurrenceOnSiteHelpWidget(
+                      DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
+                      snapshot.data.onSiteMeans.groundOperativesInvolved,
+                      snapshot.data.onSiteMeans.groundAssetsInvolved,
+                      snapshot.data.onSiteMeans.aerialAssetsInvolved),
+                  OccurrenceTimeWidget(
+                    snapshot.data.endedAt == null
+                        ? null
+                        : DateTime.parse(snapshot.data.startedAt),
+                    snapshot.data.endedAt == null
+                        ? null
+                        : DateTime.parse(snapshot.data.endedAt),
+                    DateTime.parse(snapshot.data.updatedAt),
+                  ),
+                ],
               ),
             );
           } else {
