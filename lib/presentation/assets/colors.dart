@@ -61,3 +61,4 @@ const Color white_intactive = const Color(0xffffffff);
 const Color surface_side_sheets = const Color(0xffffffff);
 const Color white_pressed_overlay_32 = const Color(0x51ffffff);
 const Color green_400 = const Color(0xff5a9216);
+const Color gray_info = const Color(0x85000000);

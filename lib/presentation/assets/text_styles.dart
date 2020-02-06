@@ -42,7 +42,7 @@ TextStyle styleContactHeadingAboutPage() => TextStyle(
     );
 
 TextStyle styleOccurrencesSubText() => TextStyle(
-      color: colorTextGrey,
+      color: gray_info,
     );
 
 TextStyle styleFlatButton() => TextStyle(
@@ -55,16 +55,16 @@ TextStyle styleOccurrenceTitle() => TextStyle(
     );
 
 TextStyle styleLastUpdated() =>
-    TextStyle(fontSize: textSizeNormal, color: colorTextGrey);
+    TextStyle(fontSize: textSizeNormal, color: gray_info);
 
 TextStyle styleMeans() => TextStyle(
       fontSize: textSizeNormal,
-      color: colorTextGrey,
+      color: gray_info,
       fontWeight: FontWeight.w600,
     );
 
 TextStyle styleMeansNumber() => TextStyle(
-      fontSize: textSizeLarge,
+      fontSize: textSizeHeading,
       color: Colors.black,
       fontWeight: FontWeight.bold,
     );
