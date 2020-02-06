@@ -635,7 +635,7 @@ class GetOccurrenceFloatingActionButton extends StatelessWidget {
                     color: Colors.white,
                     size: 40,
                   ),
-                  backgroundColor: Colors.orange[300],
+                  backgroundColor: secondary_500,
                 ),
               ),
             );
