@@ -66,7 +66,7 @@ class _MyHomePageState extends BaseState<HomePage> {
             return FloatingActionButton(
               onPressed: _onToggleViewTap,
               child: Icon(
-                  snapshot.data == HomeBloc.listIndex ? Icons.list : Icons.map),
+                  snapshot.data == HomeBloc.listIndex ? Icons.map : Icons.list),
               elevation: 2.0,
               backgroundColor: colorPrimary,
               foregroundColor: Colors.white,
