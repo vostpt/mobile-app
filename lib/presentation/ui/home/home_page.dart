@@ -342,13 +342,15 @@ class _RecentListWidgetState extends State<RecentListWidget> {
 
 class MapManagerWidget extends StatelessWidget {
   final HomeBloc bloc;
-  List<Widget> pages;
+  final List<Widget> pages = List();
 
   MapManagerWidget({this.bloc, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    pages = [MapWidget(bloc, true), MapWidget(bloc, false)];
+    if (pages.isEmpty) {
+      pages.addAll([MapWidget(bloc, true), MapWidget(bloc, false)]);
+    }
     return StreamBuilder(
       stream: bloc.currentTypeOfDataStream,
       builder: (context, snapshot) {
