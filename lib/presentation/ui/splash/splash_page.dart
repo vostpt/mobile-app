@@ -7,7 +7,8 @@ import 'package:vost/presentation/ui/_base/base_page.dart';
 import 'package:vost/presentation/ui/splash/splash_bloc.dart';
 
 class SplashPage extends BasePage<SplashBloc> {
-  SplashPage({SplashBloc bloc, Key key, this.title}) : super(key: key, bloc: bloc);
+  SplashPage({SplashBloc bloc, Key key, this.title})
+      : super(key: key, bloc: bloc);
 
   final String title;
 
@@ -16,7 +17,6 @@ class SplashPage extends BasePage<SplashBloc> {
 }
 
 class _MySplashPageState extends BaseState<SplashPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

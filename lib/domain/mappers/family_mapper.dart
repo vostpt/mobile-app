@@ -8,8 +8,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class FamilyResponseMapper
-    extends Mapper<BaseResponse, FamilyModel> with FamilyMapper{
+class FamilyResponseMapper extends Mapper<BaseResponse, FamilyModel>
+    with FamilyMapper {
   final LinkResponseMapper linkMapper;
 
   FamilyResponseMapper(this.linkMapper);
@@ -18,11 +18,10 @@ class FamilyResponseMapper
   FamilyModel map(BaseResponse value) {
     return mapStatus(value.data, value.links);
   }
-
 }
 
 class FamilyListResponseMapper
-    extends Mapper<BaseListResponse, List<FamilyModel>>  with FamilyMapper{
+    extends Mapper<BaseListResponse, List<FamilyModel>> with FamilyMapper {
   final LinkResponseMapper linkMapper;
 
   FamilyListResponseMapper(this.linkMapper);
@@ -42,10 +41,10 @@ mixin FamilyMapper {
 
   FamilyModel mapStatus(DataResponse data, LinkResponse baseLinks) {
     return FamilyModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeInt
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
-    );
+      ..id = data.id
+      ..name = data.attributes.name
+      ..code = data.attributes.codeInt
+      ..links =
+          linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder());
   }
 }

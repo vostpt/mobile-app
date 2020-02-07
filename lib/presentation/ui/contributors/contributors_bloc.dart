@@ -13,7 +13,8 @@ class ContributorsBloc extends BaseBloc {
   final BehaviorSubject<List<Contributor>> _contributorsSubject =
       BehaviorSubject<List<Contributor>>();
 
-  BehaviorSubject<List<Contributor>> get contributorsStream => _contributorsSubject;
+  BehaviorSubject<List<Contributor>> get contributorsStream =>
+      _contributorsSubject;
 
   ContributorsBloc() {
     _contributorsJsonSubject.listen((listContributors) {

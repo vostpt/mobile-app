@@ -8,9 +8,7 @@ class IntroBloc extends BaseBloc {
   Sink<Event> get navigateSink => _navigateSubject.sink;
 
   IntroBloc(SharedPreferencesManager sharedPrefs) {
-    disposable.add(
-      _navigateSubject.stream
-          .listen((_) => sharedPrefs.saveHasSeenTutorial(true))
-    );
+    disposable.add(_navigateSubject.stream
+        .listen((_) => sharedPrefs.saveHasSeenTutorial(true)));
   }
 }

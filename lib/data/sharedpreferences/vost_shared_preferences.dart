@@ -26,7 +26,8 @@ class VostSharedPreferences {
   }
 
   Future<bool> saveListOfOccurrences(List<String> preferences) {
-    return _sharedPreferences.setStringList(_listOfSavedOccurrences, preferences);
+    return _sharedPreferences.setStringList(
+        _listOfSavedOccurrences, preferences);
   }
   //endregion
 }

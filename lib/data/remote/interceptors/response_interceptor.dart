@@ -6,11 +6,9 @@ class ResponseInterceptor {
 
   ResponseInterceptor(this._loggingInterceptor);
 
-
   /// Intercepts the response so that we can validate its integrity
   Response getResponseInterceptor(Response response) {
     _loggingInterceptor.printSuccess(response);
     return response;
   }
 }
-

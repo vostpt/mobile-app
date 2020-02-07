@@ -6,12 +6,18 @@ import 'data_response.dart';
 
 part 'relationship_species_response.g.dart';
 
-abstract class RelationshipSpeciesResponse implements Built<RelationshipSpeciesResponse, RelationshipSpeciesResponseBuilder>, SerializedModel<RelationshipSpeciesResponse> {
+abstract class RelationshipSpeciesResponse
+    implements
+        Built<RelationshipSpeciesResponse, RelationshipSpeciesResponseBuilder>,
+        SerializedModel<RelationshipSpeciesResponse> {
   RelationshipSpeciesResponse._();
 
-  static Serializer<RelationshipSpeciesResponse> get serializer => _$relationshipSpeciesResponseSerializer;
+  static Serializer<RelationshipSpeciesResponse> get serializer =>
+      _$relationshipSpeciesResponseSerializer;
 
   DataResponse get data;
 
-  factory RelationshipSpeciesResponse([updates(RelationshipSpeciesResponseBuilder b)]) = _$RelationshipSpeciesResponse;
+  factory RelationshipSpeciesResponse(
+          [updates(RelationshipSpeciesResponseBuilder b)]) =
+      _$RelationshipSpeciesResponse;
 }

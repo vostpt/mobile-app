@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 import 'dimensions.dart';
+
+/// Main Text theme used in the application, currently using `google_fonts` dependency
+/// to load the Lato Font and applying in the whole project in the class [VostApp]
+/// set at the widget [MaterialApp] property [theme].
+TextTheme mainTextTheme(BuildContext context) =>
+    GoogleFonts.latoTextTheme(Theme.of(context).textTheme);
 
 TextStyle styleBottomBarText() => TextStyle(
       color: colorPrimary,
@@ -50,30 +57,27 @@ TextStyle styleFlatButton() => TextStyle(
     );
 
 TextStyle styleOccurrenceTitle() => TextStyle(
-  fontSize: textSizeMedium,
-  fontWeight: FontWeight.w400,
-);
+      fontSize: textSizeMedium,
+      fontWeight: FontWeight.w400,
+    );
 
-TextStyle styleLastUpdated() => TextStyle(
-  fontSize: textSizeNormal,
-  color: colorTextGrey
-);
+TextStyle styleLastUpdated() =>
+    TextStyle(fontSize: textSizeNormal, color: colorTextGrey);
 
 TextStyle styleMeans() => TextStyle(
-  fontSize: textSizeNormal,
-  color: colorTextGrey,
-  fontWeight: FontWeight.w600,
-);
-
+      fontSize: textSizeNormal,
+      color: colorTextGrey,
+      fontWeight: FontWeight.w600,
+    );
 
 TextStyle styleMeansNumber() => TextStyle(
-  fontSize: textSizeLarge,
-  color: Colors.black,
-  fontWeight: FontWeight.bold,
-);
+      fontSize: textSizeLarge,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    );
 
 TextStyle styleTimeWidgetText() => TextStyle(
-  fontSize: textSizeLarge,
-  color: Colors.green,
-  fontWeight: FontWeight.bold,
-);
+      fontSize: textSizeLarge,
+      color: Colors.green,
+      fontWeight: FontWeight.bold,
+    );

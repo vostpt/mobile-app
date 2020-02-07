@@ -8,8 +8,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class SpeciesResponseMapper
-    extends Mapper<BaseResponse, SpeciesModel> with SpeciesMapper{
+class SpeciesResponseMapper extends Mapper<BaseResponse, SpeciesModel>
+    with SpeciesMapper {
   final LinkResponseMapper linkMapper;
 
   SpeciesResponseMapper(this.linkMapper);
@@ -18,11 +18,10 @@ class SpeciesResponseMapper
   SpeciesModel map(BaseResponse value) {
     return mapStatus(value.data, value.links);
   }
-
 }
 
 class SpeciesListResponseMapper
-    extends Mapper<BaseListResponse, List<SpeciesModel>>  with SpeciesMapper{
+    extends Mapper<BaseListResponse, List<SpeciesModel>> with SpeciesMapper {
   final LinkResponseMapper linkMapper;
 
   SpeciesListResponseMapper(this.linkMapper);
@@ -42,10 +41,10 @@ mixin SpeciesMapper {
 
   SpeciesModel mapStatus(DataResponse data, LinkResponse baseLinks) {
     return SpeciesModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeInt
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
-    );
+      ..id = data.id
+      ..name = data.attributes.name
+      ..code = data.attributes.codeInt
+      ..links =
+          linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder());
   }
 }

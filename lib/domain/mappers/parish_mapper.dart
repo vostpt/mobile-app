@@ -8,8 +8,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class ParishResponseMapper
-    extends Mapper<BaseResponse, ParishModel> with ParishMapper{
+class ParishResponseMapper extends Mapper<BaseResponse, ParishModel>
+    with ParishMapper {
   final LinkResponseMapper linkMapper;
 
   ParishResponseMapper(this.linkMapper);
@@ -18,11 +18,10 @@ class ParishResponseMapper
   ParishModel map(BaseResponse value) {
     return mapParish(value.data, value.links);
   }
-
 }
 
 class ParishListResponseMapper
-    extends Mapper<BaseListResponse, List<ParishModel>>  with ParishMapper{
+    extends Mapper<BaseListResponse, List<ParishModel>> with ParishMapper {
   final LinkResponseMapper linkMapper;
 
   ParishListResponseMapper(this.linkMapper);
@@ -42,10 +41,10 @@ mixin ParishMapper {
 
   ParishModel mapParish(DataResponse data, LinkResponse baseLinks) {
     return ParishModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeInt
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
-    );
+      ..id = data.id
+      ..name = data.attributes.name
+      ..code = data.attributes.codeInt
+      ..links =
+          linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder());
   }
 }

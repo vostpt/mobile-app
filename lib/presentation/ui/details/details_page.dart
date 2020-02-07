@@ -15,11 +15,8 @@ import 'details_bloc.dart';
 class DetailsPage extends BasePage<DetailsBloc> {
   final OccurrenceModel occurrence;
 
-  DetailsPage({
-    this.occurrence,
-    DetailsBloc bloc,
-    Key key
-  }) : super(key : key, bloc: bloc);
+  DetailsPage({this.occurrence, DetailsBloc bloc, Key key})
+      : super(key: key, bloc: bloc);
 
   @override
   State<StatefulWidget> createState() => _DetailsState();
@@ -35,15 +32,22 @@ class _DetailsState extends BaseState<DetailsPage> {
           StreamBuilder<FavoriteIconState>(
             stream: widget.bloc.isOccurrenceFavoriteStream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData || snapshot.data == FavoriteIconState.LOADING) {
-                return Container(padding: EdgeInsets.all(marginSmall),child: AspectRatio(aspectRatio: 1.0,child: CircularProgressIndicator()));
+              if (!snapshot.hasData ||
+                  snapshot.data == FavoriteIconState.LOADING) {
+                return Container(
+                    padding: EdgeInsets.all(marginSmall),
+                    child: AspectRatio(
+                        aspectRatio: 1.0, child: CircularProgressIndicator()));
               }
-              bool isFavorite =  snapshot.data == FavoriteIconState.FAVORITE;
+              bool isFavorite = snapshot.data == FavoriteIconState.FAVORITE;
               return IconButton(
-                onPressed: () => widget.bloc.changeFavoriteStateSink.add(Event()),
+                onPressed: () =>
+                    widget.bloc.changeFavoriteStateSink.add(Event()),
                 icon: Icon(
                   isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Theme.of(context).accentColor : colorTextGrey,
+                  color: isFavorite
+                      ? Theme.of(context).accentColor
+                      : colorTextGrey,
                 ),
               );
             },

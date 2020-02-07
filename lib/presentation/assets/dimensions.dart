@@ -7,7 +7,6 @@ const double marginMega = 24;
 const double marginMedium = 12;
 const double iconSize = 27.0;
 
-
 /// with adjustments
 const double textSizeIntroTitle = 26;
 const double textSizeIntroContent = 18;
