@@ -50,7 +50,8 @@ class _ContributorsState extends State<ContributorsPage> {
 
                   if (!snapshot.hasData) {
                     return Center(
-                      child: Container(child: Text("A lista de contribuidores está vazia")),
+                      child: Container(
+                          child: Text("A lista de contribuidores está vazia")),
                     );
                   }
 
@@ -62,8 +63,7 @@ class _ContributorsState extends State<ContributorsPage> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () => launchURL(
-                            snapshot.data[index].profileUrl),
+                        onTap: () => launchURL(snapshot.data[index].profileUrl),
                         child: ListTile(
                           leading: Image.network(
                             snapshot.data[index].profilePicture,

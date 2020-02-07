@@ -53,7 +53,7 @@ LinkResponse combineLinks(LinkResponse baseLinks, LinkResponse selfLinks) {
 List<Contact> getContacts() {
   return List<Contact>.generate(
       6,
-          (int index) => Contact(
+      (int index) => Contact(
           "Teste",
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg/1920px-An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg",
           "Info",
@@ -115,22 +115,24 @@ String getFormattedDate(DateTime date, String typeOfFormat) {
   intl.DateFormat formatter;
 
   if (date != null) {
-    switch(typeOfFormat) {
-      case Constants.FORMAT_DATE_FULL: {
-        formatter = new intl.DateFormat('HH:mm yyyy-MM-dd');
-        break;
-      }
-      case Constants.FORMAT_DATE_DAY: {
-        formatter = new intl.DateFormat('yyyy-MM-dd');
-        break;
-      }
-      case Constants.FORMAT_DATE_HOUR: {
-        formatter = new intl.DateFormat('HH:mm');
-        break;
-      }
-      default: {
-
-      }
+    switch (typeOfFormat) {
+      case Constants.FORMAT_DATE_FULL:
+        {
+          formatter = new intl.DateFormat('HH:mm yyyy-MM-dd');
+          break;
+        }
+      case Constants.FORMAT_DATE_DAY:
+        {
+          formatter = new intl.DateFormat('yyyy-MM-dd');
+          break;
+        }
+      case Constants.FORMAT_DATE_HOUR:
+        {
+          formatter = new intl.DateFormat('HH:mm');
+          break;
+        }
+      default:
+        {}
     }
 
     formattedDate = formatter.format(date);

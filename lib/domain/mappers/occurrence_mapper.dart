@@ -96,10 +96,12 @@ mixin OccurrenceMapper {
       ..onSiteMeans = onSiteMeans != null
           ? OnSiteMeansModel((b) => b
             ..remoteId = onSiteMeans.attributes.remoteId
-            ..groundAssetsInvolved = onSiteMeans.attributes.groundAssetsInvolved ?? 0
+            ..groundAssetsInvolved =
+                onSiteMeans.attributes.groundAssetsInvolved ?? 0
             ..groundOperativesInvolved =
                 onSiteMeans.attributes.groundOperativesInvolved ?? 0
-            ..aerialAssetsInvolved = onSiteMeans.attributes.aerialAssetsInvolved ?? 0
+            ..aerialAssetsInvolved =
+                onSiteMeans.attributes.aerialAssetsInvolved ?? 0
             ..aerialOperativesInvolved =
                 onSiteMeans.attributes.aerialOperativesInvolved ?? 0
             ..createdAt = onSiteMeans.attributes.createdAt

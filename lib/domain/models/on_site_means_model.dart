@@ -2,8 +2,8 @@ import 'package:built_value/built_value.dart';
 
 part 'on_site_means_model.g.dart';
 
-abstract class OnSiteMeansModel implements Built<OnSiteMeansModel, OnSiteMeansModelBuilder> {
-
+abstract class OnSiteMeansModel
+    implements Built<OnSiteMeansModel, OnSiteMeansModelBuilder> {
   String get remoteId;
 
   @nullable
@@ -25,5 +25,6 @@ abstract class OnSiteMeansModel implements Built<OnSiteMeansModel, OnSiteMeansMo
   String get updatedAt;
 
   OnSiteMeansModel._();
-  factory OnSiteMeansModel([updates(OnSiteMeansModelBuilder b)]) = _$OnSiteMeansModel;
+  factory OnSiteMeansModel([updates(OnSiteMeansModelBuilder b)]) =
+      _$OnSiteMeansModel;
 }

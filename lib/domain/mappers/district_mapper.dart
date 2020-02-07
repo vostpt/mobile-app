@@ -8,8 +8,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class DistrictResponseMapper
-    extends Mapper<BaseResponse, DistrictModel> with DistrictMapper{
+class DistrictResponseMapper extends Mapper<BaseResponse, DistrictModel>
+    with DistrictMapper {
   final LinkResponseMapper linkMapper;
 
   DistrictResponseMapper(this.linkMapper);
@@ -18,11 +18,10 @@ class DistrictResponseMapper
   DistrictModel map(BaseResponse value) {
     return mapStatus(value.data, value.links);
   }
-
 }
 
 class DistrictListResponseMapper
-    extends Mapper<BaseListResponse, List<DistrictModel>>  with DistrictMapper{
+    extends Mapper<BaseListResponse, List<DistrictModel>> with DistrictMapper {
   final LinkResponseMapper linkMapper;
 
   DistrictListResponseMapper(this.linkMapper);
@@ -42,10 +41,10 @@ mixin DistrictMapper {
 
   DistrictModel mapStatus(DataResponse data, LinkResponse baseLinks) {
     return DistrictModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeInt
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
-    );
+      ..id = data.id
+      ..name = data.attributes.name
+      ..code = data.attributes.codeInt
+      ..links =
+          linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder());
   }
 }

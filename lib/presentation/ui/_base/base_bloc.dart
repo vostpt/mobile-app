@@ -14,8 +14,7 @@ abstract class BaseBloc {
   /// Exposes stream so both pages know if an async call is in place
   final _isLoading = BehaviorSubject<bool>();
 
-  Stream<bool> get isLoadingStream =>
-      _isLoading.stream;
+  Stream<bool> get isLoadingStream => _isLoading.stream;
 
   /// relays error information
   final _errorSubject = PublishSubject<String>();

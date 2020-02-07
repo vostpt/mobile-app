@@ -52,24 +52,24 @@ abstract class AttributeResponse
   @nullable
   String get remoteId;
 
-  @BuiltValueField(wireName:"ground_assets_involved")
+  @BuiltValueField(wireName: "ground_assets_involved")
   @nullable
   int get groundAssetsInvolved;
 
-  @BuiltValueField(wireName:"ground_operatives_involved")
+  @BuiltValueField(wireName: "ground_operatives_involved")
   @nullable
   int get groundOperativesInvolved;
 
-  @BuiltValueField(wireName:"aerial_assets_involved")
+  @BuiltValueField(wireName: "aerial_assets_involved")
   @nullable
   int get aerialAssetsInvolved;
 
-  @BuiltValueField(wireName:"aerial_operatives_involved")
+  @BuiltValueField(wireName: "aerial_operatives_involved")
   @nullable
   int get aerialOperativesInvolved;
 
   factory AttributeResponse([updates(AttributeResponseBuilder b)]) =
-  _$AttributeResponse;
+      _$AttributeResponse;
 }
 
 class AttributeResponseSerializer
@@ -88,7 +88,6 @@ class AttributeResponseSerializer
         ..add('code')
         ..add(serializers.serialize(object.codeInt,
             specifiedType: const FullType(int)));
-
     } else if (object.codeString != null) {
       result
         ..add('code')

@@ -20,11 +20,14 @@ abstract class DataResponse
 
   String get id;
 
-  @nullable AttributeResponse get attributes;
+  @nullable
+  AttributeResponse get attributes;
 
-  @nullable LinkResponse get links;
+  @nullable
+  LinkResponse get links;
 
-  @nullable RelationshipResponse get relationships;
+  @nullable
+  RelationshipResponse get relationships;
 
   factory DataResponse([updates(DataResponseBuilder b)]) = _$DataResponse;
 }
