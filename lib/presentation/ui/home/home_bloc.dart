@@ -95,6 +95,17 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
   /// Subject that keeps track of the page number
   var _pageNumberSubject = BehaviorSubject<int>.seeded(1);
 
+    //Events to manage if full occurrence window is open
+  var openOccurrence = BehaviorSubject<bool>.seeded(false);
+  Sink<bool> get openOccurrenceSink => openOccurrence.sink;
+  Stream<bool> get openOccurrenceStream => openOccurrence.stream;
+
+  //Events to manage if there is a selected Occurence
+  var selectedOccurrence = BehaviorSubject<OccurrenceModel>.seeded(null);
+  Sink<OccurrenceModel> get selectedOccurrenceSink => selectedOccurrence.sink;
+  Stream<OccurrenceModel> get selectedOccurrenceStream =>
+      selectedOccurrence.stream;
+
   HomeBloc(this._occurrenceManager, this._sharedPreferencesManager) {
     disposable.add(_fetchNewDataSubject.stream
         .doOnData((_) => showLoading())
@@ -212,14 +223,35 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
     return oldValues;
   }
 
-  //Events to manage if full occurrence window is open
-  var openOccurrence = BehaviorSubject<bool>.seeded(false);
-  Sink<bool> get openOccurrenceSink => openOccurrence.sink;
-  Stream<bool> get openOccurrenceStream => openOccurrence.stream;
-
-  //Events to manage if there is a selected Occurence
-  var selectedOccurrence = BehaviorSubject<OccurrenceModel>.seeded(null);
-  Sink<OccurrenceModel> get selectedOccurrenceSink => selectedOccurrence.sink;
-  Stream<OccurrenceModel> get selectedOccurrenceStream =>
-      selectedOccurrence.stream;
+  @override
+  void dispose() {
+    _fetchNewDataSubject.close();
+    fetchNewDataSink.close();
+    _fetchNewFavoritesListSubject.close();
+    fetchNewFavoritesListSink.close();
+    _verifyNewFavoritesSubject.close();
+    verifyNewFavoritesSink.close();
+    _occurrencesSubject.close();
+    _favoritedOccurrencesSubject.close();
+    currentTypeOfDataSubject.close();
+    currentTypeOfDataSink.close();
+    _changeTypeOfDataSubject.close();
+    currentPageSubject.close();
+    currentPageSink.close();
+    _changePageSubject.close();
+    changePageSink.close();
+    _getOccurrenceByIdSubject.close();
+    getOccurrenceByIdSink.close();
+    _getOccurrenceByIdDataSubject.close();
+    _listOfRecentOccurrencesSubject.close();
+    _listOfFavoriteOccurrencesSubject.close();
+    _fetchNextPageSubject.close();
+    fetchNextPageSink.close();
+    _pageNumberSubject.close();
+    openOccurrence.close();
+    openOccurrenceSink.close();
+    selectedOccurrence.close();
+    selectedOccurrenceSink.close();
+    super.dispose();
+  }
 }
