@@ -11,4 +11,11 @@ class IntroBloc extends BaseBloc {
     disposable.add(_navigateSubject.stream
         .listen((_) => sharedPrefs.saveHasSeenTutorial(true)));
   }
+
+  @override
+  void dispose() {
+    _navigateSubject.close();
+    navigateSink.close();
+    super.dispose();
+  }
 }

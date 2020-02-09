@@ -30,30 +30,30 @@ abstract class BaseBloc {
 
   BaseBloc();
 
-  handleOnError(String errorMessage) {
+  void handleOnError(String errorMessage) {
     _errorSubject.add(errorMessage);
   }
 
-  handleOnErrorWithStackTrace(Error error, String errorMessage) {
+  void handleOnErrorWithStackTrace(Error error, String errorMessage) {
     _errorSubject.add(errorMessage);
     debugPrint(error.toString());
     debugPrint(error.stackTrace?.toString());
   }
 
-  closePage() {
+  void closePage() {
     _closePageSubject.add(Event());
   }
 
-  showLoading() {
+  void showLoading() {
     _isLoading.add(true);
   }
 
-  hideLoading() {
+  void hideLoading() {
     _isLoading.add(false);
   }
 
   @mustCallSuper
-  dispose() {
+  void dispose() {
     errorSink.close();
     _isLoading.close();
     _errorSubject.close();

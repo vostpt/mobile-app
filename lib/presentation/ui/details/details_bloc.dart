@@ -52,6 +52,15 @@ class DetailsBloc extends BaseBloc {
         ? FavoriteIconState.FAVORITE
         : FavoriteIconState.NOT_FAVORITE;
   }
+
+  @override
+  void dispose() {
+    _getOccurrenceByIdDataSubject.close();
+    _isOccurrenceFavoriteSubject.close();
+    _changeFavoriteStateSubject.close();
+    changeFavoriteStateSink.close();
+    super.dispose();
+  }
 }
 
 enum FavoriteIconState { FAVORITE, NOT_FAVORITE, LOADING }

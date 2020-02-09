@@ -29,4 +29,12 @@ class ContributorsBloc extends BaseBloc {
       _contributorsSubject.add(contributors);
     }, onError: (error) => handleOnError(genericErrorMessage));
   }
+
+  @override
+  void dispose() {
+    _contributorsJsonSubject.close();
+    contributorsJsonSink.close();
+    _contributorsSubject.close();
+    super.dispose();
+  }
 }
