@@ -95,7 +95,7 @@ class HomeBloc extends BaseBloc with RefreshBlocMixin {
   /// Subject that keeps track of the page number
   var _pageNumberSubject = BehaviorSubject<int>.seeded(1);
 
-    //Events to manage if full occurrence window is open
+  //Events to manage if full occurrence window is open
   var openOccurrence = BehaviorSubject<bool>.seeded(false);
   Sink<bool> get openOccurrenceSink => openOccurrence.sink;
   Stream<bool> get openOccurrenceStream => openOccurrence.stream;
