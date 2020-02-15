@@ -25,29 +25,24 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
     return OccurrenceWidgetBackground(
         child: Column(children: <Widget>[
       Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Expanded(
-            child: OccurenceOnSiteHelpTypeWidget(
-                amount: this._humanMeans,
-                type: "Humans",
-                image: 'assets/images/fireman.png',
-                iconSize: iconSize),
+          OccurenceOnSiteHelpTypeWidget(
+              amount: this._humanMeans,
+              type: "Humans",
+              image: 'assets/images/fireman.png',
+              iconSize: iconSize),
+          OccurenceOnSiteHelpTypeWidget(
+            amount: this._landMeans,
+            type: "Aereos",
+            image: 'assets/images/firetruck.png',
+            iconSize: iconSize,
           ),
-          Expanded(
-            child: OccurenceOnSiteHelpTypeWidget(
-              amount: this._landMeans,
-              type: "Aereos",
-              image: 'assets/images/firetruck.png',
-              iconSize: iconSize,
-            ),
-          ),
-          Expanded(
-            child: OccurenceOnSiteHelpTypeWidget(
-              amount: this._aerialMeans,
-              type: "Aereos",
-              image: 'assets/images/plane.png',
-              iconSize: iconSize,
-            ),
+          OccurenceOnSiteHelpTypeWidget(
+            amount: this._aerialMeans,
+            type: "Aereos",
+            image: 'assets/images/plane.png',
+            iconSize: iconSize,
           )
         ],
       ),
