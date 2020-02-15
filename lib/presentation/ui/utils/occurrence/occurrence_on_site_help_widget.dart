@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vost/constants.dart' as Constants;
-import 'package:vost/presentation/assets/dimensions.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
@@ -28,88 +27,31 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/vost_logo_grey.png',
-                    width: iconSize,
-                    height: iconSize,
-                  ),
-                  Container(
-                      child: Text(
-                    getCorrectMeansFormat(this._humanMeans),
-                    style: styleMeansNumber(),
-                  )),
-                ],
-              ),
-            ),
-            Container(
-              child: Text(
-                "Humanos".toUpperCase(),
-                style: styleMeans(),
-              ),
-            ),
-          ]),
-          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/vost_logo_grey.png',
-                    width: iconSize,
-                    height: iconSize,
-                  ),
-                  Container(
-                      child: Text(
-                    getCorrectMeansFormat(this._landMeans),
-                    style: styleMeansNumber(),
-                  )),
-                ],
-              ),
-            ),
-            Container(
-              child: Text(
-                "Terrestes".toUpperCase(),
-                style: styleMeans(),
-              ),
-            ),
-          ]),
-          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/vost_logo_grey.png',
-                    width: iconSize,
-                    height: iconSize,
-                  ),
-                  Container(
-                      child: Text(
-                    getCorrectMeansFormat(this._aerialMeans),
-                    style: styleMeansNumber(),
-                  )),
-                ],
-              ),
-            ),
-            Container(
-              child: Text(
-                "Aereos".toUpperCase(),
-                style: styleMeans(),
-              ),
-            ),
-          ])
+          OccurenceOnSiteHelpTypeWidget(
+              amount: this._humanMeans,
+              type: "Humans",
+              image: 'assets/images/fireman.png',
+              iconSize: iconSize),
+          OccurenceOnSiteHelpTypeWidget(
+            amount: this._landMeans,
+            type: "Aereos",
+            image: 'assets/images/firetruck.png',
+            iconSize: iconSize,
+          ),
+          OccurenceOnSiteHelpTypeWidget(
+            amount: this._aerialMeans,
+            type: "Aereos",
+            image: 'assets/images/plane.png',
+            iconSize: iconSize,
+          )
         ],
-      ),
-      SizedBox(
-        height: marginSmall,
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Flexible(
             child: Container(
+              margin: EdgeInsets.only(top: 9.0),
               child: Text(
                 "Ultima atualização : " +
                     getFormattedDate(
@@ -122,5 +64,56 @@ class OccurrenceOnSiteHelpWidget extends StatelessWidget {
         ],
       )
     ]));
+  }
+}
+
+class OccurenceOnSiteHelpTypeWidget extends StatelessWidget {
+  final String type;
+  final String image;
+  final int amount;
+  final double iconSize;
+
+  String getCorrectMeansFormat(int means) {
+    return means != null ? means.toString() : Constants.EMPTY_INPUT_STRING;
+  }
+
+  OccurenceOnSiteHelpTypeWidget(
+      {@required this.type,
+      @required this.image,
+      @required this.amount,
+      @required this.iconSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(right: 8.0),
+                width: iconSize,
+                height: iconSize,
+                child: Image.asset(
+                  image,
+                  width: iconSize,
+                  height: iconSize,
+                ),
+              ),
+              Container(
+                  child: Text(
+                getCorrectMeansFormat(this.amount),
+                style: styleMeansNumber(),
+              )),
+            ],
+          ),
+          Container(
+            child: Text(
+              type.toUpperCase(),
+              style: styleMeans(),
+            ),
+          )
+        ]);
   }
 }

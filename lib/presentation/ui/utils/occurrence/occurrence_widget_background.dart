@@ -9,8 +9,8 @@ class OccurrenceWidgetBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(marginSmall),
+      child: Container(
+        padding: EdgeInsets.all(marginSmall),
         child: child,
       ),
     );

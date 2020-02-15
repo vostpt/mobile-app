@@ -49,7 +49,7 @@ TextStyle styleContactHeadingAboutPage() => TextStyle(
     );
 
 TextStyle styleOccurrencesSubText() => TextStyle(
-      color: colorTextGrey,
+      color: gray_info,
     );
 
 TextStyle styleFlatButton() => TextStyle(

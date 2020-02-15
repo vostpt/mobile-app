@@ -66,7 +66,7 @@ class _MyHomePageState extends BaseState<HomePage> {
             return FloatingActionButton(
               onPressed: _onToggleViewTap,
               child: Icon(
-                  snapshot.data == HomeBloc.listIndex ? Icons.list : Icons.map),
+                  snapshot.data == HomeBloc.listIndex ? Icons.map : Icons.list),
               elevation: 2.0,
               backgroundColor: colorPrimary,
               foregroundColor: Colors.white,
@@ -97,7 +97,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                                   right: marginSmall,
                                   top: marginSmall),
                               icon: Icon(snapshot.data == HomeBloc.recentsIndex
-                                  ? Icons.list
+                                  ? Icons.query_builder
                                   : Icons.star),
                               onPressed: null,
                               // since the onClick is handled by another widget, this
@@ -121,7 +121,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                   );
                 }),
             PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert),
+              icon: Icon(Icons.more_vert, color: colorPrimary),
               onSelected: choiceAction,
               itemBuilder: (BuildContext context) {
                 return [
@@ -342,13 +342,15 @@ class _RecentListWidgetState extends State<RecentListWidget> {
 
 class MapManagerWidget extends StatelessWidget {
   final HomeBloc bloc;
-  List<Widget> pages;
+  final List<Widget> pages = List();
 
   MapManagerWidget({this.bloc, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    pages = [MapWidget(bloc, true), MapWidget(bloc, false)];
+    if (pages.isEmpty) {
+      pages.addAll([MapWidget(bloc, true), MapWidget(bloc, false)]);
+    }
     return StreamBuilder(
       stream: bloc.currentTypeOfDataStream,
       builder: (context, snapshot) {
@@ -475,7 +477,6 @@ class _MapWidgetState extends State<MapWidget> {
                   _loadingWidget,
                   getOccurrenceTypeWidget(),
                   getOccurrenceFloatingActionButton(),
-                  removeSelectedOccurrenceFloatingActionButton(),
                 ],
               );
             }),
@@ -520,18 +521,6 @@ class _MapWidgetState extends State<MapWidget> {
                   }
                   return Container();
                 });
-          }
-          return Container();
-        });
-  }
-
-  removeSelectedOccurrenceFloatingActionButton() {
-    return StreamBuilder<OccurrenceModel>(
-        stream: widget.bloc.selectedOccurrenceStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return RemoveSelectedOccurrenceFloatingActionButton(
-                homebloc: widget.bloc);
           }
           return Container();
         });
@@ -624,34 +613,6 @@ class _PermissionWidget extends StatelessWidget {
   }
 }
 
-class RemoveSelectedOccurrenceFloatingActionButton extends StatelessWidget {
-  final HomeBloc homebloc;
-  RemoveSelectedOccurrenceFloatingActionButton(
-      {Key key, @required this.homebloc})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 5, left: 5),
-        child: FloatingActionButton(
-          onPressed: () {
-            homebloc.openOccurrenceSink.add(false);
-            homebloc.selectedOccurrenceSink.add(null);
-          },
-          child: Icon(
-            Icons.clear,
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.orange[300],
-        ),
-      ),
-    );
-  }
-}
-
 class GetOccurrenceFloatingActionButton extends StatelessWidget {
   final HomeBloc homebloc;
   GetOccurrenceFloatingActionButton({Key key, @required this.homebloc})
@@ -666,16 +627,17 @@ class GetOccurrenceFloatingActionButton extends StatelessWidget {
             return Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                margin: EdgeInsets.only(bottom: 5, right: 5),
+                margin: EdgeInsets.all(16.0),
                 child: FloatingActionButton(
                   onPressed: () {
                     homebloc.openOccurrenceSink.add(!snapshot.data);
                   },
                   child: Icon(
-                    snapshot.data ? Icons.arrow_downward : Icons.arrow_upward,
+                    snapshot.data ? Icons.unfold_less : Icons.unfold_more,
                     color: Colors.white,
+                    size: 40,
                   ),
-                  backgroundColor: Colors.orange[300],
+                  backgroundColor: secondary_500,
                 ),
               ),
             );
@@ -697,38 +659,35 @@ class GetSelectedOccurrenceFullInfo extends StatelessWidget {
         stream: homebloc.getOccurrenceByIdDataStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Align(
+            return Container(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 70, left: 10, right: 10),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    OccurrenceLocationWidget(
-                        DateTime.parse(snapshot.data.updatedAt),
-                        snapshot.data.parish.name,
-                        snapshot.data.coordinates,
-                        snapshot.data.type.name),
-                    OccurrenceStatusWidget(
-                      snapshot.data.status.name,
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  OccurrenceLocationWidget(
                       DateTime.parse(snapshot.data.updatedAt),
-                    ),
-                    OccurrenceOnSiteHelpWidget(
-                        DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
-                        snapshot.data.onSiteMeans.groundOperativesInvolved,
-                        snapshot.data.onSiteMeans.groundAssetsInvolved,
-                        snapshot.data.onSiteMeans.aerialAssetsInvolved),
-                    OccurrenceTimeWidget(
-                      snapshot.data.endedAt == null
-                          ? null
-                          : DateTime.parse(snapshot.data.startedAt),
-                      snapshot.data.endedAt == null
-                          ? null
-                          : DateTime.parse(snapshot.data.endedAt),
-                      DateTime.parse(snapshot.data.updatedAt),
-                    ),
-                  ],
-                ),
+                      snapshot.data.parish.name,
+                      snapshot.data.coordinates,
+                      snapshot.data.type.name),
+                  OccurrenceStatusWidget(
+                    snapshot.data.status.name,
+                    DateTime.parse(snapshot.data.updatedAt),
+                  ),
+                  OccurrenceOnSiteHelpWidget(
+                      DateTime.parse(snapshot.data.onSiteMeans.updatedAt),
+                      snapshot.data.onSiteMeans.groundOperativesInvolved,
+                      snapshot.data.onSiteMeans.groundAssetsInvolved,
+                      snapshot.data.onSiteMeans.aerialAssetsInvolved),
+                  OccurrenceTimeWidget(
+                    snapshot.data.endedAt == null
+                        ? null
+                        : DateTime.parse(snapshot.data.startedAt),
+                    snapshot.data.endedAt == null
+                        ? null
+                        : DateTime.parse(snapshot.data.endedAt),
+                    DateTime.parse(snapshot.data.updatedAt),
+                  ),
+                ],
               ),
             );
           } else {

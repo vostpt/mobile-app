@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vost/constants.dart' as Constants;
-import 'package:vost/presentation/assets/dimensions.dart';
+import 'package:vost/presentation/assets/colors.dart';
 import 'package:vost/presentation/assets/text_styles.dart';
 import 'package:vost/presentation/utils/misc.dart';
 
@@ -19,23 +19,25 @@ class OccurrenceStatusWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text("Estado", style: styleTimeWidgetText()),
-        SizedBox(
-          height: marginSmall,
-        ),
-        Center(
-          child: Text(_status, style: styleMeansNumber()),
-        ),
-        SizedBox(
-          height: marginSmall,
-        ),
-        Center(
+        Container(
+          margin: EdgeInsets.only(top: 9.0),
+          alignment: Alignment.center,
           child: Text(
-              "Última atualização: " +
-                  getFormattedDate(
-                      this._lastUpdated, Constants.FORMAT_DATE_FULL),
-              style: TextStyle(
-                color: Color(0x84000000),
-              )),
+            _status,
+            style: styleMeansNumber(),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 9.0),
+          alignment: Alignment.center,
+          child: Text(
+            "Última atualização: " +
+                getFormattedDate(this._lastUpdated, Constants.FORMAT_DATE_FULL),
+            style: TextStyle(
+              color: gray_info,
+            ),
+          ),
         ),
       ],
     ));
