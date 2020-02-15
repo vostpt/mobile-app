@@ -21,11 +21,12 @@ Future<Dio> createDio(
     RequestInterceptor requestInterceptor) async {
   var dio = Dio(baseConfiguration);
   dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options) async => await requestInterceptor.getRequestInterceptor(options)
-      ,
+      onRequest: (RequestOptions options) async =>
+          await requestInterceptor.getRequestInterceptor(options),
       onResponse: (Response response) =>
           responseInterceptor.getResponseInterceptor(response),
-      onError: (DioError dioError) => errorInterceptor.getErrorInterceptors(dioError)));
+      onError: (DioError dioError) =>
+          errorInterceptor.getErrorInterceptors(dioError)));
   return dio;
 }
 

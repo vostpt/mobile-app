@@ -25,8 +25,7 @@ class MapboxCopyright extends StatelessWidget {
                 _createCopyrightOption('© OpenStreetMap',
                     'http://www.openstreetmap.org/copyright'),
                 _createCopyrightOption(
-                    "Improve this map",
-                    'https://www.mapbox.com/map-feedback/'),
+                    "Improve this map", 'https://www.mapbox.com/map-feedback/'),
                 SizedBox(
                   width: 12.0,
                 ),

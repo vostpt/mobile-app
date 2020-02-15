@@ -8,4 +8,10 @@ class SplashBloc extends BaseBloc {
   SplashBloc(SharedPreferencesManager sharedPrefs) {
     hasSeenTutorialSubject.add(sharedPrefs.hasSeenTutorial());
   }
+
+  @override
+  void dispose() {
+    hasSeenTutorialSubject.close();
+    super.dispose();
+  }
 }

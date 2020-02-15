@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
-import 'dart:math' as  math;
 
 class CustomizedAnimatedImage extends StatefulWidget {
   final Widget child;
@@ -10,11 +9,12 @@ class CustomizedAnimatedImage extends StatefulWidget {
   CustomizedAnimatedImage({this.child, Key key}) : super(key: key);
 
   @override
-  _CustomizedAnimatedImageState createState() => _CustomizedAnimatedImageState();
+  _CustomizedAnimatedImageState createState() =>
+      _CustomizedAnimatedImageState();
 }
 
-class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with SingleTickerProviderStateMixin {
-
+class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   @override
@@ -27,7 +27,11 @@ class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with 
           animation: _controller,
           builder: (BuildContext context, Widget child) {
             return Transform.translate(
-              offset: Offset(0, size.height - (max(size.height*.75, size.width) * (_controller.value))),
+              offset: Offset(
+                  0,
+                  size.height -
+                      (max(size.height * .75, size.width) *
+                          (_controller.value))),
               child: child,
             );
           },
@@ -41,18 +45,18 @@ class _CustomizedAnimatedImageState extends State<CustomizedAnimatedImage> with 
     );
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller == null) {
-      _controller = AnimationController(duration: const Duration(milliseconds: 250), vsync: this);
+      _controller = AnimationController(
+          duration: const Duration(milliseconds: 250), vsync: this);
       accelerometerEvents.listen((AccelerometerEvent event) {
-         if (!_controller.isAnimating && (event.x) > 4 || (event.x) < -4) {
-           _controller.forward();
-           Future.delayed(Duration(seconds: 2)).then((_) =>
-               _controller.reverse());
-         }
+        if (!_controller.isAnimating && (event.x) > 4 || (event.x) < -4) {
+          _controller.forward();
+          Future.delayed(Duration(seconds: 2))
+              .then((_) => _controller.reverse());
+        }
       });
     }
   }

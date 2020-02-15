@@ -4,8 +4,8 @@ import 'package:built_value/built_value.dart';
 
 part 'home_list_item.g.dart';
 
-abstract class HomeListItem implements Built<HomeListItem, HomeListItemBuilder> {
-
+abstract class HomeListItem
+    implements Built<HomeListItem, HomeListItemBuilder> {
   OccurrenceModel get occurrence;
   bool get isFavorite;
 

@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:vost/constants.dart';
 
 class StatusEndpoints {
-
   final Dio _dio;
 
   StatusEndpoints(this._dio);

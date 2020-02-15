@@ -13,7 +13,8 @@ class ContributorsBloc extends BaseBloc {
   final BehaviorSubject<List<Contributor>> _contributorsSubject =
       BehaviorSubject<List<Contributor>>();
 
-  BehaviorSubject<List<Contributor>> get contributorsStream => _contributorsSubject;
+  BehaviorSubject<List<Contributor>> get contributorsStream =>
+      _contributorsSubject;
 
   ContributorsBloc() {
     _contributorsJsonSubject.listen((listContributors) {
@@ -27,5 +28,13 @@ class ContributorsBloc extends BaseBloc {
               .toList());
       _contributorsSubject.add(contributors);
     }, onError: (error) => handleOnError(genericErrorMessage));
+  }
+
+  @override
+  void dispose() {
+    _contributorsJsonSubject.close();
+    contributorsJsonSink.close();
+    _contributorsSubject.close();
+    super.dispose();
   }
 }

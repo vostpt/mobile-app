@@ -24,8 +24,8 @@ class OccurrencesListItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
-                child: Text(occurrence.type.name,
-                    style: styleOccurrenceTitle()),
+                child:
+                    Text(occurrence.type.name, style: styleOccurrenceTitle()),
               ),
               Icon(
                 isFavorite ? Icons.star : Icons.star_border,
@@ -39,7 +39,9 @@ class OccurrencesListItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(occurrence.status.name, style: styleOccurrencesSubText()),
-              Text(getFormattedDate(DateTime.parse(occurrence.updatedAt), FORMAT_DATE_FULL),
+              Text(
+                  getFormattedDate(
+                      DateTime.parse(occurrence.updatedAt), FORMAT_DATE_FULL),
                   style: styleOccurrencesSubText())
             ],
           ),

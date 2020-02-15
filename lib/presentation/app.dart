@@ -13,49 +13,56 @@ import 'package:vost/presentation/ui/problem_report/problem_report_page.dart';
 import 'package:vost/presentation/ui/splash/splash_page.dart';
 
 import 'assets/colors.dart';
+import 'assets/text_styles.dart';
 
 class VostApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Vost App',
-      theme: ThemeData(
-        primaryColor: colorPrimary,
-        accentColor: colorAccent,
-      ),
-      localizationsDelegates: [
-        const VostLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      initialRoute: routeSplash,
-      routes: {
-        routeHome: (context) => HomePage(
-              title: 'Vost App',
-              bloc: DependencyProvider.of(context).getHomeBloc(),
-            ),
-        routeSplash: (context) =>  SplashPage(title: 'Splash Page', bloc: DependencyProvider.of(context).getSplashBloc(),),
-        routeAbout: (context) => AboutPage(),
-        routeProblem: (context) => ProblemReportPage(),
-        routeContributors: (context) => ContributorsPage(
-              bloc: DependencyProvider.of(context).getContributorsBloc(),
-            ),
-        routeIntro: (context) => IntroPage(bloc: DependencyProvider.of(context).getIntroBloc()),
-      },
-      onGenerateRoute: (routeSettings) {
-        switch(routeSettings.name) {
-          case routeDetails:
-            var occurrence = routeSettings.arguments as OccurrenceModel;
-            var bloc = DependencyProvider.of(context).getDetailsBloc(selfLink: occurrence.links.self, occurrenceId: occurrence.id);
-            return MaterialPageRoute(
-              settings: routeSettings,
-              builder: (context) => DetailsPage(occurrence: occurrence, bloc: bloc)
-            );
-          default:
-            return MaterialPageRoute(settings: routeSettings, builder: (context)  => Container());
-        }
-      }
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Vost App',
+        theme: ThemeData(
+          primaryColor: colorPrimary,
+          accentColor: colorAccent,
+          textTheme: mainTextTheme(context),
+        ),
+        localizationsDelegates: [
+          const VostLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        initialRoute: routeSplash,
+        routes: {
+          routeHome: (context) => HomePage(
+                title: 'Vost App',
+                bloc: DependencyProvider.of(context).getHomeBloc(),
+              ),
+          routeSplash: (context) => SplashPage(
+                title: 'Splash Page',
+                bloc: DependencyProvider.of(context).getSplashBloc(),
+              ),
+          routeAbout: (context) => AboutPage(),
+          routeProblem: (context) => ProblemReportPage(),
+          routeContributors: (context) => ContributorsPage(
+                bloc: DependencyProvider.of(context).getContributorsBloc(),
+              ),
+          routeIntro: (context) =>
+              IntroPage(bloc: DependencyProvider.of(context).getIntroBloc()),
+        },
+        onGenerateRoute: (routeSettings) {
+          switch (routeSettings.name) {
+            case routeDetails:
+              var occurrence = routeSettings.arguments as OccurrenceModel;
+              var bloc = DependencyProvider.of(context).getDetailsBloc(
+                  selfLink: occurrence.links.self, occurrenceId: occurrence.id);
+              return MaterialPageRoute(
+                  settings: routeSettings,
+                  builder: (context) =>
+                      DetailsPage(occurrence: occurrence, bloc: bloc));
+            default:
+              return MaterialPageRoute(
+                  settings: routeSettings, builder: (context) => Container());
+          }
+        });
   }
 }

@@ -23,8 +23,8 @@ class IntroSliderContentWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           SizedBox(
-              width: availableWidth*0.75,
-              height: availableWidth*0.75,
+              width: availableWidth * 0.75,
+              height: availableWidth * 0.75,
               child: Image(image: AssetImage(imageAsset))),
           Container(
             width: double.infinity,
@@ -42,7 +42,9 @@ class IntroSliderContentWidget extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
-          SizedBox(height: marginMedium,),
+          SizedBox(
+            height: marginMedium,
+          ),
           contentWidget ?? Container()
         ],
       ),

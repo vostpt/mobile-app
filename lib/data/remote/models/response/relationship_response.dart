@@ -11,18 +11,30 @@ import 'package:vost/data/remote/models/response/relationship_type_response.dart
 
 part 'relationship_response.g.dart';
 
-abstract class RelationshipResponse implements Built<RelationshipResponse, RelationshipResponseBuilder>, SerializedModel<RelationshipResponse> {
+abstract class RelationshipResponse
+    implements
+        Built<RelationshipResponse, RelationshipResponseBuilder>,
+        SerializedModel<RelationshipResponse> {
   RelationshipResponse._();
 
-  static Serializer<RelationshipResponse> get serializer => _$relationshipResponseSerializer;
+  static Serializer<RelationshipResponse> get serializer =>
+      _$relationshipResponseSerializer;
 
-  @nullable RelationshipDistrictResponse get district;
-  @nullable RelationshipFamilyResponse get family;
-  @nullable RelationshipParishResponse get parish;
-  @nullable RelationshipSpeciesResponse get species;
-  @nullable RelationshipStatusResponse get status;
-  @nullable RelationshipTypeResponse get type;
-  @nullable RelationshipSourceResponse get source;
+  @nullable
+  RelationshipDistrictResponse get district;
+  @nullable
+  RelationshipFamilyResponse get family;
+  @nullable
+  RelationshipParishResponse get parish;
+  @nullable
+  RelationshipSpeciesResponse get species;
+  @nullable
+  RelationshipStatusResponse get status;
+  @nullable
+  RelationshipTypeResponse get type;
+  @nullable
+  RelationshipSourceResponse get source;
 
-  factory RelationshipResponse([updates(RelationshipResponseBuilder b)]) = _$RelationshipResponse;
+  factory RelationshipResponse([updates(RelationshipResponseBuilder b)]) =
+      _$RelationshipResponse;
 }

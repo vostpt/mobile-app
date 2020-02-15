@@ -12,19 +12,27 @@ import 'meta_response.dart';
 
 part 'base_list_response.g.dart';
 
-abstract class BaseListResponse implements Built<BaseListResponse, BaseListResponseBuilder>, SerializedModel<BaseListResponse> {
+abstract class BaseListResponse
+    implements
+        Built<BaseListResponse, BaseListResponseBuilder>,
+        SerializedModel<BaseListResponse> {
   BaseListResponse._();
 
-  static Serializer<BaseListResponse> get serializer => _$baseListResponseSerializer;
+  static Serializer<BaseListResponse> get serializer =>
+      _$baseListResponseSerializer;
 
   LinkResponse get links;
   MetaResponse get meta;
-  @nullable BuiltList<DataResponse> get data;
-  @nullable BuiltList<DataResponse> get included;
+  @nullable
+  BuiltList<DataResponse> get data;
+  @nullable
+  BuiltList<DataResponse> get included;
 
   static BaseListResponse fromJson(json) {
-    return standardSerializers.deserializeWith(BaseListResponse.serializer, jsonDecode(json));
+    return standardSerializers.deserializeWith(
+        BaseListResponse.serializer, jsonDecode(json));
   }
 
-  factory BaseListResponse([updates(BaseListResponseBuilder b)]) = _$BaseListResponse;
+  factory BaseListResponse([updates(BaseListResponseBuilder b)]) =
+      _$BaseListResponse;
 }

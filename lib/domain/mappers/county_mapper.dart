@@ -9,8 +9,8 @@ import 'package:vost/presentation/utils/misc.dart';
 
 import 'link_mapper.dart';
 
-class CountyResponseMapper
-    extends Mapper<BaseResponse, CountyModel> with DistrictMapper{
+class CountyResponseMapper extends Mapper<BaseResponse, CountyModel>
+    with DistrictMapper {
   final LinkResponseMapper linkMapper;
 
   CountyResponseMapper(this.linkMapper);
@@ -19,11 +19,10 @@ class CountyResponseMapper
   CountyModel map(BaseResponse value) {
     return mapStatus(value.data, value.links, value.included.toList());
   }
-
 }
 
 class CountyListResponseMapper
-    extends Mapper<BaseListResponse, List<CountyModel>>  with DistrictMapper{
+    extends Mapper<BaseListResponse, List<CountyModel>> with DistrictMapper {
   final LinkResponseMapper linkMapper;
 
   CountyListResponseMapper(this.linkMapper);
@@ -41,20 +40,22 @@ class CountyListResponseMapper
 mixin DistrictMapper {
   LinkResponseMapper linkMapper;
 
-  CountyModel mapStatus(DataResponse data, LinkResponse baseLinks, List<DataResponse> included) {
-    var attribute = getAttributeById(data.relationships?.district?.data?.id, data.relationships?.district?.data?.type, included);
+  CountyModel mapStatus(
+      DataResponse data, LinkResponse baseLinks, List<DataResponse> included) {
+    var attribute = getAttributeById(data.relationships?.district?.data?.id,
+        data.relationships?.district?.data?.type, included);
     return CountyModel((b) => b
-      ..id  = data.id
-      ..name  = data.attributes.name
-      ..code  = data.attributes.codeString
-      ..links  = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
+      ..id = data.id
+      ..name = data.attributes.name
+      ..code = data.attributes.codeString
+      ..links = linkMapper.map(combineLinks(baseLinks, data.links)).toBuilder()
       ..district = DistrictModel((b) => b
         ..id = attribute?.id
         ..type = attribute?.type
         ..name = attribute?.attributes?.name
         ..code = attribute?.attributes?.codeInt
-        ..links = attribute?.links != null ? linkMapper.map(attribute?.links).toBuilder() : null
-      ).toBuilder()
-    );
+        ..links = attribute?.links != null
+            ? linkMapper.map(attribute?.links).toBuilder()
+            : null).toBuilder());
   }
 }
