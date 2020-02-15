@@ -97,7 +97,7 @@ class _MyHomePageState extends BaseState<HomePage> {
                                   right: marginSmall,
                                   top: marginSmall),
                               icon: Icon(snapshot.data == HomeBloc.recentsIndex
-                                  ? Icons.list
+                                  ? Icons.query_builder
                                   : Icons.star),
                               onPressed: null,
                               // since the onClick is handled by another widget, this
