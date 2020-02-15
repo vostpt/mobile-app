@@ -18,7 +18,7 @@ class OccurrenceSmallInfoWidget extends StatelessWidget {
       child: OccurrenceWidgetBackground(
         child: Container(
           width: double.infinity,
-          height: 112,
+          height: 70,
           padding: EdgeInsets.only(top: 14.6, left: 11),
           child: Column(
             mainAxisSize: MainAxisSize.min,
